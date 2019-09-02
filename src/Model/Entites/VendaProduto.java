@@ -12,7 +12,7 @@ public class VendaProduto {
 		this.venda = venda;
 		this.produto = produto;
 		this.quantidade = quantidade;
-		this.preco =(produto.getPreco() * quantidade * descontoFinal); 
+		this.preco = (produto.getPreco() * quantidade * descontoFinal); 
 	}
 	
 	public Venda getVenda() {

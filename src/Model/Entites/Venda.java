@@ -113,8 +113,9 @@ public class Venda {
 	public ArrayList<Produto> obterProdutosDestaques(){
 		return null;
 	}
-	//duvida
+	//duvida como passa a propria venda como parametro na vendaProduto
 	public void adicionarProduto(Produto produto, int quantidade, float desconto) {
+		VendaProduto vendaProduto = new VendaProduto(venda, produto, quantidade, desconto);
 	}
 	
 }

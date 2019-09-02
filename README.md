@@ -13,12 +13,12 @@ funcionarios estão ligados a um departamento.</p>
 ## Todo-list: A fazer
 1. Implementação das classes do Model;
 2. Testes nas classes Model;
-3. Implementação das classes Views em linha de comando;
-4. Testes nas classes views;
-5. Implementação das classes Controller;
-6. Testes nas classes Controller;
-7. Implementação das classes DAO para persistência de dados em json;
-8. Testes nas classes DAO;
+3. Implementação das classes DAO para persistência de dados em json;
+4. Testes nas classes DAO;
+5. Implementação das classes Views em linha de comando;
+6. Testes nas classes views;
+7. Implementação das classes Controller;
+8. Testes nas classes Controller;
 9. Implementação das classes DAO para persistência de dados em mysql;
 10. Testes nas classes DAO mysql;
 11. Implementação das classes Views em JavaFx;
