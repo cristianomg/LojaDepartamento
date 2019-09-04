@@ -1,4 +1,6 @@
-﻿# Projeto-de-programcão
+﻿[![CircleCI](https://circleci.com/gh/cristianomg/LojaDepartamento.svg?style=svg)](https://circleci.com/gh/cristianomg/LojaDepartamento)
+
+# Projeto-de-programcão
 Estudo de Caso – Loja Departamento
 
 <p>O estudo de caso consiste em uma loja de departamentos onde cada produto está ligado a um departamento, assim como os 
