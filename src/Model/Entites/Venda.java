@@ -98,7 +98,7 @@ public class Venda {
 				}
 			}
 			if (!contem) {
-				throw new ObjetoNaoEncontradoException("Produto não encontrado!!!");
+				throw new ObjetoNaoEncontradoException("Produto nao encontrado!");
 			}
 		}
 		else {

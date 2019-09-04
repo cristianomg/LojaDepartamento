@@ -24,8 +24,8 @@ public class DepartamentoDAO {
 		return departamentos;
 	}
 	
-	public Cliente getDepartamento(String nome, String sigla) {
-		Departamento departamento = new Departamento();
+	public Departamento getDepartamento(String nome, String sigla) {
+		Departamento departamento = new Departamento(0, sigla, sigla, null);
 		return departamento;
 	}
 	
@@ -36,5 +36,5 @@ public class DepartamentoDAO {
 		
 	}
 	public void removerCliente(Cliente cliente) {
-		
+	}
 	}

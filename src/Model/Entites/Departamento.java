@@ -54,7 +54,7 @@ public class Departamento {
 			this.listFuncionario.add(funcionario);
 		}
 		else {
-			throw new ObjetoExisteException(String.format("O funcionario %s já está cadastrado", funcionario.getNome())); 
+			throw new ObjetoExisteException(String.format("O funcionario %s ja esta cadastrado", funcionario.getNome())); 
 		}
 	}
 	
