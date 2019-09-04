@@ -2,6 +2,8 @@ package Model.Entites;
 
 import java.util.ArrayList;
 
+import Exceptions.ObjetoExisteException;
+
 public class Departamento {
 	private int id;
 	private String nome;
@@ -41,7 +43,7 @@ public class Departamento {
 		this.listFuncionario = listFuncionario;
 	}
 	
-	public void addFuncionarioList(Funcionario funcionario) {
+	public void addFuncionarioList(Funcionario funcionario) throws ObjetoExisteException {
 		boolean contem = false;
 		for (Funcionario f: this.listFuncionario) {
 			if (funcionario.getMatricula() == f.getMatricula()) {
@@ -51,7 +53,9 @@ public class Departamento {
 		if (!contem) {
 			this.listFuncionario.add(funcionario);
 		}
-		
+		else {
+			throw new ObjetoExisteException(String.format("O funcionario %s já está cadastrado", funcionario.getNome())); 
+		}
 	}
 	
 }

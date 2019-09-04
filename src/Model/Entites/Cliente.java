@@ -2,6 +2,7 @@ package Model.Entites;
 
 import java.util.ArrayList;
 
+import Exceptions.ValidateCpfException;
 import Model.Entites.Logradouro.Endereco;
 
 public class Cliente {
@@ -18,9 +19,14 @@ public class Cliente {
 		this.nome = nome;
 	}
 	
-	public Cliente(String nome, String cpf_cnpj) {
+	public Cliente(String nome, String cpf_cnpj) throws ValidateCpfException{
 		this(nome);
-		this.cpf_cnpj = cpf_cnpj;
+		if (cpf_cnpj.length()==11) {
+			this.cpf_cnpj = cpf_cnpj;
+		}
+		else {
+			throw new ValidateCpfException("Cpf invalido, insira apenas numeros!!!");
+		}
 	}
 	public String getNome() {
 		return nome;
@@ -31,8 +37,13 @@ public class Cliente {
 	public String getCpf_cnpj() {
 		return cpf_cnpj;
 	}
-	public void setCpf_cnpj(String cpf_cnpj) {
-		this.cpf_cnpj = cpf_cnpj;
+	public void setCpf_cnpj(String cpf_cnpj) throws ValidateCpfException {
+		if (cpf_cnpj.length()==11) {
+			this.cpf_cnpj = cpf_cnpj;
+		}
+		else {
+			throw new ValidateCpfException("Cpf invalido, insira apenas numeros!!!");
+		}
 	}
 	public Endereco getEndereco() {
 		return endereco;

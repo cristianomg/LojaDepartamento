@@ -3,6 +3,9 @@ package Model.Entites;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import Exceptions.ObjetoNaoEncontradoException;
+import Exceptions.VendaEncerradaExpcetion;
+
 public class Venda {
 	private int codigo;
 	private LocalDate data;
@@ -77,13 +80,16 @@ public class Venda {
 		}
 		return precoTotal;
 	}
-	public void finalizarVenda() {
+	public void finalizarVenda() throws VendaEncerradaExpcetion {
 		if(!statusVenda) {
 			this.precoTotal = this.calcularPrecoFinal();
 			statusVenda = true;
 		}
+		else {
+			throw new VendaEncerradaExpcetion("Venda encerrada para modifica-la reabra!!!");
+		}
 	}
-	public void removerProduto(int produtoId) {
+	public void removerProduto(int produtoId) throws Exception{
 		if (!statusVenda) {
 			boolean contem = false;
 			for(VendaProduto vp: this.listaVendaProduto) {
@@ -92,17 +98,23 @@ public class Venda {
 				}
 			}
 			if (!contem) {
-				System.out.println("Produto não encontrado!!!");
+				throw new ObjetoNaoEncontradoException("Produto não encontrado!!!");
 			}
 		}
+		else {
+			throw new VendaEncerradaExpcetion("Venda encerrada para modifica-la reabra!!!");
+		}
 	}
-	public void removerProduto(VendaProduto produto) {
+	public void removerProduto(VendaProduto produto) throws VendaEncerradaExpcetion {
 		if(!statusVenda) {
 			for (VendaProduto vp:this.listaVendaProduto) {
 				if (vp.equals(produto)){
 					this.listaVendaProduto.remove(produto);
 				}
 			}
+		}
+		else {
+			throw new VendaEncerradaExpcetion("Venda encerrada para modifica-la reabra!!!");
 		}
 	}
 	//duvida
@@ -114,8 +126,14 @@ public class Venda {
 		return null;
 	}
 	//duvida como passa a propria venda como parametro na vendaProduto
-	public void adicionarProduto(Produto produto, int quantidade, float desconto) {
-		VendaProduto vendaProduto = new VendaProduto(venda, produto, quantidade, desconto);
+	public void adicionarProduto(Produto produto, int quantidade, float desconto) throws VendaEncerradaExpcetion {
+		if (!statusVenda) {
+			VendaProduto vendaProduto = new VendaProduto(this, produto, quantidade, desconto);
+			this.listaVendaProduto.add(vendaProduto);
+		}
+		else {
+			throw new VendaEncerradaExpcetion("Venda encerrada para modifica-la reabra!!!");
+		}
 	}
 	
 }

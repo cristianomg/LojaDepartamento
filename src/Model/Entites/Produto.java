@@ -115,8 +115,8 @@ public class Produto {
 		}
 	}
 	//duvida
-	public void ehProdutoSimilar() {
-		
+	public boolean ehProdutoSimilar() {
+		return produtoOriginal != null;
 	}
 	
 }
