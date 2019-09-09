@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.Scanner;
 
 import Model.Entites.Cliente;
+<<<<<<< HEAD
+=======
+import Model.Entites.Logradouro.Endereco;
+>>>>>>> c3bab182c08f15b05017c58f8833971787188b40
 
 public class ClienteView {
 	static Scanner sc = new Scanner(System.in);

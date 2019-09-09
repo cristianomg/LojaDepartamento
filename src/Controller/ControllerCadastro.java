@@ -2,6 +2,7 @@ package Controller;
 
 import java.util.HashMap;
 
+<<<<<<< HEAD
 import Exceptions.ObjetoNaoEncontradoException;
 import Exceptions.ValidateCpfException;
 import Model.DAO.ClienteDAO;
@@ -12,6 +13,13 @@ import Model.Entites.Cliente;
 import Model.Entites.Departamento;
 import Model.Entites.Funcionario;
 import Model.Entites.Produto;
+=======
+import Exceptions.ValidateCpfException;
+import Model.DAO.ClienteDAO;
+import Model.DAO.DepartamentoDAO;
+import Model.Entites.Cliente;
+import Model.Entites.Departamento;
+>>>>>>> c3bab182c08f15b05017c58f8833971787188b40
 import Model.Entites.Logradouro.Cidade;
 import Model.Entites.Logradouro.Endereco;
 import Model.Entites.Logradouro.Estado;
@@ -20,9 +28,12 @@ import View.ClienteView;
 public class ControllerCadastro {
 	private static ClienteDAO clientes = ClienteDAO.getInstance();
 	private static DepartamentoDAO departamentos = DepartamentoDAO.getInstance();
+<<<<<<< HEAD
 	private static FuncionarioDAO funcionarios = FuncionarioDAO.getInstance();
 	private static ProdutoDAO produtos = ProdutoDAO.getInstance();
 	
+=======
+>>>>>>> c3bab182c08f15b05017c58f8833971787188b40
 	public static void cadastrarCliente() {
 			HashMap<String, String>infoCliente = ClienteView.cadastroCliente();
 		try {
@@ -64,6 +75,7 @@ public class ControllerCadastro {
 		String sigla = "eletro";
 		Departamento dp = new Departamento(nome, sigla);
 		departamentos.inserir(dp);
+<<<<<<< HEAD
 		System.out.println(departamentos.getLista().get(0));
 	}
 	
@@ -95,6 +107,8 @@ public class ControllerCadastro {
 		}
 
 		
+=======
+>>>>>>> c3bab182c08f15b05017c58f8833971787188b40
 	}
 	
 }

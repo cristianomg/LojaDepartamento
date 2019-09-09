@@ -3,7 +3,10 @@ package Model.DAO;
 import java.util.ArrayList;
 import java.util.List;
 
+<<<<<<< HEAD
 import Exceptions.ObjetoNaoEncontradoException;
+=======
+>>>>>>> c3bab182c08f15b05017c58f8833971787188b40
 import Model.Entites.Departamento;
 
 public class DepartamentoDAO implements InterfaceDAO <Departamento> {
@@ -40,6 +43,10 @@ public class DepartamentoDAO implements InterfaceDAO <Departamento> {
 				return true;
 			}
 		}
+<<<<<<< HEAD
+=======
+		System.out.println("Erro: Departamento não encontrado no sistema!!!");
+>>>>>>> c3bab182c08f15b05017c58f8833971787188b40
 		return false;
 	}
 
@@ -52,6 +59,7 @@ public class DepartamentoDAO implements InterfaceDAO <Departamento> {
 			}
 		}
 		return false;
+<<<<<<< HEAD
 	}
 	public Departamento getDepartamento(String nome) throws ObjetoNaoEncontradoException{
 		for(Departamento dep: listaDepartamentos) {
@@ -69,5 +77,17 @@ public class DepartamentoDAO implements InterfaceDAO <Departamento> {
 			}
 		}
 		throw new ObjetoNaoEncontradoException("Erro: Departamento não encontrado no sistema!!");
+=======
 	}
+	public Departamento getDepartamento(String nome) {
+		for(Departamento dep: listaDepartamentos) {
+			if(dep.getNome().equals(nome)) {
+				return dep;
+			}
+		}
+		System.out.println("Erro: Departamento não encontrado no sistema!!!");
+		return null;
+>>>>>>> c3bab182c08f15b05017c58f8833971787188b40
+	}
+
 	}
