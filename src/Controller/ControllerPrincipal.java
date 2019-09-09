@@ -1,18 +1,8 @@
 package Controller;
 
-<<<<<<< HEAD
 import View.Menu;
 
 public class ControllerPrincipal {
-=======
-import java.util.List;
-
-import Model.Entites.Cliente;
-import View.ClienteView;
-import View.Menu;
-
-public class ControllerPrincipal<respLista> {
->>>>>>> c3bab182c08f15b05017c58f8833971787188b40
 	private Menu menu;
 	
 	public ControllerPrincipal() {
@@ -46,7 +36,6 @@ public class ControllerPrincipal<respLista> {
 			ControllerCadastro.cadastrarCliente();
 			break;
 		case 2:
-<<<<<<< HEAD
 			ControllerCadastro.cadastrarFuncionario();
 			break;
 		case 3:
@@ -54,15 +43,7 @@ public class ControllerPrincipal<respLista> {
 			break;
 		case 4:
 			ControllerCadastro.cadastrarProduto();
-=======
 			System.out.println("Funcionario cadastrado");
-			break;
-		case 3:
-			System.out.println("Departamento cadastrado");
-			break;
-		case 4:
-			System.out.println("Produto Cadastrado");
->>>>>>> c3bab182c08f15b05017c58f8833971787188b40
 			break;
 		case 5:
 			System.out.println("Produto similar Cadastrado");
@@ -86,14 +67,11 @@ public class ControllerPrincipal<respLista> {
 			ControllerListagem.listarClientes();
 			break;
 		case 2:
-			ControllerListagem.listaDepartamento();
+			ControllerListagem.listaDepartamentos();
 			break;
-<<<<<<< HEAD
 		case 3:
 			ControllerListagem.listaFuncionario();
 			break;
-=======
->>>>>>> c3bab182c08f15b05017c58f8833971787188b40
 		}
 		this.controllerPrincipal();
 	}

@@ -10,11 +10,7 @@ public class Menu {
 		int menuPrincipal = 1;
 		int respostaPrincipal = 0;
 		sc = new Scanner(System.in);
-<<<<<<< HEAD
-		System.out.printf("%-23s%s%-20s%s%-23s", "----------------------", " ","X Y Z Comercio LTDA","  ", "-----------------------");
-=======
 		System.out.printf("%-20s%s%-20s%s%-20s", "##################", " ","X Y Z Comercio LTDA","  ", "#################");
->>>>>>> c3bab182c08f15b05017c58f8833971787188b40
 		System.out.println("");
 		try {
 			while (menuPrincipal == 1){
