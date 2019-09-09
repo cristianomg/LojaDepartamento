@@ -9,11 +9,17 @@ public class Cidade {
 	private Estado estado;
 	private ArrayList<Endereco> listaEndereco = new ArrayList<Endereco>();
 	
-	public Cidade(int id, String nome, String sigla, Estado estado) {
-		this.id = id;
+
+	public Cidade(String nome, Estado estado) {
 		this.nome = nome;
-		this.sigla = sigla;
+		this.sigla = nome.substring(0, 3);
 		this.estado = estado;
+	}
+	
+	public Cidade(int id, String nome, String sigla, Estado estado) {
+		this(nome, estado);
+		this.id = id;
+		this.sigla = sigla;
 	}
 	
 	public Cidade(int id, String nome, String sigla, Estado estado, ArrayList<Endereco> listaEndereco) {

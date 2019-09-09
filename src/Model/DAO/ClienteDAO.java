@@ -1,11 +1,13 @@
 package Model.DAO;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import Model.Entites.Cliente;
 
-public class ClienteDAO {
+public class ClienteDAO implements InterfaceDAO <Cliente> {
 	private static ClienteDAO uniqueInstance;
+	private List<Cliente> listaClientes = new ArrayList<Cliente>();
 	
 	private ClienteDAO(){
 	}
@@ -18,23 +20,44 @@ public class ClienteDAO {
 		return uniqueInstance;
 	}
 
-	public ArrayList<Cliente> getClientes(){
-		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
-		return clientes;
+	@Override
+	public List<Cliente> getLista() {
+		return listaClientes;
 	}
+
+	@Override
+	public boolean inserir(Cliente objeto) {
+		try{
+			listaClientes.add(objeto);
+			return true;
+		}
+		catch (Exception e){
+		return false;
+		}
+	}
+
+	@Override
+	public boolean deletar(Cliente objeto) {
+		for(Cliente cliente: listaClientes) {
+			if (objeto.getCpf_cnpj().equals(cliente.getCpf_cnpj())){
+				listaClientes.remove(objeto);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean atualizar(Cliente antigo, Cliente novo) {
+		for(Cliente cliente: listaClientes) {
+			if (cliente.getCpf_cnpj().equals(antigo.getCpf_cnpj())){
+				listaClientes.remove(cliente);
+				listaClientes.add(novo);
+				return true;
+			}
+		}
+		return false;
+	}
+
 	
-	public Cliente getCliente(String nome, String cpf_cnpj) {
-		Cliente cliente = new Cliente();
-		return cliente;
-	}
-	
-	public void inserirCliente(Cliente cliente) {
-	}
-	
-	public void atualizarCliente(Cliente cliente) {
-		
-	}
-	public void removerCliente(Cliente cliente) {
-		
-	}
 }

@@ -7,6 +7,8 @@ public class Funcionario {
 	private String matricula;
 	private String senha;
 	private Departamento departamento;
+	private boolean chefe;
+	private boolean ensinoSuperior;
 	private ArrayList<Venda> listaVenda = new ArrayList<Venda>();
 	
 	public Funcionario(String nome) {
@@ -61,6 +63,22 @@ public class Funcionario {
 
 	public void setListaVenda(ArrayList<Venda> listaVenda) {
 		this.listaVenda = listaVenda;
+	}
+
+	public boolean isChefe() {
+		return chefe;
+	}
+
+	public void setChefe(boolean chefe) {
+		this.chefe = chefe;
+	}
+
+	public boolean isEnsinoSuperior() {
+		return ensinoSuperior;
+	}
+
+	public void setEnsinoSuperior(boolean ensinoSuperior) {
+		this.ensinoSuperior = ensinoSuperior;
 	}
 	
 	

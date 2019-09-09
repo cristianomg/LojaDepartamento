@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import Model.Entites.Logradouro.Cidade;
 
 public class Produto {
+	private static int contador;
 	private int id;
 	private String nome;
 	private String descricao;
@@ -13,18 +14,22 @@ public class Produto {
 	private ArrayList<Produto> listaSimilar = new ArrayList<Produto>();
 	private Produto produtoOriginal;
 	private ArrayList<VendaProduto> listaVendaProduto = new ArrayList<VendaProduto>();
+	private Departamento departamento;
 	
-	public Produto(int id, String nome, String descricao, float preco, int quantidade) {
-		this.id = id;
+	public Produto(String nome, String descricao, float preco, int quantidade, Departamento departamento) {
+		this.id = contador;
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
 		this.quantidade = quantidade;
 		this.produtoOriginal = null;
+		this.departamento = departamento;
+		contador++;
 	}
-	public Produto(int id, String nome, String descricao, float preco, int quantidade, ArrayList<Produto> listaSimilar,
+	public Produto(int id, String nome, String descricao, float preco, int quantidade, Departamento departamento,ArrayList<Produto> listaSimilar,
 			Produto produtoOriginal, ArrayList<VendaProduto> listaVendaProduto) {
-		this(id, nome, descricao, preco, quantidade);
+		this(nome, descricao, preco, quantidade, departamento);
+		this.id = id;
 		this.listaSimilar = listaSimilar;
 		this.produtoOriginal = produtoOriginal;
 		this.listaVendaProduto = listaVendaProduto;
@@ -117,6 +122,12 @@ public class Produto {
 	//duvida
 	public boolean ehProdutoSimilar() {
 		return produtoOriginal != null;
+	}
+	public Departamento getDepartamento() {
+		return departamento;
+	}
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
 	}
 	
 }

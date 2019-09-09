@@ -6,6 +6,8 @@ import Exceptions.ValidateCpfException;
 import Model.Entites.Logradouro.Endereco;
 
 public class Cliente {
+	private static int codigo;
+	private int id;
 	private String nome;
 	private String cpf_cnpj;
 	private Endereco endereco;
@@ -14,8 +16,11 @@ public class Cliente {
 	
 	
 	public Cliente() {
+		this.id = codigo;
+		codigo++;
 	}
 	public Cliente(String nome) {
+		this();
 		this.nome = nome;
 	}
 	
@@ -27,6 +32,9 @@ public class Cliente {
 		else {
 			throw new ValidateCpfException("Cpf invalido, insira apenas numeros!!!");
 		}
+	}
+	public int getId() {
+		return id;
 	}
 	public String getNome() {
 		return nome;

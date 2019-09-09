@@ -1,12 +1,14 @@
 package Model.DAO;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import Model.Entites.Cliente;
+import Exceptions.ObjetoNaoEncontradoException;
 import Model.Entites.Departamento;
 
-public class DepartamentoDAO {
+public class DepartamentoDAO implements InterfaceDAO <Departamento> {
 	private static DepartamentoDAO uniqueInstance;
+	private List<Departamento> listaDepartamentos = new ArrayList<Departamento>();
 	
 	private DepartamentoDAO(){
 	}
@@ -19,22 +21,53 @@ public class DepartamentoDAO {
 		return uniqueInstance;
 	}
 
-	public ArrayList<Departamento> getDepartamento(){
-		ArrayList<Departamento> departamentos = new ArrayList<Departamento>();
-		return departamentos;
+	@Override
+	public List<Departamento> getLista() {
+		return listaDepartamentos;
+	}
+
+	@Override
+	public boolean inserir(Departamento departamento) {
+		listaDepartamentos.add(departamento);
+		return true;
+	}
+
+	@Override
+	public boolean deletar(Departamento departamento){
+		for(Departamento dep: listaDepartamentos) {
+			if(dep.getId() == departamento.getId()) {
+				listaDepartamentos.remove(dep);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean atualizar(Departamento objetoAntigo, Departamento novoObjeto) {
+		for(Departamento dep: listaDepartamentos) {
+			if(objetoAntigo.getId() == dep.getId()) {
+				listaDepartamentos.remove(dep);
+				listaDepartamentos.add(novoObjeto);
+			}
+		}
+		return false;
+	}
+	public Departamento getDepartamento(String nome) throws ObjetoNaoEncontradoException{
+		for(Departamento dep: listaDepartamentos) {
+			if(dep.getNome().equals(nome)) {
+				return dep;
+			}
+		}
+		throw new ObjetoNaoEncontradoException("Erro: Departamento não encontrado no sistema!!");
 	}
 	
-	public Departamento getDepartamento(String nome, String sigla) {
-		Departamento departamento = new Departamento(0, sigla, sigla, null);
-		return departamento;
-	}
-	
-	public void inserirDepartamento(Departamento departamento) {
-	}
-	
-	public void atualizarCliente(Cliente cliente) {
-		
-	}
-	public void removerCliente(Cliente cliente) {
+	public Departamento getDepartamento(int id) throws ObjetoNaoEncontradoException {
+		for(Departamento dep: listaDepartamentos) {
+			if(dep.getId() == id) {
+				return dep;
+			}
+		}
+		throw new ObjetoNaoEncontradoException("Erro: Departamento não encontrado no sistema!!");
 	}
 	}
