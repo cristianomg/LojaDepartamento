@@ -5,16 +5,26 @@ import java.util.ArrayList;
 import Exceptions.ObjetoExisteException;
 
 public class Departamento {
+	private static int contador;
 	private int id;
 	private String nome;
 	private String sigla;
 	private ArrayList<Funcionario> listFuncionario = new ArrayList<Funcionario>();
 	
-	public Departamento(int id, String nome, String sigla, ArrayList<Funcionario> listFuncionario) {
-		super();
-		this.id = id;
+	public Departamento() {
+		this.id = contador;
+		contador ++;
+	}
+	
+	public Departamento(String nome, String sigla) {
+		this();
 		this.nome = nome;
 		this.sigla = sigla;
+	}
+	
+	public Departamento(int id, String nome, String sigla, ArrayList<Funcionario> listFuncionario) {
+		this(nome, sigla);
+		this.id = id;
 		this.listFuncionario = listFuncionario;
 	}
 	
