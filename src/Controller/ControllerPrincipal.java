@@ -1,9 +1,18 @@
 package Controller;
 
+import java.util.HashMap;
+import java.util.Scanner;
+
+import Exceptions.ObjetoNaoEncontradoException;
+import Model.DAO.FuncionarioDAO;
+import Model.Entites.Funcionario;
 import View.Menu;
 
 public class ControllerPrincipal {
 	private Menu menu;
+	private Scanner sc = new Scanner(System.in);
+	boolean repetir = true;
+	FuncionarioDAO funcionarioDAO = FuncionarioDAO.getInstance();
 	
 	public ControllerPrincipal() {
 		menu = new Menu();
@@ -43,15 +52,75 @@ public class ControllerPrincipal {
 			break;
 		case 4:
 			ControllerCadastro.cadastrarProduto();
-			System.out.println("Funcionario cadastrado");
 			break;
 		case 5:
-			System.out.println("Produto similar Cadastrado");
+			ControllerCadastro.cadastrarProdutoSimilar();
 			break;
 		}
-		this.controllerPrincipal();
+		repetir = true;
+		while(repetir) {
+			System.out.println("Digite '1' para voltar pro menu principal");
+			String opc = sc.next();
+			if (opc.equals("1")) {
+				repetir = false;
+				this.controllerPrincipal();
+			}
+			else {
+				System.out.println("Opção invalida!!!");
+			}
+	}
 	}
 	public void controllerVendas() {
+		boolean running;
+		try {
+			Funcionario funcionario = autentificacao();
+			running = true;
+			ControllerVendas vendas = new ControllerVendas(funcionario); 
+			while (!running) {
+				int opc = menu.menuVenda();
+				switch (opc) {
+				case 1:
+					vendas.abrirVender();
+					break;
+				case 2:
+					vendas.adicionarProduto();
+					break;
+				case 3:
+					vendas.removerProdutos();
+					break;
+				case 4:
+					vendas.calcularValorVenda();
+					break;
+				case 5:
+					vendas.finalizarVenda();
+					break;
+				case 6:
+					running = false;
+					this.controllerPrincipal();
+					break;
+				}
+				
+			}
+			
+		} catch (ObjetoNaoEncontradoException e) {
+			System.out.println(e.getMessage());
+			running = false;
+			e.printStackTrace();
+			repetir = true;
+			while(repetir) {
+				System.out.println("Digite '1' para voltar pro menu principal");
+				String opc = sc.next();
+				if (opc.equals("1")) {
+					repetir = false;
+					this.controllerPrincipal();
+				}
+				else {
+					System.out.println("Opção invalida!!!");
+				}
+		}
+		}
+		
+
 		
 	}
 	public void controllerRelatorios() {
@@ -72,8 +141,27 @@ public class ControllerPrincipal {
 		case 3:
 			ControllerListagem.listaFuncionario();
 			break;
+		case 4:
+			ControllerListagem.listarProdutos();
+			break;
 		}
-		this.controllerPrincipal();
+		repetir = true;
+		while(repetir) {
+			System.out.println("Digite '1' para voltar pro menu principal");
+			String opc = sc.next();
+			if (opc.equals("1")) {
+				repetir = false;
+				this.controllerPrincipal();
+			}
+			else {
+				System.out.println("Opção invalida!!!");
+			}
+	}
 	}
 	
+	public Funcionario autentificacao() throws ObjetoNaoEncontradoException {
+		HashMap<String, String> dadosFuncionario = menu.autorizacaoView();
+		Funcionario funcionario = funcionarioDAO.getFuncionario(dadosFuncionario.get("matricula"), dadosFuncionario.get("senha"));
+		return funcionario;
+	}
 }

@@ -12,7 +12,7 @@ public class Produto {
 	private float preco;
 	private int quantidade;
 	private ArrayList<Produto> listaSimilar = new ArrayList<Produto>();
-	private Produto produtoOriginal;
+	private Produto produtoMarca;
 	private ArrayList<VendaProduto> listaVendaProduto = new ArrayList<VendaProduto>();
 	private Departamento departamento;
 	
@@ -22,16 +22,16 @@ public class Produto {
 		this.descricao = descricao;
 		this.preco = preco;
 		this.quantidade = quantidade;
-		this.produtoOriginal = null;
+		this.produtoMarca = null;
 		this.departamento = departamento;
 		contador++;
 	}
 	public Produto(int id, String nome, String descricao, float preco, int quantidade, Departamento departamento,ArrayList<Produto> listaSimilar,
-			Produto produtoOriginal, ArrayList<VendaProduto> listaVendaProduto) {
+			Produto produtoMarca, ArrayList<VendaProduto> listaVendaProduto) {
 		this(nome, descricao, preco, quantidade, departamento);
 		this.id = id;
 		this.listaSimilar = listaSimilar;
-		this.produtoOriginal = produtoOriginal;
+		this.produtoMarca = produtoMarca;
 		this.listaVendaProduto = listaVendaProduto;
 	}
 	public int getId() {
@@ -70,11 +70,11 @@ public class Produto {
 	public void setListaSimilar(ArrayList<Produto> listaSimilar) {
 		this.listaSimilar = listaSimilar;
 	}
-	public Produto getProdutoOriginal() {
-		return produtoOriginal;
+	public Produto getProdutoMarca() {
+		return produtoMarca;
 	}
-	public void setProdutoOriginal(Produto produtoOriginal) {
-		this.produtoOriginal = produtoOriginal;
+	public void setProdutoMarca(Produto produtoMarca) {
+		this.produtoMarca = produtoMarca;
 	}
 	public ArrayList<VendaProduto> getListaVendaProduto() {
 		return listaVendaProduto;
@@ -103,16 +103,16 @@ public class Produto {
 		return cidadesClientes;
 	}
 	public void cadastrarSimilar(Produto produto) {
-		if(produto.getProdutoOriginal().getId() == this.id) {
+		if(produto.getProdutoMarca().getId() == this.id) {
 			this.listaSimilar.add(produto);
 		}
 	}
 	public void excluirSmiliar(Produto produto) {
 		this.listaSimilar.remove(produto);
-		produto.setProdutoOriginal(null);
+		produto.setProdutoMarca(null);
 	}
 	public boolean ehProdutoMarca() {
-		if(this.produtoOriginal == null) {
+		if(this.produtoMarca == null) {
 			return true;
 		}
 		else {
@@ -121,13 +121,18 @@ public class Produto {
 	}
 	//duvida
 	public boolean ehProdutoSimilar() {
-		return produtoOriginal != null;
+		return produtoMarca != null;
 	}
 	public Departamento getDepartamento() {
 		return departamento;
 	}
 	public void setDepartamento(Departamento departamento) {
 		this.departamento = departamento;
+	}
+	
+	public void vender(int quantidade, VendaProduto vendaProduto) {
+		this.quantidade -= quantidade;
+		this.listaVendaProduto.add(vendaProduto);
 	}
 	
 }

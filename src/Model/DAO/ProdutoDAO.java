@@ -3,6 +3,7 @@ package Model.DAO;
 import java.util.ArrayList;
 import java.util.List;
 
+import Exceptions.ObjetoNaoEncontradoException;
 import Model.Entites.Produto;
 
 public class ProdutoDAO implements InterfaceDAO<Produto> {
@@ -64,5 +65,13 @@ public class ProdutoDAO implements InterfaceDAO<Produto> {
 			}
 		}
 		return produtosDepartamento;
+	}
+	public Produto getProduto(int idProduto) throws ObjetoNaoEncontradoException{
+		for (Produto p: listaProdutos) {
+			if(p.getId()==idProduto) {
+				return p;
+			}
+		}
+		throw new ObjetoNaoEncontradoException("Erro: Produto não encontrado!!!");
 	}
 }

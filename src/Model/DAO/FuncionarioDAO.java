@@ -3,6 +3,7 @@ package Model.DAO;
 import java.util.ArrayList;
 import java.util.List;
 
+import Exceptions.ObjetoNaoEncontradoException;
 import Model.Entites.Funcionario;
 
 public class FuncionarioDAO implements InterfaceDAO<Funcionario> {
@@ -52,5 +53,13 @@ public class FuncionarioDAO implements InterfaceDAO<Funcionario> {
 			}
 		}
 		return false;
+	}
+	public Funcionario getFuncionario(String matricula, String senha) throws ObjetoNaoEncontradoException {
+		for (Funcionario f: listaFuncionario) {
+			if (f.getMatricula().equals(matricula) && f.getSenha().equals(senha)) {
+				return f;
+			}
+		}
+		throw new ObjetoNaoEncontradoException("Erro: Matricula ou senha invalida tente novamente!!!");
 	}
 }

@@ -4,9 +4,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import Exceptions.ObjetoNaoEncontradoException;
+import Exceptions.QuantidadeInsuficienteException;
 import Exceptions.VendaEncerradaExpcetion;
 
 public class Venda {
+	private static int id;
 	private int codigo;
 	private LocalDate data;
 	private float precoTotal;
@@ -17,14 +19,15 @@ public class Venda {
 	
 	
 	
-	public Venda(int codigo, Cliente cliente, Funcionario funcionario) {
-		this.codigo = codigo;
+	public Venda(Cliente cliente, Funcionario funcionario) {
+		this.codigo = id;
 		this.cliente = cliente;
 		this.funcionario = funcionario;
+		id ++;
 	}
 	public Venda(int codigo, LocalDate data, float precoTotal, Cliente cliente, Funcionario funcionario,
 			ArrayList<VendaProduto> listaVendaProduto) {
-		this(codigo, cliente, funcionario);
+		this(cliente, funcionario);
 		this.data = data;
 		this.precoTotal = precoTotal;
 		this.listaVendaProduto = listaVendaProduto;
@@ -125,11 +128,17 @@ public class Venda {
 	public ArrayList<Produto> obterProdutosDestaques(){
 		return null;
 	}
-	//duvida como passa a propria venda como parametro na vendaProduto
-	public void adicionarProduto(Produto produto, int quantidade, float desconto) throws VendaEncerradaExpcetion {
+	public void adicionarProduto(Produto produto, int quantidade, float desconto) throws VendaEncerradaExpcetion, QuantidadeInsuficienteException {
 		if (!statusVenda) {
-			VendaProduto vendaProduto = new VendaProduto(this, produto, quantidade, desconto);
-			this.listaVendaProduto.add(vendaProduto);
+			if (produto.getQuantidade() >= quantidade) {
+				VendaProduto vendaProduto = new VendaProduto(this, produto, quantidade, desconto);
+				produto.vender(quantidade, vendaProduto);
+				this.listaVendaProduto.add(vendaProduto);
+			}
+			else {
+				throw new QuantidadeInsuficienteException("Quantidade insuficiente no estoque");
+			}
+
 		}
 		else {
 			throw new VendaEncerradaExpcetion("Venda encerrada para modifica-la reabra!!!");

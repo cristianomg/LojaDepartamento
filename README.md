@@ -28,6 +28,13 @@ funcionarios estão ligados a um departamento.</p>
 
 ## Feitos
 1. Implementação das classes do Model;
+2. Implementação das classes DAO
+3. Implementação das classes controller:
+3.1 Cadastro de Clientes, Departamentos, Funcionarios, Produtos;
+3.2. iniciar Venda de produtos e inserção de produtos na venda;
+4. Implementação das classes Views:
+4.1. Listagem de Clientes, Departamentos, Funcionarios, Produtos;
+
 
 
 
