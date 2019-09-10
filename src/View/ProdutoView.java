@@ -2,7 +2,6 @@ package View;
 
 import java.util.List;
 
-import Model.Entites.Departamento;
 import Model.Entites.Produto;
 
 public class ProdutoView {

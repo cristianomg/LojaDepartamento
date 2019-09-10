@@ -10,11 +10,12 @@ public class Menu {
 	
 	public HashMap<String, String> autorizacaoView(){
 		System.out.printf("%-23s%s%-20s%s%-23s", "----------------------", " ","X Y Z Comercio LTDA","  ", "-----------------------");
+		System.out.println();
 		HashMap<String, String> dadosFuncionario = new HashMap<String, String>();
 		System.out.print("Informe a matricula: ");
-		String matricula = sc.nextLine();
+		String matricula = sc.next();
 		System.out.println("Informe a senha: ");
-		String senha = sc.nextLine();
+		String senha = sc.next();
 		dadosFuncionario.put("matricula", matricula);
 		dadosFuncionario.put("senha", senha);
 		return dadosFuncionario;

@@ -15,7 +15,6 @@ import Model.Entites.Produto;
 import Model.Entites.Logradouro.Cidade;
 import Model.Entites.Logradouro.Endereco;
 import Model.Entites.Logradouro.Estado;
-import View.ClienteView;
 
 public class ControllerCadastro {
 	private static ClienteDAO clientes = ClienteDAO.getInstance();

@@ -57,18 +57,8 @@ public class ControllerPrincipal {
 			ControllerCadastro.cadastrarProdutoSimilar();
 			break;
 		}
-		repetir = true;
-		while(repetir) {
-			System.out.println("Digite '1' para voltar pro menu principal");
-			String opc = sc.next();
-			if (opc.equals("1")) {
-				repetir = false;
-				this.controllerPrincipal();
-			}
-			else {
-				System.out.println("Opção invalida!!!");
-			}
-	}
+		this.controllerPrincipal();
+		//this.retornarMenuPrincipal();
 	}
 	public void controllerVendas() {
 		boolean running;
@@ -76,7 +66,7 @@ public class ControllerPrincipal {
 			Funcionario funcionario = autentificacao();
 			running = true;
 			ControllerVendas vendas = new ControllerVendas(funcionario); 
-			while (!running) {
+			while (running) {
 				int opc = menu.menuVenda();
 				switch (opc) {
 				case 1:
@@ -105,19 +95,8 @@ public class ControllerPrincipal {
 		} catch (ObjetoNaoEncontradoException e) {
 			System.out.println(e.getMessage());
 			running = false;
-			e.printStackTrace();
-			repetir = true;
-			while(repetir) {
-				System.out.println("Digite '1' para voltar pro menu principal");
-				String opc = sc.next();
-				if (opc.equals("1")) {
-					repetir = false;
-					this.controllerPrincipal();
-				}
-				else {
-					System.out.println("Opção invalida!!!");
-				}
-		}
+			this.controllerPrincipal();
+			//this.retornarMenuPrincipal();
 		}
 		
 
@@ -145,6 +124,17 @@ public class ControllerPrincipal {
 			ControllerListagem.listarProdutos();
 			break;
 		}
+		this.controllerPrincipal();
+		//this.retornarMenuPrincipal();
+	}
+	
+	public Funcionario autentificacao() throws ObjetoNaoEncontradoException {
+		HashMap<String, String> dadosFuncionario = menu.autorizacaoView();
+		Funcionario funcionario = funcionarioDAO.getFuncionario(dadosFuncionario.get("matricula"), dadosFuncionario.get("senha"));
+		return funcionario;
+	}
+	
+	private void retornarMenuPrincipal() {
 		repetir = true;
 		while(repetir) {
 			System.out.println("Digite '1' para voltar pro menu principal");
@@ -157,11 +147,5 @@ public class ControllerPrincipal {
 				System.out.println("Opção invalida!!!");
 			}
 	}
-	}
-	
-	public Funcionario autentificacao() throws ObjetoNaoEncontradoException {
-		HashMap<String, String> dadosFuncionario = menu.autorizacaoView();
-		Funcionario funcionario = funcionarioDAO.getFuncionario(dadosFuncionario.get("matricula"), dadosFuncionario.get("senha"));
-		return funcionario;
 	}
 }
