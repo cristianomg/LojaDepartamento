@@ -5,19 +5,25 @@ public class VendaProduto {
 	private Produto produto;
 	private float preco;
 	private int quantidade;
+	private float desconto;
 	
 	public VendaProduto(Venda venda, Produto produto, int quantidade, float desconto) {
 		super();
-		float descontoFinal = 1-desconto;
+		this.desconto = (100-desconto)/100;
+
 		this.venda = venda;
 		this.produto = produto;
 		this.quantidade = quantidade;
-		this.preco = (produto.getPreco() * quantidade * descontoFinal); 
+		this.preco = (produto.getPreco() * quantidade * this.desconto); 
 	}
 	
 	public Venda getVenda() {
 		return venda;
 	}
+	public float getDesconto() {
+		return desconto;
+	}
+
 	public void setVenda(Venda venda) {
 		this.venda = venda;
 	}

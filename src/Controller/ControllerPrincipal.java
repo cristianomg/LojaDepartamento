@@ -30,7 +30,7 @@ public class ControllerPrincipal {
 			this.controllerRelatorios();
 			break;
 		case 4:
-			this.controllerRealocacoes();
+			this.controllerMovimentacoes();
 			break;
 		case 5:
 			this.controllerListagem();
@@ -96,6 +96,7 @@ public class ControllerPrincipal {
 			System.out.println(e.getMessage());
 			running = false;
 			this.controllerPrincipal();
+			e.getStackTrace();
 			//this.retornarMenuPrincipal();
 		}
 		
@@ -105,9 +106,28 @@ public class ControllerPrincipal {
 	public void controllerRelatorios() {
 		
 	}
-	public void controllerRealocacoes() {
-		
+	public void controllerMovimentacoes() {
+		int respostaListagem = menu.menuMovimentacoes();
+		switch(respostaListagem) {
+		case 1:
+			ControllerMovimentacoes.comprarProduto();
+			break;
+		case 2:
+			ControllerMovimentacoes.moverProdutoDepartamento();
+			break;
+		case 3:
+			ControllerListagem.listaFuncionario();
+			break;
+		case 4:
+			ControllerListagem.listarProdutos();
+			break;
+		case 5:
+			ControllerListagem.listarVendas();
+		}
+		this.controllerPrincipal();
+		//this.retornarMenuPrincipal();
 	}
+
 	public void controllerListagem() {
 		int respostaListagem = menu.menuListagem();
 		switch(respostaListagem) {
@@ -123,6 +143,8 @@ public class ControllerPrincipal {
 		case 4:
 			ControllerListagem.listarProdutos();
 			break;
+		case 5:
+			ControllerListagem.listarVendas();
 		}
 		this.controllerPrincipal();
 		//this.retornarMenuPrincipal();

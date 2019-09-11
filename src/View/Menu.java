@@ -33,7 +33,7 @@ public class Menu {
 				System.out.println("1. Menu de cadastro");
 				System.out.println("2. Menu de vendas");
 				System.out.println("3. Menu de relatorios");
-				System.out.println("4. Menu de realocações");
+				System.out.println("4. Menu de movimentações");
 				System.out.println("5. Menu de listagens");
 					respostaPrincipal = sc.nextInt();
 					if (respostaPrincipal > 0 && respostaPrincipal < 6){
@@ -139,4 +139,34 @@ public class Menu {
 		}
 		return respostaListagem;
 	}
+	
+	public int menuMovimentacoes() {
+		int menuMovimentacoes = 1;
+		int respostaMovimentacoes = 0;
+		sc = new Scanner(System.in);
+		System.out.printf("%-23s%s%-20s%s%-23s", "----------------------", " ","X Y Z Comercio LTDA","  ", "-----------------------");
+		System.out.println("");
+		try {
+		while (menuMovimentacoes == 1){
+			System.out.println("1. Comprar Produto para o estoque");
+			System.out.println("2. Mover produto de departamento");
+			System.out.println("3. Mover funcionario de departamento");
+			System.out.println("4. Promover funcionario a chefe");
+			System.out.println("5. Voltar para menu principal");
+			respostaMovimentacoes = sc.nextInt();
+			if ( respostaMovimentacoes > 0 && respostaMovimentacoes < 6){
+				menuMovimentacoes = 0;
+			}
+			else {
+				System.out.println("Opção invalida!!!");
+			}
+		}
+		}
+		catch(InputMismatchException e) {
+			Menu m = new Menu();
+			respostaMovimentacoes = m.menuListagem();
+		}
+		return respostaMovimentacoes;
+	}
+	
 }

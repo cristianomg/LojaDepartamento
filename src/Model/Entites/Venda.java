@@ -15,10 +15,8 @@ public class Venda {
 	private Cliente cliente;
 	private Funcionario funcionario;
 	private ArrayList<VendaProduto> listaVendaProduto = new ArrayList<VendaProduto>();
-	private boolean statusVenda;
-	
-	
-	
+	private boolean vendaFinalizada;
+		
 	public Venda(Cliente cliente, Funcionario funcionario) {
 		this.codigo = id;
 		this.cliente = cliente;
@@ -70,13 +68,13 @@ public class Venda {
 		this.listaVendaProduto = listaVendaProduto;
 	}
 	
-	public boolean isStatusVenda() {
-		return statusVenda;
+	public boolean isVendaFinalizada() {
+		return vendaFinalizada;
 	}
-	public void setStatusVenda(boolean statusVenda) {
-		this.statusVenda = statusVenda;
+	public void setVendaFinalizada(boolean vendaFinalizada) {
+		this.vendaFinalizada = vendaFinalizada;
 	}
-	private float calcularPrecoFinal() {
+	public float calcularPrecoFinal() {
 		precoTotal = 0;
 		for(VendaProduto vp: this.listaVendaProduto) {
 			precoTotal += vp.getPreco();
@@ -84,20 +82,24 @@ public class Venda {
 		return precoTotal;
 	}
 	public void finalizarVenda() throws VendaEncerradaExpcetion {
-		if(!statusVenda) {
+		if(!vendaFinalizada) {
 			this.precoTotal = this.calcularPrecoFinal();
-			statusVenda = true;
+			this.data = LocalDate.now();
+			System.out.println(this.data);
+			vendaFinalizada = true;
 		}
 		else {
 			throw new VendaEncerradaExpcetion("Venda encerrada para modifica-la reabra!!!");
 		}
 	}
-	public void removerProduto(int produtoId) throws Exception{
-		if (!statusVenda) {
+	public void removerProduto(int produtoId) throws ObjetoNaoEncontradoException, VendaEncerradaExpcetion{
+		if (!vendaFinalizada) {
 			boolean contem = false;
 			for(VendaProduto vp: this.listaVendaProduto) {
 				if (vp.getProduto().getId() == produtoId) {
+					vp.getProduto().addQuantidade(vp.getQuantidade());
 					this.listaVendaProduto.remove(vp);
+					break;
 				}
 			}
 			if (!contem) {
@@ -109,10 +111,12 @@ public class Venda {
 		}
 	}
 	public void removerProduto(VendaProduto produto) throws VendaEncerradaExpcetion {
-		if(!statusVenda) {
+		if(!vendaFinalizada) {
 			for (VendaProduto vp:this.listaVendaProduto) {
 				if (vp.equals(produto)){
+					vp.getProduto().addQuantidade(vp.getQuantidade());
 					this.listaVendaProduto.remove(produto);
+					break;
 				}
 			}
 		}
@@ -129,7 +133,7 @@ public class Venda {
 		return null;
 	}
 	public void adicionarProduto(Produto produto, int quantidade, float desconto) throws VendaEncerradaExpcetion, QuantidadeInsuficienteException {
-		if (!statusVenda) {
+		if (!vendaFinalizada) {
 			if (produto.getQuantidade() >= quantidade) {
 				VendaProduto vendaProduto = new VendaProduto(this, produto, quantidade, desconto);
 				produto.vender(quantidade, vendaProduto);

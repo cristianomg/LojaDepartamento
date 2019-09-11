@@ -25,7 +25,7 @@ public class ControllerCadastro {
 	public static void cadastrarCliente() {
 			//HashMap<String, String>infoCliente = ClienteView.cadastroCliente();
 		String nome = "cristiano"; // voltar pra view
-		String cpf_cnpj = "05897257507"; // voltar pra view
+		String cpf_cnpj = "00000000000"; // voltar pra view
 		try {
 			Cliente cliente = new Cliente(nome, cpf_cnpj);
 			Endereco endereco = cadastrarEndereco();
@@ -90,7 +90,7 @@ public class ControllerCadastro {
 	public static void cadastrarProduto() {
 		String nome = "tv"; // criar view
 		String descricao = "led 43 polegadas full hd"; // criar view 
-		float preco = 19000;
+		float preco = 1900;
 		int quantidade = 300;
 		try {
 			Departamento departamento = departamentos.getDepartamento(0);

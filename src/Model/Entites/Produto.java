@@ -135,4 +135,8 @@ public class Produto {
 		this.listaVendaProduto.add(vendaProduto);
 	}
 	
+	public void addQuantidade(int quantidade) {
+		this.quantidade += quantidade;
+	}
+	
 }
