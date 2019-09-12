@@ -3,7 +3,7 @@ package Model.DAO;
 import java.util.ArrayList;
 import java.util.List;
 
-import Exceptions.ObjetoNaoEncontradoException;
+import Exceptions.VendaNaoEncontradaException;
 import Model.Entites.Venda;
 
 public class VendaDAO implements InterfaceDAO<Venda>{
@@ -54,13 +54,13 @@ public class VendaDAO implements InterfaceDAO<Venda>{
 		}
 		return false;
 	}
-	public Venda getVenda(int codigoVenda) throws ObjetoNaoEncontradoException {
+	public Venda getVenda(int codigoVenda) throws VendaNaoEncontradaException {
 		for (Venda v: listaVendas) {
 			if(v.getCodigo() == codigoVenda) {
 				return v;
 			}
 		}
-		throw new ObjetoNaoEncontradoException("Erro: Codigo de venda incorreto, tente novamente!!!");
+		throw new VendaNaoEncontradaException("Erro: Codigo de venda não encontrado, tente novamente!!!");
 	}
 }
 

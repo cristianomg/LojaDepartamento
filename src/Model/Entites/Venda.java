@@ -3,9 +3,9 @@ package Model.Entites;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import Exceptions.ObjetoNaoEncontradoException;
 import Exceptions.QuantidadeInsuficienteException;
 import Exceptions.VendaEncerradaExpcetion;
+import Exceptions.VendaNaoEncontradaException;
 
 public class Venda {
 	private static int id;
@@ -92,7 +92,7 @@ public class Venda {
 			throw new VendaEncerradaExpcetion("Venda encerrada para modifica-la reabra!!!");
 		}
 	}
-	public void removerProduto(int produtoId) throws ObjetoNaoEncontradoException, VendaEncerradaExpcetion{
+	public void removerProduto(int produtoId) throws VendaNaoEncontradaException, VendaEncerradaExpcetion{
 		if (!vendaFinalizada) {
 			boolean contem = false;
 			for(VendaProduto vp: this.listaVendaProduto) {
@@ -103,7 +103,7 @@ public class Venda {
 				}
 			}
 			if (!contem) {
-				throw new ObjetoNaoEncontradoException("Produto nao encontrado!");
+				throw new VendaNaoEncontradaException("Produto nao encontrado!");
 			}
 		}
 		else {

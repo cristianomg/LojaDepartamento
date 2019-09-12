@@ -1,8 +1,7 @@
 package Controller;
 
 import java.util.HashMap;
-
-import Exceptions.ObjetoNaoEncontradoException;
+import Exceptions.DepartamentoNaoEncontradoException;
 import Exceptions.ValidateCpfException;
 import Model.DAO.ClienteDAO;
 import Model.DAO.DepartamentoDAO;
@@ -83,7 +82,7 @@ public class ControllerCadastro {
 		System.out.println(funcionarios.getLista().get(0));
 		System.out.println("Funcionario Cadastrado com sucesso!!!");
 		}
-		catch (ObjetoNaoEncontradoException e) {
+		catch (DepartamentoNaoEncontradoException e) {
 			System.out.println(e.getMessage());
 		}
 	}
@@ -98,7 +97,7 @@ public class ControllerCadastro {
 			produtos.getLista().add(p);
 			System.out.println("Produto Cadastrado com sucesso!!!");
 		}
-		catch (ObjetoNaoEncontradoException e){
+		catch (DepartamentoNaoEncontradoException e){
 			System.out.println(e.getMessage());
 		}
 	}

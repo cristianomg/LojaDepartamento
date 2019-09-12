@@ -3,7 +3,7 @@ package Model.DAO;
 import java.util.ArrayList;
 import java.util.List;
 
-import Exceptions.ObjetoNaoEncontradoException;
+import Exceptions.ClienteNaoEncontradoException;
 import Model.Entites.Cliente;
 
 public class ClienteDAO implements InterfaceDAO <Cliente> {
@@ -60,13 +60,13 @@ public class ClienteDAO implements InterfaceDAO <Cliente> {
 		return false;
 	}
 	
-	public Cliente getCliente(String cpf_cnpj) throws ObjetoNaoEncontradoException{
+	public Cliente getCliente(String cpf_cnpj) throws ClienteNaoEncontradoException{
 		for(Cliente cliente: listaClientes) {
 			if (cliente.getCpf_cnpj().equals(cpf_cnpj)){
 				return cliente;
 			}
 		}
-		throw new ObjetoNaoEncontradoException("Erro: cpf_cnpj invalido, tente novamente!!!");
+		throw new ClienteNaoEncontradoException("Erro: cpf_cnpj invalido, tente novamente!!!");
 	}
 	
 }

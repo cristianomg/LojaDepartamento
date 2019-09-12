@@ -3,7 +3,7 @@ package Controller;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import Exceptions.ObjetoNaoEncontradoException;
+import Exceptions.FuncionarioNaoEncontradoException;
 import Model.DAO.FuncionarioDAO;
 import Model.Entites.Funcionario;
 import View.Menu;
@@ -91,9 +91,8 @@ public class ControllerPrincipal {
 				}
 				
 			}
-			
-		} catch (ObjetoNaoEncontradoException e) {
-			System.out.println(e.getMessage());
+		} catch (FuncionarioNaoEncontradoException e) {
+			System.out.println("Matricula ou senha invalida tente novamente!");
 			running = false;
 			this.controllerPrincipal();
 			e.getStackTrace();
@@ -116,7 +115,7 @@ public class ControllerPrincipal {
 			ControllerMovimentacoes.moverProdutoDepartamento();
 			break;
 		case 3:
-			ControllerListagem.listaFuncionario();
+			ControllerMovimentacoes.moverFuncionarioDepartamento();
 			break;
 		case 4:
 			ControllerListagem.listarProdutos();
@@ -150,7 +149,7 @@ public class ControllerPrincipal {
 		//this.retornarMenuPrincipal();
 	}
 	
-	public Funcionario autentificacao() throws ObjetoNaoEncontradoException {
+	public Funcionario autentificacao() throws FuncionarioNaoEncontradoException {
 		HashMap<String, String> dadosFuncionario = menu.autorizacaoView();
 		Funcionario funcionario = funcionarioDAO.getFuncionario(dadosFuncionario.get("matricula"), dadosFuncionario.get("senha"));
 		return funcionario;

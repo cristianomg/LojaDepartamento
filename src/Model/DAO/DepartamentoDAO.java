@@ -3,7 +3,7 @@ package Model.DAO;
 import java.util.ArrayList;
 import java.util.List;
 
-import Exceptions.ObjetoNaoEncontradoException;
+import Exceptions.DepartamentoNaoEncontradoException;
 import Model.Entites.Departamento;
 
 public class DepartamentoDAO implements InterfaceDAO <Departamento> {
@@ -54,22 +54,22 @@ public class DepartamentoDAO implements InterfaceDAO <Departamento> {
 		}
 		return false;
 	}
-	public Departamento getDepartamento(String nome) throws ObjetoNaoEncontradoException{
+	public Departamento getDepartamento(String nome) throws DepartamentoNaoEncontradoException{
 		for(Departamento dep: listaDepartamentos) {
 			if(dep.getNome().equals(nome)) {
 				return dep;
 			}
 		}
-		throw new ObjetoNaoEncontradoException("Erro: Departamento não encontrado no sistema!!");
+		throw new DepartamentoNaoEncontradoException("Erro: Departamento não encontrado no sistema!!");
 	}
 	
-	public Departamento getDepartamento(int id) throws ObjetoNaoEncontradoException {
+	public Departamento getDepartamento(int id) throws DepartamentoNaoEncontradoException {
 		for(Departamento dep: listaDepartamentos) {
 			if(dep.getId() == id) {
 				return dep;
 			}
 		}
-		throw new ObjetoNaoEncontradoException("Erro: Departamento não encontrado no sistema!!");
+		throw new DepartamentoNaoEncontradoException("Erro: Departamento não encontrado no sistema!!");
 
 	}
 
