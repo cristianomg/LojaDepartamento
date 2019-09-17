@@ -1,5 +1,7 @@
 package Controller;
 
+import java.util.HashMap;
+
 import Exceptions.DepartamentoNaoEncontradoException;
 import Exceptions.FuncionarioNaoEncontradoException;
 import Exceptions.ProdutoNaoEncontradoException;
@@ -9,6 +11,7 @@ import Model.DAO.ProdutoDAO;
 import Model.Entites.Departamento;
 import Model.Entites.Funcionario;
 import Model.Entites.Produto;
+import View.MovimentacaoView;
 
 public class ControllerMovimentacoes {
 	private static ProdutoDAO produtos = ProdutoDAO.getInstance();
@@ -16,9 +19,11 @@ public class ControllerMovimentacoes {
 	private static FuncionarioDAO funcionarios = FuncionarioDAO.getInstance();
 	
 	public static void comprarProduto(){
+		HashMap<String, Integer> request = MovimentacaoView.dadosComprarProduto();
 		try {
-			Produto produto = produtos.getProduto(0); // pedir pra view qual o produto
-			produto.addQuantidade(100); // pedir pra view a quantidade
+			Produto produto = produtos.getProduto(request.get("idProduto"));
+			produto.addQuantidade(request.get("quantidade")); // pedir pra view a quantidade
+			produtos.save();
 			System.out.println("Compra realizada!!!");
 		} catch (ProdutoNaoEncontradoException e) {
 			System.out.println(e.getMessage());
@@ -27,10 +32,15 @@ public class ControllerMovimentacoes {
 	}
 	public static void moverProdutoDepartamento() {
 		Produto produto;
+		HashMap<String, Integer> request = MovimentacaoView.dadosMoverProduto();
 		try {
-			produto = produtos.getProduto(0); // pedir pra view qual o produto
-			Departamento departamento = departamentos.getDepartamento(1); // pedir pra view o departamento
+			produto = produtos.getProduto(request.get("idProduto"));
+			Departamento departamento = departamentos.getDepartamento(request.get("idDepartamento"));
 			produto.setDepartamento(departamento);
+			for (Produto p: produto.getListaSimilar()) {
+				p.setDepartamento(departamento);
+			}
+			produtos.save();
 			System.out.println("Produto movido de departamento.");
 		}
 		catch(DepartamentoNaoEncontradoException e1) {
@@ -42,10 +52,14 @@ public class ControllerMovimentacoes {
 	}
 	public static void moverFuncionarioDepartamento() {
 		Funcionario funcionario;
+		HashMap<String, String> request = MovimentacaoView.dadosMoverFuncionario();
+		String matricula = request.get("matricula");
+		int idDepartamento = Integer.parseInt(request.get("idMatricula"));
 		try {
-			funcionario = funcionarios.getFuncionario("323232"); // pedir pra view qual o FUNCIONARIO
-			Departamento departamento = departamentos.getDepartamento(1); // pedir pra view o departamento
+			funcionario = funcionarios.getFuncionario(matricula); // pedir pra view qual o FUNCIONARIO
+			Departamento departamento = departamentos.getDepartamento(idDepartamento); // pedir pra view o departamento
 			funcionario.setDepartamento(departamento);
+			funcionarios.save();
 			System.out.println("Produto movido de departamento.");
 		} catch (FuncionarioNaoEncontradoException e) {
 			System.out.println(e);

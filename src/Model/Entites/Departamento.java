@@ -9,27 +9,24 @@ import Model.DAO.ProdutoDAO;
 
 public class Departamento implements Serializable {
 	private static final long serialVersionUID = 6618504795044699367L;
-	private static int contador;
 	private int id;
 	private String nome;
 	private String sigla;
 	private Funcionario chefe;
 	private ArrayList<Funcionario> listFuncionario = new ArrayList<Funcionario>();
 	
-	public Departamento() {
-		this.id = contador;
-		contador ++;
-	}
+	public Departamento(int id) {
+		this.id = id;
+		}
 	
-	public Departamento(String nome, String sigla) {
-		this();
+	public Departamento(int id, String nome, String sigla) {
+		this(id);
 		this.nome = nome;
 		this.sigla = sigla;
 	}
 	
 	public Departamento(int id, String nome, String sigla, ArrayList<Funcionario> listFuncionario) {
-		this(nome, sigla);
-		this.id = id;
+		this(id, nome, sigla);
 		this.listFuncionario = listFuncionario;
 	}
 	

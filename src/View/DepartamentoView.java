@@ -1,12 +1,28 @@
 package View;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 import Model.Entites.Departamento;
 import Model.Entites.Produto;
 
 public class DepartamentoView {
+	static Scanner sc = new Scanner(System.in);
 	
+	public static HashMap<String, String> cadastrarDepartamento() {
+		System.out.printf("%-18s%s%-20s%s%-18s", "--------------------", "  ","Cadastro de Departamentos"," ", "---------------------");
+		System.out.println();
+		HashMap<String, String> response = new HashMap<String, String>();
+		System.out.print("Informe o nome do Departamento: ");
+		String nome = sc.nextLine();
+		response.put("nome", nome);
+		System.out.print("Informe a Sigla:");
+		String sigla = sc.nextLine();
+		response.put("sigla", sigla);
+		return response;
+	}
+		
 	public static void listarDepartamentos(List<Departamento> departamentos) {
 		System.out.printf("%-23s%s%-20s%s%-23s", "----------------------", " ","X Y Z Comercio LTDA","  ", "-----------------------");
 		System.out.println();

@@ -56,15 +56,18 @@ public class DepartamentoDAO implements InterfaceDAO <Departamento> {
 	}
 
 	@Override
-	public boolean atualizar(Departamento objetoAntigo, Departamento novoObjeto) {
-		for(Departamento dep: listaDepartamentos) {
-			if(objetoAntigo.getId() == dep.getId()) {
-				listaDepartamentos.remove(dep);
-				listaDepartamentos.add(novoObjeto);
-				this.save();
-			}
+	public boolean atualizar(Departamento novoObjeto) {
+		Departamento antigo;
+		try {
+			antigo = this.getDepartamento(novoObjeto.getId());
+			listaDepartamentos.remove(antigo);
+			listaDepartamentos.add(novoObjeto);
+			this.save();
+			return true;
+		} catch (DepartamentoNaoEncontradoException e) {
+			System.out.println(e.getMessage());
+			return false;
 		}
-		return false;
 	}
 	public Departamento getDepartamento(String nome) throws DepartamentoNaoEncontradoException{
 		for(Departamento dep: listaDepartamentos) {

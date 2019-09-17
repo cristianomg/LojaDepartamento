@@ -55,17 +55,19 @@ public class ProdutoDAO implements InterfaceDAO<Produto> {
 	}
 
 	@Override
-	public boolean atualizar(Produto objetoAntigo, Produto novoObjeto) {
+	public boolean atualizar(Produto produto) {
+		Produto p;
 		try {
-			listaProdutos.remove(objetoAntigo);
-			listaProdutos.add(novoObjeto);
+			p = this.getProduto(produto.getId());
+			listaProdutos.remove(p);
+			listaProdutos.add(produto);
 			this.save();
 			return true;
-		}
-		catch (Exception e) {
+		} catch (ProdutoNaoEncontradoException e) {
 			System.out.println(e.getMessage());
 			return false;
 		}
+
 	}
 	
 	public List<Produto> getProdutoDepartamento(int idDepartamento) {

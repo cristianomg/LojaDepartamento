@@ -50,16 +50,17 @@ public class VendaDAO implements InterfaceDAO<Venda>{
 	}
 
 	@Override
-	public boolean atualizar(Venda vendaAntiga, Venda novaVenda) {
-		for(Venda v: listaVendas) {
-			if(v.getCodigo() == vendaAntiga.getCodigo()) {
-				listaVendas.remove(vendaAntiga);
-				listaVendas.add(novaVenda);
-				return true;
-
-			}
+	public boolean atualizar(Venda novaVenda) {
+		Venda antiga;
+		try {
+			antiga = this.getVenda(novaVenda.getCodigo());
+			listaVendas.remove(antiga);
+			listaVendas.add(novaVenda);
+			return true;
+		} catch (VendaNaoEncontradaException e) {
+			System.out.println(e.getMessage());
+			return false;
 		}
-		return false;
 	}
 	public Venda getVenda(int codigoVenda) throws VendaNaoEncontradaException {
 		for (Venda v: listaVendas) {

@@ -31,7 +31,8 @@ public class ControllerVendas {
 	public void abrirVender() {
 		try {
 			Cliente cliente =  clientes.getCliente("00000000000"); // criar a view
-			Venda venda = new Venda(cliente, funcionario);
+			int codigo = vendas.getLista().size();
+			Venda venda = new Venda(codigo, cliente, funcionario);
 			vendas.inserir(venda);
 			System.out.println("Venda Aberta com sucesso!!!");
 		} catch (ClienteNaoEncontradoException e) {
@@ -56,7 +57,7 @@ public class ControllerVendas {
 					venda.adicionarProduto(produto, 1, 10); // criar view
 					System.out.println(venda.getListaVendaProduto());
 					finalizarAddProdutos = false;
-					vendas.atualizar(vendaAntiga, venda);
+					vendas.atualizar(venda);
 				}
 			}
 		} catch (VendaNaoEncontradaException | ProdutoNaoEncontradoException | VendaEncerradaExpcetion | QuantidadeInsuficienteException e) {
@@ -98,7 +99,7 @@ public class ControllerVendas {
 			venda = vendas.getVenda(0); // view para busca pela venda
 			vendaAntiga = venda;
 			venda.finalizarVenda();
-			vendas.atualizar(vendaAntiga, venda);
+			vendas.atualizar(venda);
 		} catch (VendaNaoEncontradaException | VendaEncerradaExpcetion e) {
 			System.out.println(e.getMessage());
 		} 

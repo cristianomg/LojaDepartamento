@@ -10,7 +10,6 @@ import Exceptions.VendaNaoEncontradaException;
 
 public class Venda implements Serializable {
 	private static final long serialVersionUID = 5197014291763156867L;
-	private static int id;
 	private int codigo;
 	private LocalDate data;
 	private float precoTotal;
@@ -19,15 +18,14 @@ public class Venda implements Serializable {
 	private ArrayList<VendaProduto> listaVendaProduto = new ArrayList<VendaProduto>();
 	private boolean vendaFinalizada;
 		
-	public Venda(Cliente cliente, Funcionario funcionario) {
-		this.codigo = id;
+	public Venda(int codigo, Cliente cliente, Funcionario funcionario) {
+		this.codigo = codigo;
 		this.cliente = cliente;
 		this.funcionario = funcionario;
-		id ++;
 	}
 	public Venda(int codigo, LocalDate data, float precoTotal, Cliente cliente, Funcionario funcionario,
 			ArrayList<VendaProduto> listaVendaProduto) {
-		this(cliente, funcionario);
+		this(codigo, cliente, funcionario);
 		this.data = data;
 		this.precoTotal = precoTotal;
 		this.listaVendaProduto = listaVendaProduto;

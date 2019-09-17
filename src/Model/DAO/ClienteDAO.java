@@ -59,18 +59,29 @@ public class ClienteDAO implements InterfaceDAO <Cliente> {
 	}
 
 	@Override
-	public boolean atualizar(Cliente antigo, Cliente novo) {
-		for(Cliente cliente: listaClientes) {
-			if (cliente.getCpf_cnpj().equals(antigo.getCpf_cnpj())){
-				listaClientes.remove(cliente);
-				listaClientes.add(novo);
-				this.save();
-				return true;
-			}
+	public boolean atualizar(Cliente novo) {
+		Cliente antigo;
+		try {
+			antigo = this.getById(novo.getId());
+			this.deletar(antigo);
+			this.inserir(novo);
+			this.save();
+			return true;
+		} catch (ClienteNaoEncontradoException e) {
+			System.out.println(e.getMessage());
+			return false;
 		}
-		return false;
+
 	}
 	
+	public Cliente getById(int id) throws ClienteNaoEncontradoException{
+		for(Cliente cliente: listaClientes) {
+			if(cliente.getId()== id) {
+				return cliente;
+			}
+		}
+		throw new ClienteNaoEncontradoException("Erro: Cliente nãp encontrado no sistema.");
+	}
 	public Cliente getCliente(String cpf_cnpj) throws ClienteNaoEncontradoException{
 		for(Cliente cliente: listaClientes) {
 			if (cliente.getCpf_cnpj().equals(cpf_cnpj)){

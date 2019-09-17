@@ -2,6 +2,7 @@ package Controller;
 
 import java.util.HashMap;
 import Exceptions.DepartamentoNaoEncontradoException;
+import Exceptions.ProdutoNaoEncontradoException;
 import Exceptions.ValidateCpfException;
 import Model.DAO.ClienteDAO;
 import Model.DAO.DepartamentoDAO;
@@ -14,6 +15,10 @@ import Model.Entites.Produto;
 import Model.Entites.Logradouro.Cidade;
 import Model.Entites.Logradouro.Endereco;
 import Model.Entites.Logradouro.Estado;
+import View.ClienteView;
+import View.DepartamentoView;
+import View.FuncionarioView;
+import View.ProdutoView;
 
 public class ControllerCadastro {
 	private static ClienteDAO clientes = ClienteDAO.getInstance();
@@ -22,11 +27,12 @@ public class ControllerCadastro {
 	private static ProdutoDAO produtos = ProdutoDAO.getInstance();
 	
 	public static void cadastrarCliente() {
-		//HashMap<String, String>infoCliente = ClienteView.cadastroCliente();
-		String nome = "cristiano"; // voltar pra view
-		String cpf_cnpj = "00000000000"; // voltar pra view
+		HashMap<String, String>infoCliente = ClienteView.cadastroCliente();
+		String nome = infoCliente.get("nome");
+		String cpf_cnpj = infoCliente.get("cpf_cnpj");
 		try {
-			Cliente cliente = new Cliente(nome, cpf_cnpj);
+			int id = clientes.getLista().size();
+			Cliente cliente = new Cliente(id, nome, cpf_cnpj);
 			Endereco endereco = cadastrarEndereco();
 			cliente.setEndereco(endereco);
 			clientes.inserir(cliente);
@@ -37,21 +43,18 @@ public class ControllerCadastro {
 		}
 	}
 	private static Endereco cadastrarEndereco() {
-		//HashMap<String, Object> dadosEndereco = ClienteView.cadastrarEndereco();
-		String est = "sergipe";
-		String cid = "cidade";
-		String r = "Oceanica";
-		int numero = 1077;
-		String bairro = "atalaia";
-		String cep = "49035005";
-		Estado estado = new Estado(est); // (String) dadosEndereco.get("estado")
-		Cidade cidade = new Cidade(cid, estado); // (String) dadosEndereco.get("cidade")
-		String rua = r; //(String) dadosEndereco.get("rua")
+		HashMap<String, Object> dadosEndereco = ClienteView.cadastrarEndereco();
+		String est = (String) dadosEndereco.get("estado");
+		String cid = (String) dadosEndereco.get("cidade");
+		String r = (String) dadosEndereco.get("rua");
+		Estado estado = new Estado(est); // 
+		Cidade cidade = new Cidade(cid, estado); // 
+		String rua = r; 
 		Endereco endereco = null;
 		try {
-			//int numero = Integer.parseInt((String) dadosEndereco.get("numero"));  
-			//String bairro = (String) dadosEndereco.get("bairro");
-			//String cep = (String) dadosEndereco.get("cep");
+			int numero = Integer.parseInt((String) dadosEndereco.get("numero"));  
+			String bairro = (String) dadosEndereco.get("bairro");
+			String cep = (String) dadosEndereco.get("cep");
 			endereco = new Endereco(rua , numero, bairro, cep, cidade, estado);
 			cidade.addEnderecoLista(endereco);
 			estado.addCidadeLista(cidade);
@@ -65,18 +68,24 @@ public class ControllerCadastro {
 		return endereco;
 	}
 	public static void cadastrarDepartamento() {
-		String nome = "eletronico"; // CRIAR VIEW
-		String sigla = "eletro"; // CRIAR VIEW
-		Departamento dp = new Departamento(nome, sigla);
+		HashMap<String, String> request = DepartamentoView.cadastrarDepartamento();
+		String nome = request.get("nome");
+		String sigla = request.get("sigla");
+		int idDepartamento = departamentos.getLista().size();
+		Departamento dp = new Departamento(idDepartamento, nome, sigla);
 		departamentos.inserir(dp);
 		System.out.println("Departamento Cadastrado com sucesso!!!");
 	}
 	
 	public static void cadastrarFuncionario() {
-		int idDepartamento = 0;
+		int idDepartamento = FuncionarioView.solicitarDepartamentoID().get("idFuncionario");
 		try {
 		Departamento departamento = departamentos.getDepartamento(idDepartamento);
-		Funcionario f = new Funcionario("Cristiano", "323232", "323232"); // CRIAR VIEW
+		HashMap<String, String> request = FuncionarioView.cadastrarFuncionario();
+		String nome = request.get("nome");
+		String matricula = request.get("matricula");
+		String senha = request.get("senha");
+		Funcionario f = new Funcionario(nome, matricula, senha); // CRIAR VIEW
 		f.setDepartamento(departamento);
 		funcionarios.inserir(f);
 		System.out.println(funcionarios.getLista().get(0));
@@ -87,13 +96,16 @@ public class ControllerCadastro {
 		}
 	}
 	public static void cadastrarProduto() {
-		String nome = "tv"; // criar view
-		String descricao = "led 43 polegadas full hd"; // criar view 
-		float preco = 1900;
-		int quantidade = 300;
+		HashMap<String, String> request = ProdutoView.cadastrarProduto();
+		String nome = request.get("nome");
+		String descricao = request.get("descricao");
+		float preco = Float.parseFloat(request.get("preco"));
+		int quantidade = 0;
+		int idDepartamento = Integer.parseInt(request.get("idDepartamento"));
 		try {
-			Departamento departamento = departamentos.getDepartamento(0);
-			Produto p = new Produto(nome, descricao, preco, quantidade, departamento);
+			Departamento departamento = departamentos.getDepartamento(idDepartamento);
+			int idProduto = produtos.getLista().size();
+			Produto p = new Produto(idProduto, nome, descricao, preco, quantidade, departamento);
 			produtos.inserir(p);
 			System.out.println("Produto Cadastrado com sucesso!!!");
 		}
@@ -103,6 +115,25 @@ public class ControllerCadastro {
 	}
 	
 	public static void cadastrarProdutoSimilar() {
+		HashMap<String, String> request = ProdutoView.cadastrarProdutoSimilar();
+		String nome = request.get("nome");
+		String descricao = request.get("descricao");
+		float preco = Float.parseFloat(request.get("preco"));
+		int quantidade = 0;
+		int idProdutoOriginal = Integer.parseInt(request.get("produtoOriginal"));
+		try {
+			Produto produtoOriginal = produtos.getProduto(idProdutoOriginal);
+			Departamento departamento = produtoOriginal.getDepartamento() ;
+			int idProduto = produtos.getLista().size();
+			Produto p = new Produto(idProduto, nome, descricao, preco, quantidade, departamento);
+			p.setProdutoMarca(produtoOriginal);
+			produtoOriginal.cadastrarSimilar(p);
+			produtos.inserir(p);
+			System.out.println("Produto Cadastrado com sucesso!!!");
+		}
+		catch (ProdutoNaoEncontradoException e){
+			System.out.println(e.getMessage());
+		}
 	}
-	
 }
+

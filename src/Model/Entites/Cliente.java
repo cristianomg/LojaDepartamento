@@ -8,7 +8,6 @@ import Model.Entites.Logradouro.Endereco;
 
 public class Cliente implements Serializable{
 	private static final long serialVersionUID = 6061610663606490041L;
-	private static int codigo;
 	private int id;
 	private String nome;
 	private String cpf_cnpj;
@@ -17,17 +16,16 @@ public class Cliente implements Serializable{
 	private ArrayList<Venda> listaCompras = new ArrayList<Venda>();
 	
 	
-	public Cliente() {
-		this.id = codigo;
-		codigo++;
+	public Cliente(int id) {
+		this.id = id;
 	}
-	public Cliente(String nome) {
-		this();
+	public Cliente(int id, String nome) {
+		this(id);
 		this.nome = nome;
 	}
 	
-	public Cliente(String nome, String cpf_cnpj) throws ValidateCpfException{
-		this(nome);
+	public Cliente(int id, String nome, String cpf_cnpj) throws ValidateCpfException{
+		this(id, nome);
 		if (cpf_cnpj.length()==11) {
 			this.cpf_cnpj = cpf_cnpj;
 		}

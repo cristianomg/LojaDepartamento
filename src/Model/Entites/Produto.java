@@ -7,7 +7,6 @@ import Model.Entites.Logradouro.Cidade;
 
 public class Produto implements Serializable{
 	private static final long serialVersionUID = -1078825280829539490L;
-	private static int contador;
 	private int id;
 	private String nome;
 	private String descricao;
@@ -18,20 +17,18 @@ public class Produto implements Serializable{
 	private ArrayList<VendaProduto> listaVendaProduto = new ArrayList<VendaProduto>();
 	private Departamento departamento;
 	
-	public Produto(String nome, String descricao, float preco, int quantidade, Departamento departamento) {
-		this.id = contador;
+	public Produto(int id, String nome, String descricao, float preco, int quantidade, Departamento departamento) {
+		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
 		this.quantidade = quantidade;
 		this.produtoMarca = null;
 		this.departamento = departamento;
-		contador++;
 	}
 	public Produto(int id, String nome, String descricao, float preco, int quantidade, Departamento departamento,ArrayList<Produto> listaSimilar,
 			Produto produtoMarca, ArrayList<VendaProduto> listaVendaProduto) {
-		this(nome, descricao, preco, quantidade, departamento);
-		this.id = id;
+		this(id, nome, descricao, preco, quantidade, departamento);
 		this.listaSimilar = listaSimilar;
 		this.produtoMarca = produtoMarca;
 		this.listaVendaProduto = listaVendaProduto;

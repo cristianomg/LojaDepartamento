@@ -54,16 +54,18 @@ public class FuncionarioDAO implements InterfaceDAO<Funcionario> {
 	}
 
 	@Override
-	public boolean atualizar(Funcionario objetoAntigo, Funcionario novoObjeto) {
-		for (Funcionario f: listaFuncionario) {
-			if(objetoAntigo.getMatricula().equals(f.getMatricula())) {
-				listaFuncionario.remove(f);
-				listaFuncionario.add(novoObjeto);
-				this.save();
-				return true;
-			}
+	public boolean atualizar(Funcionario novoObjeto) {
+		Funcionario antigo;
+		try {
+			antigo = this.getFuncionario(novoObjeto.getMatricula());
+			listaFuncionario.remove(antigo);
+			listaFuncionario.add(novoObjeto);
+			this.save();
+			return true;
+		} catch (FuncionarioNaoEncontradoException e) {
+			System.out.println(e.getMessage());
+			return false;
 		}
-		return false;
 	}
 	public Funcionario getFuncionario(String matricula, String senha) throws FuncionarioNaoEncontradoException {
 		for (Funcionario f: listaFuncionario) {

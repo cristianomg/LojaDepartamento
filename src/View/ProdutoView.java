@@ -1,10 +1,52 @@
 package View;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 import Model.Entites.Produto;
 
 public class ProdutoView {
+	static Scanner sc = new Scanner(System.in);
+	
+	public static HashMap<String, String> cadastrarProduto() {
+		System.out.printf("%-18s%s%-20s%s%-18s", "--------------------", "  ","Cadastro de Produtos"," ", "---------------------");
+		System.out.println();
+		HashMap<String, String> response = new HashMap<String, String>();
+		System.out.print("Informe o nome do produto: ");
+		String nome = sc.nextLine();
+		response.put("nome", nome);
+		System.out.print("Informe a Preço unitario do produto: ");
+		String preco = sc.nextLine();
+		response.put("preco", preco);
+		System.out.print("Informe a descrição do produto: ");
+		String descricao = sc.nextLine();
+		response.put("descricao", descricao);
+		System.out.print("Informe o Id do departamento que o produto será vendido: ");
+		String idDepartamento = sc.nextLine();
+		response.put("idDepartamento", idDepartamento);
+		return response;
+	}
+	
+	public static HashMap<String, String> cadastrarProdutoSimilar() {
+		System.out.printf("%-18s%s%-20s%s%-18s", "--------------------", "  ","Cadastro de Produtos Similar"," ", "---------------------");
+		System.out.println();
+		HashMap<String, String> response = new HashMap<String, String>();
+		System.out.print("Informe o nome do produto: ");
+		String nome = sc.nextLine();
+		response.put("nome", nome);
+		System.out.print("Informe a Preço unitario do produto: ");
+		String preco = sc.nextLine();
+		response.put("preco", preco);
+		System.out.print("Informe a descrição do produto: ");
+		String descricao = sc.nextLine();
+		response.put("descricao", descricao);
+		System.out.print("Informe o id do Produto Original: ");
+		String produtoOriginal = sc.nextLine();
+		response.put("produtoOriginal", produtoOriginal);
+		return response;
+	}
+	
 	public static void listaProdutos(List<Produto> produtos) {
 	System.out.printf("%-23s%s%-20s%s%-23s", "----------------------", " ","X Y Z Comercio LTDA","  ", "-----------------------");
 	System.out.println();
