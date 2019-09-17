@@ -5,7 +5,6 @@
   <version>0.0.1-SNAPSHOT</version>
   <build>
     <sourceDirectory>src</sourceDirectory>
-    <testSourceDirectory>Testes</testSourceDirectory>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -17,4 +16,5 @@
       </plugin>
     </plugins>
   </build>
+
 </project>
