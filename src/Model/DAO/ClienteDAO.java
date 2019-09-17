@@ -82,7 +82,7 @@ public class ClienteDAO implements InterfaceDAO <Cliente> {
 	
 	public void save() {
 		try {
-			FileOutputStream out = new FileOutputStream("clientes");
+			FileOutputStream out = new FileOutputStream("database/clientes");
 			ObjectOutputStream objOut = new ObjectOutputStream(out);
 			
 			objOut.writeObject(this.listaClientes);
@@ -97,9 +97,9 @@ public class ClienteDAO implements InterfaceDAO <Cliente> {
 	}
 	
 	public List<Cliente> load() {
-		if(new File("clientes").canRead() == true) {
+		if(new File("database/clientes").canRead() == true) {
 			try {
-				FileInputStream input = new FileInputStream("clientes");
+				FileInputStream input = new FileInputStream("database/clientes");
 				ObjectInputStream objIn = new ObjectInputStream(input);
 				List<Cliente> listaClientes = (List<Cliente>) objIn.readObject();
 				objIn.close();

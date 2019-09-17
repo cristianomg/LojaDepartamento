@@ -45,7 +45,7 @@ public class ClienteView {
 	public static void listarClientes(List<Cliente> clientes) {
 		System.out.printf("%-23s%s%-20s%s%-23s", "----------------------", " ","X Y Z Comercio LTDA","  ", "-----------------------");
 		System.out.println();
-		System.out.printf("%-20s%s%-20s%s%-20s", "----------------------", "   ","Menu de cadastros"," ", "-----------------------");
+		System.out.printf("%-20s%s%-20s%s%-20s", "----------------------", "   ","Listagem de Clientes"," ", "-----------------------");
 		System.out.println();
 		System.out.println();
 		System.out.printf("%-4s%-2s%-50s%-2s%-11s","ID", " ","Nome do Cliente", " ", "CPF/CNPJ");

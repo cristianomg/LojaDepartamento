@@ -22,7 +22,7 @@ public class ControllerCadastro {
 	private static ProdutoDAO produtos = ProdutoDAO.getInstance();
 	
 	public static void cadastrarCliente() {
-			//HashMap<String, String>infoCliente = ClienteView.cadastroCliente();
+		//HashMap<String, String>infoCliente = ClienteView.cadastroCliente();
 		String nome = "cristiano"; // voltar pra view
 		String cpf_cnpj = "00000000000"; // voltar pra view
 		try {
@@ -94,7 +94,7 @@ public class ControllerCadastro {
 		try {
 			Departamento departamento = departamentos.getDepartamento(0);
 			Produto p = new Produto(nome, descricao, preco, quantidade, departamento);
-			produtos.getLista().add(p);
+			produtos.inserir(p);
 			System.out.println("Produto Cadastrado com sucesso!!!");
 		}
 		catch (DepartamentoNaoEncontradoException e){

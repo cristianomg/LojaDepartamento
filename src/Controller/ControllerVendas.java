@@ -83,7 +83,7 @@ public class ControllerVendas {
 		try {
 			venda = vendas.getVenda(0); // view para busca pela venda
 			float precoTotal = venda.calcularPrecoFinal();
-			System.out.println("Valor da venda até o momento: "+ precoTotal);
+			System.out.println("Valor da venda atÃ© o momento: "+ precoTotal);
 			
 		} catch (VendaNaoEncontradaException e) {
 			System.out.println(e.getMessage());

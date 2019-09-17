@@ -1,3 +1,4 @@
+
 package Exceptions;
 
 public class QuantidadeInsuficienteException extends Exception{

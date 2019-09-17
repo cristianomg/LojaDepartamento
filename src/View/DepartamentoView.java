@@ -24,7 +24,7 @@ public class DepartamentoView {
 			System.out.println("Lista de Produtos");
 			System.out.printf("%-4s%-2s%-38s%-2s%-10s%-2s%-5s","----", " ","-------------------------------------", " ", "-----", " ", "-----------");
 			System.out.println();
-			System.out.printf("%-4s%-2s%-38s%-2s%-10s%-2s%-5s","ID", " ","Nome dos Produtos do Departamento", " ", "Preço", " ", "Quantidade");
+			System.out.printf("%-4s%-2s%-38s%-2s%-10s%-2s%-5s","ID", " ","Nome dos Produtos do Departamento", " ", "PreÃ§o", " ", "Quantidade");
 			System.out.println();
 			System.out.printf("%-4s%-2s%-38s%-2s%-10s%-2s%-5s","----", " ","-------------------------------------", " ", "-----", " ", "-----------");
 			System.out.println();

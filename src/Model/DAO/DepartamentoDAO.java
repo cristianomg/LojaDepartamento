@@ -1,3 +1,4 @@
+
 package Model.DAO;
 
 import java.io.File;
@@ -50,7 +51,7 @@ public class DepartamentoDAO implements InterfaceDAO <Departamento> {
 				return true;
 			}
 		}
-		System.out.println("Erro: Departamento não encontrado no sistema!!!");
+		System.out.println("Erro: Departamento nï¿½o encontrado no sistema!!!");
 		return false;
 	}
 
@@ -71,7 +72,7 @@ public class DepartamentoDAO implements InterfaceDAO <Departamento> {
 				return dep;
 			}
 		}
-		throw new DepartamentoNaoEncontradoException("Erro: Departamento não encontrado no sistema!!");
+		throw new DepartamentoNaoEncontradoException("Erro: Departamento nï¿½o encontrado no sistema!!");
 	}
 	
 	public Departamento getDepartamento(int id) throws DepartamentoNaoEncontradoException {
@@ -80,13 +81,13 @@ public class DepartamentoDAO implements InterfaceDAO <Departamento> {
 				return dep;
 			}
 		}
-		throw new DepartamentoNaoEncontradoException("Erro: Departamento não encontrado no sistema!!");
+		throw new DepartamentoNaoEncontradoException("Erro: Departamento nï¿½o encontrado no sistema!!");
 
 	}
 	
 	public void save() {
 		try {
-			FileOutputStream out = new FileOutputStream("departamentos");
+			FileOutputStream out = new FileOutputStream("database/departamentos");
 			ObjectOutputStream objOut = new ObjectOutputStream(out);
 			
 			objOut.writeObject(this.listaDepartamentos);
@@ -101,9 +102,9 @@ public class DepartamentoDAO implements InterfaceDAO <Departamento> {
 	}
 	
 	public List<Departamento> load() {
-		if(new File("departamentos").canRead() == true) {
+		if(new File("database/departamentos").canRead() == true) {
 			try {
-				FileInputStream input = new FileInputStream("departamentos");
+				FileInputStream input = new FileInputStream("database/departamentos");
 				ObjectInputStream objIn = new ObjectInputStream(input);
 				List<Departamento> listaDepartamentos = (List<Departamento>) objIn.readObject();
 				objIn.close();

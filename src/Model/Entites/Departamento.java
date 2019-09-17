@@ -69,7 +69,7 @@ public class Departamento implements Serializable {
 			this.listFuncionario.add(funcionario);
 		}
 		else {
-			throw new ObjetoExisteException(String.format("O funcionario %s ja esta cadastrado", funcionario.getNome())); 
+			throw new ObjetoExisteException(String.format("O funcionario %s já esta cadastrado", funcionario.getNome())); 
 		}
 	}
 	public List<Produto> getProdutos(){

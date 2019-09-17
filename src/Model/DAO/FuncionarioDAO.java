@@ -83,7 +83,7 @@ public class FuncionarioDAO implements InterfaceDAO<Funcionario> {
 	}
 	public void save() {
 		try {
-			FileOutputStream out = new FileOutputStream("funcionarios");
+			FileOutputStream out = new FileOutputStream("database/funcionarios");
 			ObjectOutputStream objOut = new ObjectOutputStream(out);
 			
 			objOut.writeObject(this.listaFuncionario);
@@ -98,9 +98,9 @@ public class FuncionarioDAO implements InterfaceDAO<Funcionario> {
 	}
 	
 	public List<Funcionario> load() {
-		if(new File("funcionarios").canRead() == true) {
+		if(new File("database/funcionarios").canRead() == true) {
 			try {
-				FileInputStream input = new FileInputStream("funcionarios");
+				FileInputStream input = new FileInputStream("database/funcionarios");
 				ObjectInputStream objIn = new ObjectInputStream(input);
 				List<Funcionario> listaFuncionarios = (List<Funcionario>) objIn.readObject();
 				objIn.close();

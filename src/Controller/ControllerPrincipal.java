@@ -165,7 +165,7 @@ public class ControllerPrincipal {
 				this.controllerPrincipal();
 			}
 			else {
-				System.out.println("Opção invalida!!!");
+				System.out.println("OpÃ§Ã£o invalida!!!");
 			}
 	}
 	}

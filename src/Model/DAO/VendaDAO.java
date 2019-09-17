@@ -67,12 +67,12 @@ public class VendaDAO implements InterfaceDAO<Venda>{
 				return v;
 			}
 		}
-		throw new VendaNaoEncontradaException("Erro: Codigo de venda não encontrado, tente novamente!!!");
+		throw new VendaNaoEncontradaException("Erro: Codigo de venda nï¿½o encontrado, tente novamente!!!");
 	}
 	
 	public void save() {
 		try {
-			FileOutputStream out = new FileOutputStream("vendas");
+			FileOutputStream out = new FileOutputStream("database/vendas");
 			ObjectOutputStream objOut = new ObjectOutputStream(out);
 			
 			objOut.writeObject(this.listaVendas);
@@ -87,9 +87,9 @@ public class VendaDAO implements InterfaceDAO<Venda>{
 	}
 	
 	public List<Venda> load() {
-		if(new File("vendas").canRead() == true) {
+		if(new File("database/vendas").canRead() == true) {
 			try {
-				FileInputStream input = new FileInputStream("vendas");
+				FileInputStream input = new FileInputStream("database/vendas");
 				ObjectInputStream objIn = new ObjectInputStream(input);
 				List<Venda> listaFuncionarios = (List<Venda>) objIn.readObject();
 				objIn.close();

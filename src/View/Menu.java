@@ -33,19 +33,19 @@ public class Menu {
 				System.out.println("1. Menu de cadastro");
 				System.out.println("2. Menu de vendas");
 				System.out.println("3. Menu de relatorios");
-				System.out.println("4. Menu de movimentações");
+				System.out.println("4. Menu de movimentaÃ§Ãµes");
 				System.out.println("5. Menu de listagens");
 					respostaPrincipal = sc.nextInt();
 					if (respostaPrincipal > 0 && respostaPrincipal < 6){
 						menuPrincipal = 0;
 					}
 					else {
-						System.out.println("Opção Invalida!!!");
+						System.out.println("OpÃ§Ã£o Invalida!!!");
 					}
 				}
 			}
 		catch(InputMismatchException e) {
-			System.out.println("Opção Invalida!!!");
+			System.out.println("OpÃ§Ã£o Invalida!!!");
 			Menu m = new Menu();
 			respostaPrincipal = m.menuPrincipal();
 			}
@@ -70,7 +70,7 @@ public class Menu {
 				menuCadastro = 0;
 			}
 			else {
-				System.out.println("Opção invalida!!!");
+				System.out.println("OpÃ§Ã£o invalida!!!");
 			}
 		}
 		}
@@ -100,7 +100,7 @@ public class Menu {
 				menuCadastro = 0;
 			}
 			else {
-				System.out.println("Opção invalida!!!");
+				System.out.println("OpÃ§Ã£o invalida!!!");
 			}
 		}
 		}
@@ -129,7 +129,7 @@ public class Menu {
 				menuListagem = 0;
 			}
 			else {
-				System.out.println("Opção invalida!!!");
+				System.out.println("OpÃ§Ã£o invalida!!!");
 			}
 		}
 		}
@@ -158,7 +158,7 @@ public class Menu {
 				menuMovimentacoes = 0;
 			}
 			else {
-				System.out.println("Opção invalida!!!");
+				System.out.println("OpÃ§Ã£o invalida!!!");
 			}
 		}
 		}

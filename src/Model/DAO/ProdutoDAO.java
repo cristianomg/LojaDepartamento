@@ -83,11 +83,11 @@ public class ProdutoDAO implements InterfaceDAO<Produto> {
 				return p;
 			}
 		}
-		throw new ProdutoNaoEncontradoException("Erro: Produto n„o encontrado!!!");
+		throw new ProdutoNaoEncontradoException("Erro: Produto n√£o encontrado!!!");
 	}
 	public void save() {
 		try {
-			FileOutputStream out = new FileOutputStream("produtos");
+			FileOutputStream out = new FileOutputStream("database/produtos");
 			ObjectOutputStream objOut = new ObjectOutputStream(out);
 			
 			objOut.writeObject(this.listaProdutos);
@@ -102,9 +102,9 @@ public class ProdutoDAO implements InterfaceDAO<Produto> {
 	}
 	
 	public List<Produto> load() {
-		if(new File("produtos").canRead() == true) {
+		if(new File("database/produtos").canRead() == true) {
 			try {
-				FileInputStream input = new FileInputStream("produtos");
+				FileInputStream input = new FileInputStream("database/produtos");
 				ObjectInputStream objIn = new ObjectInputStream(input);
 				List<Produto> listaProdutos = (List<Produto>) objIn.readObject();
 				objIn.close();
@@ -124,3 +124,4 @@ public class ProdutoDAO implements InterfaceDAO<Produto> {
 		
 	}
 }
+
