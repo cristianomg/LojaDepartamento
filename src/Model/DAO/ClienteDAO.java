@@ -1,5 +1,12 @@
 package Model.DAO;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,9 +15,10 @@ import Model.Entites.Cliente;
 
 public class ClienteDAO implements InterfaceDAO <Cliente> {
 	private static ClienteDAO uniqueInstance;
-	private List<Cliente> listaClientes = new ArrayList<Cliente>();
+	private List<Cliente> listaClientes;
 	
 	private ClienteDAO(){
+		this.listaClientes = this.load();
 	}
 	
 	public static synchronized ClienteDAO getInstance() {
@@ -30,6 +38,7 @@ public class ClienteDAO implements InterfaceDAO <Cliente> {
 	public boolean inserir(Cliente objeto) {
 		try{
 			listaClientes.add(objeto);
+			this.save();
 			return true;
 		}
 		catch (Exception e){
@@ -42,6 +51,7 @@ public class ClienteDAO implements InterfaceDAO <Cliente> {
 		for(Cliente cliente: listaClientes) {
 			if (objeto.getCpf_cnpj().equals(cliente.getCpf_cnpj())){
 				listaClientes.remove(objeto);
+				this.save();
 				return true;
 			}
 		}
@@ -54,6 +64,7 @@ public class ClienteDAO implements InterfaceDAO <Cliente> {
 			if (cliente.getCpf_cnpj().equals(antigo.getCpf_cnpj())){
 				listaClientes.remove(cliente);
 				listaClientes.add(novo);
+				this.save();
 				return true;
 			}
 		}
@@ -69,4 +80,42 @@ public class ClienteDAO implements InterfaceDAO <Cliente> {
 		throw new ClienteNaoEncontradoException("Erro: cpf_cnpj invalido, tente novamente!!!");
 	}
 	
+	public void save() {
+		try {
+			FileOutputStream out = new FileOutputStream("clientes");
+			ObjectOutputStream objOut = new ObjectOutputStream(out);
+			
+			objOut.writeObject(this.listaClientes);
+			objOut.close();
+		}
+		catch (FileNotFoundException e){
+			System.out.println(e.getMessage());
+		}
+		catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	public List<Cliente> load() {
+		if(new File("clientes").canRead() == true) {
+			try {
+				FileInputStream input = new FileInputStream("clientes");
+				ObjectInputStream objIn = new ObjectInputStream(input);
+				List<Cliente> listaClientes = (List<Cliente>) objIn.readObject();
+				objIn.close();
+				return listaClientes;
+			}
+			catch (FileNotFoundException e) {
+				System.out.println(e.getMessage());
+			}
+			catch(ClassNotFoundException e) {
+				System.out.println(e.getMessage());
+			}
+			catch(IOException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return new ArrayList<Cliente>();
+		
+	}
 }

@@ -1,11 +1,13 @@
 package Model.Entites;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import Exceptions.ValidateCpfException;
 import Model.Entites.Logradouro.Endereco;
 
-public class Cliente {
+public class Cliente implements Serializable{
+	private static final long serialVersionUID = 6061610663606490041L;
 	private static int codigo;
 	private int id;
 	private String nome;

@@ -1,8 +1,10 @@
 package Model.Entites;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Funcionario {
+public class Funcionario implements Serializable{
+	private static final long serialVersionUID = -7844914350878174481L;
 	private String nome;
 	private String matricula;
 	private String senha;

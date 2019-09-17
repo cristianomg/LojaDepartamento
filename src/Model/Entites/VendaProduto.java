@@ -1,6 +1,9 @@
 package Model.Entites;
 
-public class VendaProduto {
+import java.io.Serializable;
+
+public class VendaProduto implements Serializable {
+	private static final long serialVersionUID = -3472689279816084286L;
 	private Venda venda;
 	private Produto produto;
 	private float preco;

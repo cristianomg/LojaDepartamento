@@ -1,8 +1,10 @@
 package Model.Entites.Logradouro;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Estado {
+public class Estado implements Serializable{
+	private static final long serialVersionUID = 5627787656797924388L;
 	private static int contador;
 	private int id;
 	private String nome;

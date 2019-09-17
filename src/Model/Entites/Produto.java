@@ -1,10 +1,12 @@
 package Model.Entites;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import Model.Entites.Logradouro.Cidade;
 
-public class Produto {
+public class Produto implements Serializable{
+	private static final long serialVersionUID = -1078825280829539490L;
 	private static int contador;
 	private int id;
 	private String nome;

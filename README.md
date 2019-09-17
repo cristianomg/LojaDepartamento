@@ -7,7 +7,6 @@ Estudo de Caso – Loja Departamento
 funcionarios estão ligados a um departamento.</p> 
 <p>Cada produto so pode ser vendido por funcionarios do mesmo departamento do produto.</p> 
 <p>Os produtos e funcionarios podem ser deslocados de um departamento para outro</p>
-
 <p>O projeto precisa contem todas as classes sugeridas no documento do projeto, devem ser feitos testes unitarios assim utilização de uma plataforma de testes automatizados</p>
 
 <p>Para o trabalho foi escolhido realizar os testes utilizando o JUnit</p>
@@ -28,13 +27,13 @@ funcionarios estão ligados a um departamento.</p>
 
 ## Feitos
 1. Implementação das classes do Model;
-2. Implementação das classes DAO
-3. Implementação das classes controller:
-3.1 Cadastro de Clientes, Departamentos, Funcionarios, Produtos;
-3.2. iniciar Venda de produtos e inserção de produtos na venda;
+2. Implementação das classes DAO;
+3. Implementação das classes controlle:
++ Cadastro de Clientes, Departamentos, Funcionarios, Produtos;
++ iniciar Venda de produtos e inserção de produtos na venda;
 4. Implementação das classes Views:
-4.1. Listagem de Clientes, Departamentos, Funcionarios, Produtos;
-
++ Listagem de Clientes, Departamentos, Funcionarios, Produtos;
+5. persistência de dados em binário;
 
 
 

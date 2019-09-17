@@ -1,6 +1,9 @@
 package Model.Entites.Logradouro;
 
-public class Endereco {
+import java.io.Serializable;
+
+public class Endereco implements Serializable{
+	private static final long serialVersionUID = -2015754334260585417L;
 	private static int contador;
 	private int id;
 	private String rua;

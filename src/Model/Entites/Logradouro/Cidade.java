@@ -1,8 +1,10 @@
 package Model.Entites.Logradouro;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Cidade {
+public class Cidade implements Serializable{
+	private static final long serialVersionUID = -6924117632726453289L;
 	private int id;
 	private String nome; 
 	private String sigla;

@@ -1,5 +1,6 @@
 package Model.Entites;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -7,7 +8,8 @@ import Exceptions.QuantidadeInsuficienteException;
 import Exceptions.VendaEncerradaExpcetion;
 import Exceptions.VendaNaoEncontradaException;
 
-public class Venda {
+public class Venda implements Serializable {
+	private static final long serialVersionUID = 5197014291763156867L;
 	private static int id;
 	private int codigo;
 	private LocalDate data;

@@ -1,12 +1,14 @@
 package Model.Entites;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import Exceptions.ObjetoExisteException;
 import Model.DAO.ProdutoDAO;
 
-public class Departamento {
+public class Departamento implements Serializable {
+	private static final long serialVersionUID = 6618504795044699367L;
 	private static int contador;
 	private int id;
 	private String nome;

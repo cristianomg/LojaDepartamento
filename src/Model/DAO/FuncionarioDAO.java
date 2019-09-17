@@ -1,5 +1,12 @@
 package Model.DAO;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +18,7 @@ public class FuncionarioDAO implements InterfaceDAO<Funcionario> {
 	private List<Funcionario> listaFuncionario = new ArrayList<Funcionario>();
 	
 	private FuncionarioDAO(){
+		this.listaFuncionario = this.load();
 	}
 	
 	public static synchronized FuncionarioDAO getInstance() {
@@ -29,6 +37,7 @@ public class FuncionarioDAO implements InterfaceDAO<Funcionario> {
 	@Override
 	public boolean inserir(Funcionario funcionario) {
 		listaFuncionario.add(funcionario);
+		this.save();
 		return false;
 	}
 
@@ -37,6 +46,7 @@ public class FuncionarioDAO implements InterfaceDAO<Funcionario> {
 		for (Funcionario f: listaFuncionario) {
 			if(funcionario.getMatricula().equals(f.getMatricula())) {
 				listaFuncionario.remove(f);
+				this.save();
 				return true;
 			}
 		}
@@ -49,6 +59,7 @@ public class FuncionarioDAO implements InterfaceDAO<Funcionario> {
 			if(objetoAntigo.getMatricula().equals(f.getMatricula())) {
 				listaFuncionario.remove(f);
 				listaFuncionario.add(novoObjeto);
+				this.save();
 				return true;
 			}
 		}
@@ -69,5 +80,43 @@ public class FuncionarioDAO implements InterfaceDAO<Funcionario> {
 			}
 		}
 		throw new FuncionarioNaoEncontradoException("Erro: Matricula ou senha invalida tente novamente!!!");
+	}
+	public void save() {
+		try {
+			FileOutputStream out = new FileOutputStream("funcionarios");
+			ObjectOutputStream objOut = new ObjectOutputStream(out);
+			
+			objOut.writeObject(this.listaFuncionario);
+			objOut.close();
+		}
+		catch (FileNotFoundException e){
+			System.out.println(e.getMessage());
+		}
+		catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	public List<Funcionario> load() {
+		if(new File("funcionarios").canRead() == true) {
+			try {
+				FileInputStream input = new FileInputStream("funcionarios");
+				ObjectInputStream objIn = new ObjectInputStream(input);
+				List<Funcionario> listaFuncionarios = (List<Funcionario>) objIn.readObject();
+				objIn.close();
+				return listaFuncionarios;
+			}
+			catch (FileNotFoundException e) {
+				System.out.println(e.getMessage());
+			}
+			catch(ClassNotFoundException e) {
+				System.out.println(e.getMessage());
+			}
+			catch(IOException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return new ArrayList<Funcionario>();
+		
 	}
 }
