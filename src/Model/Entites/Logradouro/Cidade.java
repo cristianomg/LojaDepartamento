@@ -72,7 +72,11 @@ public class Cidade implements Serializable{
 	public void addEnderecoLista(Endereco endereco) {
 		boolean contem = false;
 		for (Endereco e: this.listaEndereco) {
-			if (e.getId() == endereco.getId()){
+			if (e.getBairro() == endereco.getBairro()
+				&& e.getCep().equals(endereco.getCep())
+				&& e.getCidade().equals(endereco.getCidade())
+				&& e.getNumero()== endereco.getNumero()
+				&& e.getRua().equals(endereco.getRua())){
 				contem = true;
 			}
 		}

@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Exceptions.DepartamentoNaoEncontradoException;
-import Model.Entites.Cliente;
 import Model.Entites.Departamento;
 
 public class DepartamentoDAO implements InterfaceDAO <Departamento> {
