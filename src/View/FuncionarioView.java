@@ -65,18 +65,19 @@ public class FuncionarioView {
 		response.put("dataFinal", dataFinal);
 		return response;
 	}
-// precisa refazer esse metodo está dando erro 	
+
 	public void buscarFuncionarioResponse(Funcionario funcionario, List<Venda> vendasPeriodo, LocalDate dataInicio, LocalDate dataFinal) {
+		String str = "-";
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-		System.out.println("-".repeat(69));
+		System.out.println(str.repeat(69));
 		System.out.printf("%-20s%-30s%-10s%s", "Nome do Funcionario: ",funcionario.getNome(), "matricula", funcionario.getMatricula());
 		System.out.println();
-		System.out.println("-".repeat(69));
+		System.out.println(str.repeat(69));
 		System.out.println("Vendas efetuadas no periodo de " + dataInicio.format(formatter) +" à " + dataFinal.format(formatter));
 		System.out.println();
 		if(vendasPeriodo.size()>0) {
 			System.out.printf("%-30s%-10s", "Codigo da Venda", "Data");
-			System.out.println("-".repeat(69));
+			System.out.println(str.repeat(69));
 			for(Venda venda: vendasPeriodo) {
 				System.out.printf("%-30s%-10s",venda.getCodigo(), venda.getData().format(formatter));
 			}
