@@ -45,25 +45,32 @@ public class ControllerVendas {
 		Venda venda = null;
 		boolean finalizarAddProdutos;
 		finalizarAddProdutos = true;
-		Venda vendaAntiga = null;
 		try {
-			venda = vendas.getVenda(0);
-			vendaAntiga = venda;
+			venda = vendas.getVenda(0);  // view para busca pela venda
 			VendaView.listaProdutosDepartamento(produtos.getLista(), venda.getFuncionario().getDepartamento());
-			while (finalizarAddProdutos) {
-				System.out.println("id do produto [-1 para finalizar]: "); // criar view
-				Produto produto = produtos.getProduto(0);
-				if (produto.getDepartamento().equals(funcionario.getDepartamento())) {
-					venda.adicionarProduto(produto, 1, 10); // criar view
-					System.out.println(venda.getListaVendaProduto());
+			while (finalizarAddProdutos){
+				System.out.println("id do produto [-1 para finalizar]: "); // criar vi
+				int opc = sc.nextInt();
+				if (opc != -1) {
+					Produto produto = produtos.getProduto(0);
+					if (produto.getDepartamento().equals(funcionario.getDepartamento())) {
+						venda.adicionarProduto(produto, 1, 10); // criar view
+						System.out.println(venda.getListaVendaProduto());
+						finalizarAddProdutos = false;
+						vendas.atualizar(venda);
+					}
+					else {
+						System.out.println("Erro: Esse produto não pertence ao departamento.");
+					}
+				}
+				else {
 					finalizarAddProdutos = false;
-					vendas.atualizar(venda);
 				}
 			}
 		} catch (VendaNaoEncontradaException | ProdutoNaoEncontradoException | VendaEncerradaExpcetion | QuantidadeInsuficienteException e) {
 			System.out.println(e.getMessage());
 			finalizarAddProdutos = false;
-		} // view para busca pela venda
+		}
 
 
 		}
@@ -93,11 +100,8 @@ public class ControllerVendas {
 
 	public void finalizarVenda(){
 		Venda venda = null;
-		Venda vendaAntiga = null;
-
 		try {
 			venda = vendas.getVenda(0); // view para busca pela venda
-			vendaAntiga = venda;
 			venda.finalizarVenda();
 			vendas.atualizar(venda);
 		} catch (VendaNaoEncontradaException | VendaEncerradaExpcetion e) {

@@ -13,6 +13,7 @@ public class ControllerPrincipal {
 	private Scanner sc = new Scanner(System.in);
 	boolean repetir = true;
 	FuncionarioDAO funcionarioDAO = FuncionarioDAO.getInstance();
+
 	
 	public ControllerPrincipal() {
 		menu = new Menu();
@@ -35,30 +36,31 @@ public class ControllerPrincipal {
 		case 5:
 			this.controllerListagem();
 			break;
+		case 6: controllerBusca();
 		}
 		
 	}
 	public void controllerCadastro() {
 		int respCadastro = menu.menuCadastro();
+		ControllerCadastro controllerCadastro = new ControllerCadastro();
 		switch(respCadastro) {
 		case 1:
-			ControllerCadastro.cadastrarCliente();
+			controllerCadastro.cadastrarCliente();
 			break;
 		case 2:
-			ControllerCadastro.cadastrarFuncionario();
+			controllerCadastro.cadastrarFuncionario();
 			break;
 		case 3:
-			ControllerCadastro.cadastrarDepartamento();
+			controllerCadastro.cadastrarDepartamento();
 			break;
 		case 4:
-			ControllerCadastro.cadastrarProduto();
+			controllerCadastro.cadastrarProduto();
 			break;
 		case 5:
-			ControllerCadastro.cadastrarProdutoSimilar();
+			controllerCadastro.cadastrarProdutoSimilar();
 			break;
 		}
-		this.controllerPrincipal();
-		//this.retornarMenuPrincipal();
+		this.retornarMenuPrincipal();
 	}
 	public void controllerVendas() {
 		boolean running;
@@ -96,7 +98,7 @@ public class ControllerPrincipal {
 			running = false;
 			this.controllerPrincipal();
 			e.getStackTrace();
-			//this.retornarMenuPrincipal();
+			this.retornarMenuPrincipal();
 		}
 		
 
@@ -107,47 +109,63 @@ public class ControllerPrincipal {
 	}
 	public void controllerMovimentacoes() {
 		int respostaListagem = menu.menuMovimentacoes();
+		ControllerMovimentacoes controllerMovimentacoes = new ControllerMovimentacoes();
 		switch(respostaListagem) {
 		case 1:
-			ControllerMovimentacoes.comprarProduto();
+			controllerMovimentacoes.comprarProduto();
 			break;
 		case 2:
-			ControllerMovimentacoes.moverProdutoDepartamento();
+			controllerMovimentacoes.moverProdutoDepartamento();
 			break;
 		case 3:
-			ControllerMovimentacoes.moverFuncionarioDepartamento();
+			controllerMovimentacoes.moverFuncionarioDepartamento();
 			break;
-		case 4:
-			ControllerListagem.listarProdutos();
-			break;
-		case 5:
-			ControllerListagem.listarVendas();
 		}
-		this.controllerPrincipal();
-		//this.retornarMenuPrincipal();
+		this.retornarMenuPrincipal();
 	}
+	
+	
 
 	public void controllerListagem() {
 		int respostaListagem = menu.menuListagem();
+		ControllerListagem controllerListagem = new ControllerListagem();
 		switch(respostaListagem) {
 		case 1:
-			ControllerListagem.listarClientes();
+			controllerListagem.listarClientes();
 			break;
 		case 2:
-			ControllerListagem.listaDepartamentos();
+			controllerListagem.listaDepartamentos();
 			break;
 		case 3:
-			ControllerListagem.listaFuncionario();
+			controllerListagem.listaFuncionario();
 			break;
 		case 4:
-			ControllerListagem.listarProdutos();
+			controllerListagem.listarProdutos();
 			break;
 		case 5:
-			ControllerListagem.listarVendas();
+			controllerListagem.listarVendas();
+			break;
 		}
-		this.controllerPrincipal();
-		//this.retornarMenuPrincipal();
+		this.retornarMenuPrincipal();
 	}
+	
+	public void controllerBusca() {
+		int respostaListagem = menu.menuBusca();
+		ControllerBusca controllerBusca = new ControllerBusca();
+		switch(respostaListagem) {
+		case 1:
+			controllerBusca.buscarVendedor();
+			break;
+		case 2:
+			controllerBusca.buscarRegistroVenda();
+			break;
+		case 3:
+			controllerBusca.buscarProdutoSimiliar();
+			break;
+		}
+		this.retornarMenuPrincipal();
+	}
+
 	
 	public Funcionario autentificacao() throws FuncionarioNaoEncontradoException {
 		HashMap<String, String> dadosFuncionario = menu.autorizacaoView();
@@ -156,17 +174,14 @@ public class ControllerPrincipal {
 	}
 	
 	private void retornarMenuPrincipal() {
-		repetir = true;
-		while(repetir) {
-			System.out.println("Digite '1' para voltar pro menu principal");
-			String opc = sc.next();
-			if (opc.equals("1")) {
-				repetir = false;
-				this.controllerPrincipal();
+		System.out.println("Digite '1' para voltar pro menu principal");
+		int opc = sc.nextInt();
+		if (opc==1) {
+			this.controllerPrincipal();
+		}
+		else {
+			System.out.println("Opção invalida!!!");
+			this.retornarMenuPrincipal();
 			}
-			else {
-				System.out.println("Opção invalida!!!");
-			}
-	}
 	}
 }

@@ -7,9 +7,9 @@ import java.util.Scanner;
 import Model.Entites.Produto;
 
 public class ProdutoView {
-	static Scanner sc = new Scanner(System.in);
+	private Scanner sc = new Scanner(System.in);
 	
-	public static HashMap<String, String> cadastrarProduto() {
+	public HashMap<String, String> cadastrarProduto() {
 		System.out.printf("%-18s%s%-20s%s%-18s", "--------------------", "  ","Cadastro de Produtos"," ", "---------------------");
 		System.out.println();
 		HashMap<String, String> response = new HashMap<String, String>();
@@ -28,7 +28,7 @@ public class ProdutoView {
 		return response;
 	}
 	
-	public static HashMap<String, String> cadastrarProdutoSimilar() {
+	public HashMap<String, String> cadastrarProdutoSimilar() {
 		System.out.printf("%-18s%s%-20s%s%-18s", "--------------------", "  ","Cadastro de Produtos Similar"," ", "---------------------");
 		System.out.println();
 		HashMap<String, String> response = new HashMap<String, String>();
@@ -66,5 +66,8 @@ public class ProdutoView {
 		System.out.println();
 		}
 	System.out.println();
+	}
+	public static void buscarProdutoRequest() {
+		
 	}
 }

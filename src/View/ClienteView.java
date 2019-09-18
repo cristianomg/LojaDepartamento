@@ -7,8 +7,9 @@ import java.util.Scanner;
 import Model.Entites.Cliente;
 
 public class ClienteView {
-	static Scanner sc = new Scanner(System.in);
-	public static HashMap<String, String> cadastroCliente() {
+	private Scanner sc = new Scanner(System.in);
+	
+	public HashMap<String, String> cadastroCliente() {
 		HashMap<String, String> retornoCliente = new HashMap<String, String>();
 		System.out.print("Informe o nome do cliente: ");
 		String nome = sc.nextLine();
@@ -19,26 +20,26 @@ public class ClienteView {
 		return retornoCliente;
 		
 	}
-	public static <T> HashMap<String, T> cadastrarEndereco(){
-		HashMap<String, T> retornoEndereco = new HashMap<String, T>();
+	public HashMap<String, String> cadastrarEndereco(){
+		HashMap<String, String> retornoEndereco = new HashMap<String, String>();
 		System.out.print("Informe o nome da rua: ");
 		String rua = sc.nextLine();
-		retornoEndereco.put("rua", (T) rua);
+		retornoEndereco.put("rua", rua);
 		System.out.print("Informe o numero: ");
 		String numero = sc.nextLine();
-		retornoEndereco.put("numero", (T) numero);
+		retornoEndereco.put("numero",  numero);
 		System.out.print("Informe o bairro: ");
 		String bairro = sc.nextLine();
-		retornoEndereco.put("bairro", (T) bairro);
+		retornoEndereco.put("bairro", bairro);
 		System.out.print("Informe o cep: ");
 		String cep = sc.nextLine();
-		retornoEndereco.put("cep", (T) cep);
+		retornoEndereco.put("cep", cep);
 		System.out.print("Informe a cidade: ");
 		String cidade = sc.nextLine();
-		retornoEndereco.put("cidade", (T) cidade);
+		retornoEndereco.put("cidade", cidade);
 		System.out.print("Informe o estado: ");
 		String estado = sc.nextLine();
-		retornoEndereco.put("estado", (T) estado);
+		retornoEndereco.put("estado", estado);
 		return retornoEndereco;
 		
 	}

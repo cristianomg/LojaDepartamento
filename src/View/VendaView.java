@@ -2,6 +2,7 @@ package View;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import Model.Entites.Departamento;
 import Model.Entites.Produto;
@@ -9,7 +10,7 @@ import Model.Entites.Venda;
 import Model.Entites.VendaProduto;
 
 public class VendaView {
-	
+	private Scanner sc = new Scanner(System.in);
 		
 	public static void listaProdutosDepartamento(List<Produto> produtos, Departamento departamento) {
 		System.out.println("Lista de Produtos do departamento: ");
@@ -78,4 +79,24 @@ public class VendaView {
 			}
 		}
 	}
+	public int requestBuscaPorVenda() {
+		System.out.print("Infome o codigo da venda: ");
+		int codigo = Integer.parseInt(sc.nextLine());
+		return codigo;
+		
+	}
+	public static void responseBuscaPorVenda(Venda venda) {
+		System.out.printf("%-6s%-1s%-28s%-1s%-10s%-1s%-10s%-1s%s","Codigo", " ","Funcionario", " ", "Departamento", " ", "Cliente", " ", "Data");
+		System.out.println();
+		System.out.printf("%-6s%-1s%-28s%-1s%-10s%-1s%-10s%-1s%s","------", " ","--------------------------", " ", "------------", " ", "----------", " ", "---------");
+		System.out.println();
+		System.out.printf("%-6s%-1s%-28s%-1s%-10s%-1s%-10s%-1s%s", venda.getCodigo(), " ",venda.getFuncionario().getMatricula(), " ",
+				venda.getFuncionario().getDepartamento().getNome(), " ", venda.getCliente().getNome(), " ", venda.getData());
+		System.out.println();
+		System.out.println();
+		ArrayList<VendaProduto> vendaProdutos = venda.getListaVendaProduto();
+		listarProdutosVenda(vendaProdutos);
+		System.out.println("Preço total: "+ venda.getPrecoTotal());
+	}
 }
+	

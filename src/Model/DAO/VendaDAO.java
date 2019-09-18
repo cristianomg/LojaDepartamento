@@ -35,6 +35,7 @@ public class VendaDAO implements InterfaceDAO<Venda>{
 	@Override
 	public boolean inserir(Venda venda) {
 		listaVendas.add(venda);
+		this.save();
 		return false;
 	}
 
@@ -43,6 +44,7 @@ public class VendaDAO implements InterfaceDAO<Venda>{
 		for(Venda v: listaVendas) {
 			if(v.getCodigo() == venda.getCodigo()) {
 				listaVendas.remove(venda);
+				this.save();
 				return true;
 			}
 		}
@@ -56,6 +58,7 @@ public class VendaDAO implements InterfaceDAO<Venda>{
 			antiga = this.getVenda(novaVenda.getCodigo());
 			listaVendas.remove(antiga);
 			listaVendas.add(novaVenda);
+			this.save();
 			return true;
 		} catch (VendaNaoEncontradaException e) {
 			System.out.println(e.getMessage());

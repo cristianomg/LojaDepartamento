@@ -18,8 +18,9 @@ public class ControllerMovimentacoes {
 	private static DepartamentoDAO departamentos = DepartamentoDAO.getInstance();
 	private static FuncionarioDAO funcionarios = FuncionarioDAO.getInstance();
 	
-	public static void comprarProduto(){
-		HashMap<String, Integer> request = MovimentacaoView.dadosComprarProduto();
+	public void comprarProduto(){
+		MovimentacaoView movimentacaoView = new MovimentacaoView();
+		HashMap<String, Integer> request = movimentacaoView.dadosComprarProduto();
 		try {
 			Produto produto = produtos.getProduto(request.get("idProduto"));
 			produto.addQuantidade(request.get("quantidade")); // pedir pra view a quantidade
@@ -30,9 +31,10 @@ public class ControllerMovimentacoes {
 		}
 		
 	}
-	public static void moverProdutoDepartamento() {
+	public void moverProdutoDepartamento() {
+		MovimentacaoView movimentacaoView = new MovimentacaoView();
 		Produto produto;
-		HashMap<String, Integer> request = MovimentacaoView.dadosMoverProduto();
+		HashMap<String, Integer> request = movimentacaoView.dadosMoverProduto();
 		try {
 			produto = produtos.getProduto(request.get("idProduto"));
 			Departamento departamento = departamentos.getDepartamento(request.get("idDepartamento"));
@@ -50,9 +52,10 @@ public class ControllerMovimentacoes {
 		}
 
 	}
-	public static void moverFuncionarioDepartamento() {
+	public void moverFuncionarioDepartamento() {
+		MovimentacaoView movimentacaoView = new MovimentacaoView();
 		Funcionario funcionario;
-		HashMap<String, String> request = MovimentacaoView.dadosMoverFuncionario();
+		HashMap<String, String> request = movimentacaoView.dadosMoverFuncionario();
 		String matricula = request.get("matricula");
 		int idDepartamento = Integer.parseInt(request.get("idMatricula"));
 		try {

@@ -10,7 +10,7 @@ import Model.Entites.Produto;
 public class DepartamentoView {
 	static Scanner sc = new Scanner(System.in);
 	
-	public static HashMap<String, String> cadastrarDepartamento() {
+	public HashMap<String, String> cadastrarDepartamento() {
 		System.out.printf("%-18s%s%-20s%s%-18s", "--------------------", "  ","Cadastro de Departamentos"," ", "---------------------");
 		System.out.println();
 		HashMap<String, String> response = new HashMap<String, String>();

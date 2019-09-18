@@ -26,8 +26,9 @@ public class ControllerCadastro {
 	private static FuncionarioDAO funcionarios = FuncionarioDAO.getInstance();
 	private static ProdutoDAO produtos = ProdutoDAO.getInstance();
 	
-	public static void cadastrarCliente() {
-		HashMap<String, String>infoCliente = ClienteView.cadastroCliente();
+	public void cadastrarCliente() {
+		ClienteView clienteView = new ClienteView();
+		HashMap<String, String>infoCliente = clienteView.cadastroCliente();
 		String nome = infoCliente.get("nome");
 		String cpf_cnpj = infoCliente.get("cpf_cnpj");
 		try {
@@ -42,19 +43,20 @@ public class ControllerCadastro {
 			System.out.println(e);
 		}
 	}
-	private static Endereco cadastrarEndereco() {
-		HashMap<String, Object> dadosEndereco = ClienteView.cadastrarEndereco();
-		String est = (String) dadosEndereco.get("estado");
-		String cid = (String) dadosEndereco.get("cidade");
-		String r = (String) dadosEndereco.get("rua");
+	private Endereco cadastrarEndereco() {
+		ClienteView clienteView = new ClienteView();
+		HashMap<String, String> dadosEndereco = clienteView.cadastrarEndereco();
+		String est = dadosEndereco.get("estado");
+		String cid =  dadosEndereco.get("cidade");
+		String r =  dadosEndereco.get("rua");
 		Estado estado = new Estado(est); // 
 		Cidade cidade = new Cidade(cid, estado); // 
 		String rua = r; 
 		Endereco endereco = null;
 		try {
-			int numero = Integer.parseInt((String) dadosEndereco.get("numero"));  
-			String bairro = (String) dadosEndereco.get("bairro");
-			String cep = (String) dadosEndereco.get("cep");
+			int numero = Integer.parseInt(dadosEndereco.get("numero"));  
+			String bairro = dadosEndereco.get("bairro");
+			String cep = dadosEndereco.get("cep");
 			endereco = new Endereco(rua , numero, bairro, cep, cidade, estado);
 			cidade.addEnderecoLista(endereco);
 			estado.addCidadeLista(cidade);
@@ -67,8 +69,9 @@ public class ControllerCadastro {
 
 		return endereco;
 	}
-	public static void cadastrarDepartamento() {
-		HashMap<String, String> request = DepartamentoView.cadastrarDepartamento();
+	public void cadastrarDepartamento() {
+		DepartamentoView departamentoView = new DepartamentoView();
+		HashMap<String, String> request = departamentoView.cadastrarDepartamento();
 		String nome = request.get("nome");
 		String sigla = request.get("sigla");
 		int idDepartamento = departamentos.getLista().size();
@@ -77,26 +80,27 @@ public class ControllerCadastro {
 		System.out.println("Departamento Cadastrado com sucesso!!!");
 	}
 	
-	public static void cadastrarFuncionario() {
-		int idDepartamento = FuncionarioView.solicitarDepartamentoID().get("idFuncionario");
+	public void cadastrarFuncionario() {
+		FuncionarioView funcionarioView = new FuncionarioView();
+		int idDepartamento = funcionarioView.solicitarDepartamentoID().get("idDepartamento");
 		try {
-		Departamento departamento = departamentos.getDepartamento(idDepartamento);
-		HashMap<String, String> request = FuncionarioView.cadastrarFuncionario();
-		String nome = request.get("nome");
-		String matricula = request.get("matricula");
-		String senha = request.get("senha");
-		Funcionario f = new Funcionario(nome, matricula, senha); // CRIAR VIEW
-		f.setDepartamento(departamento);
-		funcionarios.inserir(f);
-		System.out.println(funcionarios.getLista().get(0));
-		System.out.println("Funcionario Cadastrado com sucesso!!!");
+			Departamento departamento = departamentos.getDepartamento(idDepartamento);
+			HashMap<String, String> request = funcionarioView.cadastrarFuncionario();
+			String nome = request.get("nome");
+			String matricula = request.get("matricula");
+			String senha = request.get("senha");
+			Funcionario f = new Funcionario(nome, matricula, senha);
+			f.setDepartamento(departamento);
+			funcionarios.inserir(f);
+			System.out.println("Funcionario Cadastrado com sucesso!!!");
 		}
 		catch (DepartamentoNaoEncontradoException e) {
 			System.out.println(e.getMessage());
 		}
 	}
-	public static void cadastrarProduto() {
-		HashMap<String, String> request = ProdutoView.cadastrarProduto();
+	public void cadastrarProduto() {
+		ProdutoView produtoView = new ProdutoView();
+		HashMap<String, String> request = produtoView.cadastrarProduto();
 		String nome = request.get("nome");
 		String descricao = request.get("descricao");
 		float preco = Float.parseFloat(request.get("preco"));
@@ -114,8 +118,9 @@ public class ControllerCadastro {
 		}
 	}
 	
-	public static void cadastrarProdutoSimilar() {
-		HashMap<String, String> request = ProdutoView.cadastrarProdutoSimilar();
+	public void cadastrarProdutoSimilar() {
+		ProdutoView produtoView = new ProdutoView();
+		HashMap<String, String> request = produtoView.cadastrarProdutoSimilar();
 		String nome = request.get("nome");
 		String descricao = request.get("descricao");
 		float preco = Float.parseFloat(request.get("preco"));

@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class MovimentacaoView {
-	static Scanner sc = new Scanner(System.in);
-	public static HashMap<String, Integer> dadosMoverProduto(){
+	private Scanner sc = new Scanner(System.in);
+	public HashMap<String, Integer> dadosMoverProduto(){
 		HashMap<String, Integer> response = new HashMap<String, Integer>();
 		System.out.print("Informe o id do produto: ");
 		Integer idProduto = sc.nextInt();
@@ -16,7 +16,7 @@ public class MovimentacaoView {
 		return response;
 	}
 	
-	public static HashMap<String, Integer> dadosComprarProduto(){
+	public HashMap<String, Integer> dadosComprarProduto(){
 		HashMap<String, Integer> response = new HashMap<String, Integer>();
 		System.out.print("Informe o id do produto: ");
 		Integer idProduto = sc.nextInt();
@@ -27,7 +27,7 @@ public class MovimentacaoView {
 		return response;
 	}
 	
-	public static HashMap<String, String> dadosMoverFuncionario(){
+	public HashMap<String, String> dadosMoverFuncionario(){
 		HashMap<String, String> response = new HashMap<String, String>();
 		System.out.print("Informe a matricula do funcionario: ");
 		String matricula = sc.next();

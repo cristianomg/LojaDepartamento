@@ -18,19 +18,19 @@ public class ControllerListagem {
 	private static ProdutoDAO produtos = ProdutoDAO.getInstance();
 	private static VendaDAO vendas = VendaDAO.getInstance();
 	
-	public static void listarClientes(){
+	public void listarClientes(){
 		ClienteView.listarClientes(clientes.getLista());
 	}
-	public static void listaFuncionario() {
+	public void listaFuncionario() {
 		FuncionarioView.listarFuncionarios(funcionarios.getLista());
 		}
-	public static void listaDepartamentos() {
+	public void listaDepartamentos() {
 		DepartamentoView.listarDepartamentos(departamentos.getLista());
 	}
-	public static void listarProdutos() {
+	public void listarProdutos() {
 		ProdutoView.listaProdutos(produtos.getLista());
 	}
-	public static void listarVendas() {
+	public void listarVendas() {
 		VendaView.listarVendas(vendas.getLista());
 	}
 }

@@ -14,7 +14,7 @@ public class Menu {
 		HashMap<String, String> dadosFuncionario = new HashMap<String, String>();
 		System.out.print("Informe a matricula: ");
 		String matricula = sc.next();
-		System.out.println("Informe a senha: ");
+		System.out.print("Informe a senha: ");
 		String senha = sc.next();
 		dadosFuncionario.put("matricula", matricula);
 		dadosFuncionario.put("senha", senha);
@@ -35,8 +35,9 @@ public class Menu {
 				System.out.println("3. Menu de relatorios");
 				System.out.println("4. Menu de movimentações");
 				System.out.println("5. Menu de listagens");
+				System.out.println("6. Menu de Buscas");
 					respostaPrincipal = sc.nextInt();
-					if (respostaPrincipal > 0 && respostaPrincipal < 6){
+					if (respostaPrincipal > 0 && respostaPrincipal < 7){
 						menuPrincipal = 0;
 					}
 					else {
@@ -167,6 +168,33 @@ public class Menu {
 			respostaMovimentacoes = m.menuListagem();
 		}
 		return respostaMovimentacoes;
+	}
+	public int menuBusca() {
+		int menuBusca = 1;
+		int response = 0;
+		sc = new Scanner(System.in);
+		System.out.printf("%-23s%s%-20s%s%-23s", "----------------------", " ","X Y Z Comercio LTDA","  ", "-----------------------");
+		System.out.println("");
+		try {
+			while (menuBusca == 1){
+				System.out.println("1. Buscar Vendedor");
+				System.out.println("2. Buscar Registro de Venda	");
+				System.out.println("3. Buscar Produtos similares de um produto Marca");
+				System.out.println("5. Voltar para menu principal");
+				response = sc.nextInt();
+				if ( response > 0 && response < 6){
+					menuBusca = 0;
+				}
+				else {
+					System.out.println("Opção invalida!!!");
+				}
+			}
+		}
+		catch(InputMismatchException e) {
+			Menu m = new Menu();
+			response = m.menuListagem();
+		}
+		return response;
 	}
 	
 }
