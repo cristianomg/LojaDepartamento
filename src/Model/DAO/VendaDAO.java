@@ -15,8 +15,9 @@ import Model.Entites.Venda;
 
 public class VendaDAO implements InterfaceDAO<Venda>{
 	private static VendaDAO uniqueInstance;
-	private List<Venda> listaVendas = new ArrayList<Venda>();
+	private List<Venda> listaVendas;
 	private VendaDAO(){
+		listaVendas = this.load();
 	}
 	
 	public static synchronized VendaDAO getInstance() {

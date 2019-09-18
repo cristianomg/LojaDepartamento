@@ -57,13 +57,13 @@ public class ControllerMovimentacoes {
 		Funcionario funcionario;
 		HashMap<String, String> request = movimentacaoView.dadosMoverFuncionario();
 		String matricula = request.get("matricula");
-		int idDepartamento = Integer.parseInt(request.get("idMatricula"));
+		int idDepartamento = Integer.parseInt(request.get("idDepartamento"));
 		try {
 			funcionario = funcionarios.getFuncionario(matricula); // pedir pra view qual o FUNCIONARIO
 			Departamento departamento = departamentos.getDepartamento(idDepartamento); // pedir pra view o departamento
 			funcionario.setDepartamento(departamento);
 			funcionarios.save();
-			System.out.println("Produto movido de departamento.");
+			System.out.println("Funcionario movido de departamento.");
 		} catch (FuncionarioNaoEncontradoException e) {
 			System.out.println(e);
 		}

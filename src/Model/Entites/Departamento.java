@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hamcrest.core.IsInstanceOf;
+
 import Exceptions.ObjetoExisteException;
 import Model.DAO.ProdutoDAO;
 
@@ -84,5 +86,19 @@ public class Departamento implements Serializable {
 			this.chefe = funcionario;
 		}
 	}
-	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		
+		if(!(obj instanceof Departamento)) {
+			return false;
+		}
+		if (this.getId()== ((Departamento) obj).getId()) {
+			return true;
+		}
+		return false;
+		
+	}
 }

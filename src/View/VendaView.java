@@ -1,6 +1,8 @@
 package View;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,23 +16,23 @@ public class VendaView {
 		
 	public static void listaProdutosDepartamento(List<Produto> produtos, Departamento departamento) {
 		System.out.println("Lista de Produtos do departamento: ");
-		System.out.printf("%-58s","---------------------------------------------------------------------");
-		System.out.println();
+		System.out.println("-".repeat(58));
 		System.out.printf("%-4s%-1s%-30s%-1s%-10s%-1s%-10s%-1s%s","ID", " ","Nome do Produto", " ", "Preço", " ", "Quantidade", " ", "Prod Marca");
 		System.out.println();
-		System.out.printf("%-4s%-1s%-30s%-1s%-10s%-1s%-10s%-1s%s","----", " ","--------------------------", " ", "--------", " ", "----------", " ", "----------");
+		System.out.printf("%-4s%-1s%-30s%-1s%-10s%-1s%-10s%-1s%s","-".repeat(4), " ","-".repeat(30), " ", "-".repeat(10), " ", "-".repeat(10), " ", "-".repeat(10));
 		System.out.println();
 		for(Produto produto: produtos) {
 			if (produto.getDepartamento().equals(departamento)) {
-				System.out.printf("%-4s%-1s%-30s%-1s%-10s%-1s%-10s%-1s%s",produto.getId(), " ",produto.getNome(), " ", produto.getPreco(), " ", produto.getQuantidade(), " ", produto.ehProdutoMarca());
-				System.out.println();
-				System.out.println();
-				System.out.println("Descrição: "+ produto.getDescricao());
-				System.out.printf("%-58s","---------------------------------------------------------------------");
-				System.out.println();
+				  System.out.printf("%-4s%-1s%-30s%-1s%-10s%-1s%-10s%-1s%s",produto.getId()," ",produto.getNome(),
+						  " ", produto.getPreco(), " ", produto.getQuantidade()," ", produto.ehProdutoMarca());
+				  
+				  System.out.println();
+				  System.out.println();
+				  System.out.println("Descrição: "+ produto.getDescricao());
+				  System.out.println("-".repeat(58));
+			}
 			}
 		}
-	}
 
 	public static void listarProdutosVenda(List<VendaProduto> vendaProdutos) {
 		System.out.println("Produtos adicionados na venda: ");
@@ -97,6 +99,40 @@ public class VendaView {
 		ArrayList<VendaProduto> vendaProdutos = venda.getListaVendaProduto();
 		listarProdutosVenda(vendaProdutos);
 		System.out.println("Preço total: "+ venda.getPrecoTotal());
+	}
+	
+	public String requestAbrirVenda() {
+		System.out.print("Informe o cpf ou cnpj do cliente: ");
+		String cpf_cnpj = sc.nextLine();
+		if (cpf_cnpj.length() == 11) {
+			return cpf_cnpj;
+		}
+		else {
+			System.out.println("Entrada invalida, tente novamente.");
+			return requestAbrirVenda();
+		}
+
+	}
+	
+	public HashMap<String, Integer> adicionarProdutoVenda() {
+		try {
+			HashMap<String, Integer> response = new HashMap<String, Integer>();
+			System.out.print("Informe o Id do produto: [digite -1 para finalizar] ");
+			Integer idProduto = sc.nextInt();
+			response.put("idProduto", idProduto);
+			System.out.print("Informe a quantidade: ");
+			Integer quantidade = sc.nextInt();
+			response.put("quantidade", quantidade);
+			System.out.print("Informe o desconto: ");
+			Integer desconto = sc.nextInt();
+			response.put("desconto", desconto);
+			return response;
+		}
+		catch (InputMismatchException e) {
+			System.out.println("Valor invalido, tente novamente.");
+			return this.adicionarProdutoVenda();
+		}
+
 	}
 }
 	

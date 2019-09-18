@@ -1,5 +1,6 @@
 package Controller;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 import Exceptions.ClienteNaoEncontradoException;
@@ -23,6 +24,7 @@ public class ControllerVendas {
 	private static ProdutoDAO produtos = ProdutoDAO.getInstance();
 	Scanner sc = new Scanner(System.in);
 	private Funcionario funcionario;
+	private VendaView vendaView = new VendaView();
 	
 	public ControllerVendas(Funcionario funcionario) {
 		this.funcionario = funcionario;
@@ -30,11 +32,13 @@ public class ControllerVendas {
 
 	public void abrirVender() {
 		try {
-			Cliente cliente =  clientes.getCliente("00000000000"); // criar a view
+			String cpfCliente = vendaView.requestAbrirVenda();
+			Cliente cliente =  clientes.getCliente(cpfCliente);
 			int codigo = vendas.getLista().size();
 			Venda venda = new Venda(codigo, cliente, funcionario);
 			vendas.inserir(venda);
-			System.out.println("Venda Aberta com sucesso!!!");
+			System.out.println("O codigo da venda é "+ venda.getCodigo());
+			System.out.println("Venda Aberta com sucesso.");
 		} catch (ClienteNaoEncontradoException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
@@ -46,15 +50,18 @@ public class ControllerVendas {
 		boolean finalizarAddProdutos;
 		finalizarAddProdutos = true;
 		try {
-			venda = vendas.getVenda(0);  // view para busca pela venda
-			VendaView.listaProdutosDepartamento(produtos.getLista(), venda.getFuncionario().getDepartamento());
+			int codigoVenda = vendaView.requestBuscaPorVenda();
+			venda = vendas.getVenda(codigoVenda);
+			VendaView.listaProdutosDepartamento(produtos.getLista(), funcionario.getDepartamento());
 			while (finalizarAddProdutos){
-				System.out.println("id do produto [-1 para finalizar]: "); // criar vi
-				int opc = sc.nextInt();
-				if (opc != -1) {
-					Produto produto = produtos.getProduto(0);
+				HashMap<String, Integer> solicitarProduto = vendaView.adicionarProdutoVenda();
+				int idProduto = solicitarProduto.get("idProduto");
+				int quantidade = solicitarProduto.get("quantidade");
+				int desconto = solicitarProduto.get("desconto");
+				if (idProduto != -1) {
+					Produto produto = produtos.getProduto(idProduto);
 					if (produto.getDepartamento().equals(funcionario.getDepartamento())) {
-						venda.adicionarProduto(produto, 1, 10); // criar view
+						venda.adicionarProduto(produto, quantidade, desconto);
 						System.out.println(venda.getListaVendaProduto());
 						finalizarAddProdutos = false;
 						vendas.atualizar(venda);

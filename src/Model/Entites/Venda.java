@@ -132,7 +132,7 @@ public class Venda implements Serializable {
 	public ArrayList<Produto> obterProdutosDestaques(){
 		return null;
 	}
-	public void adicionarProduto(Produto produto, int quantidade, float desconto) throws VendaEncerradaExpcetion, QuantidadeInsuficienteException {
+	public void adicionarProduto(Produto produto, int quantidade, int desconto) throws VendaEncerradaExpcetion, QuantidadeInsuficienteException {
 		if (!vendaFinalizada) {
 			if (produto.getQuantidade() >= quantidade) {
 				VendaProduto vendaProduto = new VendaProduto(this, produto, quantidade, desconto);
