@@ -9,7 +9,7 @@ public class Cliente {
 	@Test
 	public void testCreateCliente() {
 		Model.Entites.Cliente newCliente = new Model.Entites.Cliente(0, "Cristiano");
-		String esperado = "Cristiano";
+		String esperado = "Cristano";
 		assertEquals(esperado, newCliente.getNome());
 		
 	}
