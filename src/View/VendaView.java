@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import Model.Entites.Departamento;
 import Model.Entites.Produto;
+import Model.Entites.ProdutoEletronico;
 import Model.Entites.Venda;
 import Model.Entites.VendaProduto;
 
@@ -23,16 +24,28 @@ public class VendaView {
 		System.out.println();
 		for(Produto produto: produtos) {
 			if (produto.getDepartamento().equals(departamento)) {
-				  System.out.printf("%-4s%-1s%-30s%-1s%-10s%-1s%-10s%-1s%s",produto.getId()," ",produto.getNome(),
-						  " ", produto.getPreco(), " ", produto.getQuantidade()," ", produto.ehProdutoMarca());
-				  
-				  System.out.println();
-				  System.out.println();
-				  System.out.println("Descrição: "+ produto.getDescricao());
-				  System.out.println("-".repeat(58));
-			}
+				if (produto instanceof ProdutoEletronico) {
+					ProdutoEletronico p = (ProdutoEletronico) produto;
+					  System.out.printf("%-4s%-1s%-30s%-1s%-10s%-1s%-10s%-1s%s",produto.getId()," ",produto.getNome(),
+							  " ", produto.getPreco(), " ", produto.getQuantidade()," ", p.ehProdutoMarca());
+					  
+					  System.out.println();
+					  System.out.println();
+					  System.out.println("Descrição: "+ produto.getDescricao());
+					  System.out.println("-".repeat(58));
+				}
+				else {
+					  System.out.printf("%-4s%-1s%-30s%-1s%-10s%-1s%-10s%-1s%s",produto.getId()," ",produto.getNome(),
+							  " ", produto.getPreco(), " ", produto.getQuantidade()," ", false);
+					  
+					  System.out.println();
+					  System.out.println();
+					  System.out.println("Descrição: "+ produto.getDescricao());
+					  System.out.println("-".repeat(58));
+				}
 			}
 		}
+	}
 
 	public static void listarProdutosVenda(List<VendaProduto> vendaProdutos) {
 		System.out.println("Produtos adicionados na venda: ");

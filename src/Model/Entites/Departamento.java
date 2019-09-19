@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hamcrest.core.IsInstanceOf;
-
 import Exceptions.ObjetoExisteException;
 import Model.DAO.ProdutoDAO;
 

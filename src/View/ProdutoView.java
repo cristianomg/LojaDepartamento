@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import Model.Entites.Produto;
+import Model.Entites.ProdutoEletronico;
 
 public class ProdutoView {
 	private Scanner sc = new Scanner(System.in);
@@ -58,12 +59,23 @@ public class ProdutoView {
 	System.out.printf("%-4s%-1s%-17s%-1s%-13s%-1s%-7s%-2s%-10s%-2s%s","----", " ","----------------", " ","------------", "  ", "-------", " ", "----------", " ", "----------");
 	System.out.println();
 	for(Produto produto: produtos) {
-		System.out.printf("%-4s%-1s%-17s%-1s%-13s%-1s%-7s%-2s%-10s%-2s%s",produto.getId(), " ",produto.getNome()," ", produto.getDepartamento().getNome(), " ", produto.getPreco(), " ", produto.getQuantidade(), " ", produto.ehProdutoMarca());
-		System.out.println();
-		System.out.println();
-		System.out.println("Descrição: "+ produto.getDescricao());
-		System.out.printf("%-4s%-1s%-17s%-1s%-13s%-1s%-7s%-2s%-10s%-2s%s","----", " ","----------------", " ","------------", "  ", "-------", " ", "----------", " ", "----------");
-		System.out.println();
+		if(produto instanceof ProdutoEletronico) {
+			ProdutoEletronico produto1 = (ProdutoEletronico) produto;
+			System.out.printf("%-4s%-1s%-17s%-1s%-13s%-1s%-7s%-2s%-10s%-2s%s",produto1.getId(), " ",produto1.getNome()," ", produto1.getDepartamento().getNome(), " ", produto1.getPreco(), " ", produto1.getQuantidade(), " ", produto1.ehProdutoMarca());
+			System.out.println();
+			System.out.println();
+			System.out.println("Descrição: "+ produto1.getDescricao());
+			System.out.printf("%-4s%-1s%-17s%-1s%-13s%-1s%-7s%-2s%-10s%-2s%s","----", " ","----------------", " ","------------", "  ", "-------", " ", "----------", " ", "----------");
+			System.out.println();
+		}
+		else {
+			System.out.printf("%-4s%-1s%-17s%-1s%-13s%-1s%-7s%-2s%-10s%-2s%s",produto.getId(), " ",produto.getNome()," ", produto.getDepartamento().getNome(), " ", produto.getPreco(), " ", produto.getQuantidade(), " ", false);
+			System.out.println();
+			System.out.println();
+			System.out.println("Descrição: "+ produto.getDescricao());
+			System.out.printf("%-4s%-1s%-17s%-1s%-13s%-1s%-7s%-2s%-10s%-2s%s","----", " ","----------------", " ","------------", "  ", "-------", " ", "----------", " ", "----------");
+			System.out.println();
+		}
 		}
 	System.out.println();
 	}

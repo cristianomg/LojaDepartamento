@@ -6,16 +6,14 @@ import java.util.ArrayList;
 import Model.Entites.Logradouro.Cidade;
 
 public class Produto implements Serializable{
-	private static final long serialVersionUID = -1078825280829539490L;
-	private int id;
-	private String nome;
-	private String descricao;
-	private float preco;
-	private int quantidade;
-	private ArrayList<Produto> listaSimilar = new ArrayList<Produto>();
-	private Produto produtoMarca;
-	private ArrayList<VendaProduto> listaVendaProduto = new ArrayList<VendaProduto>();
-	private Departamento departamento;
+	protected static final long serialVersionUID = -1078825280829539490L;
+	protected int id;
+	protected String nome;
+	protected String descricao;
+	protected float preco;
+	protected int quantidade;
+	protected ArrayList<VendaProduto> listaVendaProduto = new ArrayList<VendaProduto>();
+	protected Departamento departamento;
 	
 	public Produto(int id, String nome, String descricao, float preco, int quantidade, Departamento departamento) {
 		this.id = id;
@@ -23,14 +21,10 @@ public class Produto implements Serializable{
 		this.descricao = descricao;
 		this.preco = preco;
 		this.quantidade = quantidade;
-		this.produtoMarca = null;
 		this.departamento = departamento;
 	}
-	public Produto(int id, String nome, String descricao, float preco, int quantidade, Departamento departamento,ArrayList<Produto> listaSimilar,
-			Produto produtoMarca, ArrayList<VendaProduto> listaVendaProduto) {
+	public Produto(int id, String nome, String descricao, float preco, int quantidade, Departamento departamento, ArrayList<VendaProduto> listaVendaProduto) {
 		this(id, nome, descricao, preco, quantidade, departamento);
-		this.listaSimilar = listaSimilar;
-		this.produtoMarca = produtoMarca;
 		this.listaVendaProduto = listaVendaProduto;
 	}
 	public int getId() {
@@ -63,18 +57,6 @@ public class Produto implements Serializable{
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
 	}
-	public ArrayList<Produto> getListaSimilar() {
-		return listaSimilar;
-	}
-	public void setListaSimilar(ArrayList<Produto> listaSimilar) {
-		this.listaSimilar = listaSimilar;
-	}
-	public Produto getProdutoMarca() {
-		return produtoMarca;
-	}
-	public void setProdutoMarca(Produto produtoMarca) {
-		this.produtoMarca = produtoMarca;
-	}
 	public ArrayList<VendaProduto> getListaVendaProduto() {
 		return listaVendaProduto;
 	}
@@ -100,27 +82,6 @@ public class Produto implements Serializable{
 			cidadesClientes.add(cidade);
 		}
 		return cidadesClientes;
-	}
-	public void cadastrarSimilar(Produto produto) {
-		if(produto.getProdutoMarca().getId() == this.id) {
-			this.listaSimilar.add(produto);
-		}
-	}
-	public void excluirSmiliar(Produto produto) {
-		this.listaSimilar.remove(produto);
-		produto.setProdutoMarca(null);
-	}
-	public boolean ehProdutoMarca() {
-		if(this.produtoMarca == null) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	//duvida
-	public boolean ehProdutoSimilar() {
-		return produtoMarca != null;
 	}
 	public Departamento getDepartamento() {
 		return departamento;

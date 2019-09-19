@@ -12,6 +12,7 @@ import Model.Entites.Cliente;
 import Model.Entites.Departamento;
 import Model.Entites.Funcionario;
 import Model.Entites.Produto;
+import Model.Entites.ProdutoEletronico;
 import Model.Entites.Logradouro.Cidade;
 import Model.Entites.Logradouro.Endereco;
 import Model.Entites.Logradouro.Estado;
@@ -108,10 +109,18 @@ public class ControllerCadastro {
 		int idDepartamento = Integer.parseInt(request.get("idDepartamento"));
 		try {
 			Departamento departamento = departamentos.getDepartamento(idDepartamento);
-			int idProduto = produtos.getLista().size();
-			Produto p = new Produto(idProduto, nome, descricao, preco, quantidade, departamento);
-			produtos.inserir(p);
-			System.out.println("Produto Cadastrado com sucesso!!!");
+			if (departamento.getNome().equals("Eletronico")) {
+				int idProduto = produtos.getLista().size();
+				ProdutoEletronico p = new ProdutoEletronico(idProduto, nome, descricao, preco, quantidade, departamento);
+				produtos.inserir(p);
+				System.out.println("Produto Eletronico Cadastrado com sucesso!!!");
+			}
+			else {
+				int idProduto = produtos.getLista().size();
+				Produto p = new Produto(idProduto, nome, descricao, preco, quantidade, departamento);
+				produtos.inserir(p);
+				System.out.println("Produto Cadastrado com sucesso!!!");
+			}
 		}
 		catch (DepartamentoNaoEncontradoException e){
 			System.out.println(e.getMessage());
@@ -128,13 +137,16 @@ public class ControllerCadastro {
 		int idProdutoOriginal = Integer.parseInt(request.get("produtoOriginal"));
 		try {
 			Produto produtoOriginal = produtos.getProduto(idProdutoOriginal);
-			Departamento departamento = produtoOriginal.getDepartamento() ;
-			int idProduto = produtos.getLista().size();
-			Produto p = new Produto(idProduto, nome, descricao, preco, quantidade, departamento);
-			p.setProdutoMarca(produtoOriginal);
-			produtoOriginal.cadastrarSimilar(p);
-			produtos.inserir(p);
-			System.out.println("Produto Cadastrado com sucesso!!!");
+			if (produtoOriginal instanceof ProdutoEletronico) {
+				Departamento departamento = produtoOriginal.getDepartamento() ;
+				int idProduto = produtos.getLista().size();
+				ProdutoEletronico p = new ProdutoEletronico(idProduto, nome, descricao, preco, quantidade, departamento);
+				p.setProdutoMarca((ProdutoEletronico) produtoOriginal);
+				((ProdutoEletronico) produtoOriginal).cadastrarSimilar(p);
+				produtos.inserir(p);
+				System.out.println("Produto Cadastrado com sucesso!!!");
+			}
+
 		}
 		catch (ProdutoNaoEncontradoException e){
 			System.out.println(e.getMessage());

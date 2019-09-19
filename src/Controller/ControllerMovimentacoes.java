@@ -11,6 +11,7 @@ import Model.DAO.ProdutoDAO;
 import Model.Entites.Departamento;
 import Model.Entites.Funcionario;
 import Model.Entites.Produto;
+import Model.Entites.ProdutoEletronico;
 import View.MovimentacaoView;
 
 public class ControllerMovimentacoes {
@@ -38,10 +39,14 @@ public class ControllerMovimentacoes {
 		try {
 			produto = produtos.getProduto(request.get("idProduto"));
 			Departamento departamento = departamentos.getDepartamento(request.get("idDepartamento"));
-			produto.setDepartamento(departamento);
-			for (Produto p: produto.getListaSimilar()) {
-				p.setDepartamento(departamento);
+			if (produto.getDepartamento().getNome().equals("Eletronico")) {
+				ProdutoEletronico produto1 = (ProdutoEletronico) produto;
+				for (ProdutoEletronico p: produto1.getListaSimilar()) {
+					p.setDepartamento(departamento);
+				}
 			}
+			produto.setDepartamento(departamento);
+
 			produtos.save();
 			System.out.println("Produto movido de departamento.");
 		}
