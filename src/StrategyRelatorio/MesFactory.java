@@ -1,6 +1,6 @@
 package StrategyRelatorio;
 
-public enum MesRelatorio {
+public enum MesFactory {
 	JANEIRO {
 		@Override
 		public RelatorioMensal obterMes() {

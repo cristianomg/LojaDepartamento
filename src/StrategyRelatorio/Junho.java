@@ -13,8 +13,10 @@ public class Junho implements RelatorioMensal {
 	public List<Venda> fazerRelatorioMensal() {
 		List<Venda> response = new ArrayList<Venda>();
 		for(Venda venda: vendas.getLista()) {
-			if(venda.getData().getMonthValue() == 6) {
-				response.add(venda);
+			if(venda.isVendaFinalizada()) {
+				if(venda.getData().getMonthValue() == 6) {
+					response.add(venda);
+				}
 			}
 		}
 		return response;
