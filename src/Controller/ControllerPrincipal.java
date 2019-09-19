@@ -105,6 +105,8 @@ public class ControllerPrincipal {
 		
 	}
 	public void controllerRelatorios() {
+		ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
+		controllerRelatorio.relatorioMensal();
 		
 	}
 	public void controllerMovimentacoes() {

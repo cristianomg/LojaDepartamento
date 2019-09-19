@@ -76,13 +76,13 @@ public class VendaView {
 		System.out.printf("%-20s%s%-20s%s%-18s", "----------------------", "  ","Listagem de Vendas","  ", "-----------------------");
 		System.out.println();
 		System.out.println();
-		System.out.printf("%-6s%-1s%-28s%-1s%-10s%-1s%-10s%-1s%s","Codigo", " ","Funcionario", " ", "Departamento", " ", "Cliente", " ", "Data");
-		System.out.println();
-		System.out.printf("%-6s%-1s%-28s%-1s%-10s%-1s%-10s%-1s%s","------", " ","--------------------------", " ", "------------", " ", "----------", " ", "---------");
-		System.out.println();
 		if (vendas.size() >= 1) {
 			for(Venda venda: vendas) {
 				if (venda.isVendaFinalizada()) {
+					System.out.printf("%-6s%-1s%-28s%-1s%-10s%-1s%-10s%-1s%s","Codigo", " ","Funcionario", " ", "Departamento", " ", "Cliente", " ", "Data");
+					System.out.println();
+					System.out.printf("%-6s%-1s%-28s%-1s%-10s%-1s%-10s%-1s%s","------", " ","--------------------------", " ", "------------", " ", "----------", " ", "---------");
+					System.out.println();
 					System.out.printf("%-6s%-1s%-28s%-1s%-10s%-1s%-10s%-1s%s", venda.getCodigo(), " ",venda.getFuncionario().getMatricula(), " ",
 							venda.getFuncionario().getDepartamento().getNome(), " ", venda.getCliente().getNome(), " ", venda.getData());
 					System.out.println();
@@ -90,6 +90,8 @@ public class VendaView {
 					ArrayList<VendaProduto> vendaProdutos = venda.getListaVendaProduto();
 					listarProdutosVenda(vendaProdutos);
 					System.out.println("Preço total: "+ venda.getPrecoTotal());
+					System.out.println();
+					System.out.println();
 				}
 			}
 		}

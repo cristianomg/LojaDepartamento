@@ -108,7 +108,7 @@ public class ControllerVendas {
 	public void finalizarVenda(){
 		Venda venda = null;
 		try {
-			venda = vendas.getVenda(0); // view para busca pela venda
+			venda = vendas.getVenda(2); // view para busca pela venda
 			venda.finalizarVenda();
 			vendas.atualizar(venda);
 		} catch (VendaNaoEncontradaException | VendaEncerradaExpcetion e) {
