@@ -24,7 +24,7 @@ public class ControllerBusca {
 		FuncionarioView funcionarioView = new FuncionarioView();
 		HashMap<String, String> request = funcionarioView.buscarFuncionarioRequest();
 		try {
-			Funcionario funcionario = funcionarios.getFuncionario(request.get("matricul"));
+			Funcionario funcionario = funcionarios.getFuncionario(request.get("matricula"));
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 			LocalDate dataInicio = LocalDate.parse(request.get("dataInicial"), formatter);
 			LocalDate dataFinal = LocalDate.parse(request.get("dataFinal"), formatter);
