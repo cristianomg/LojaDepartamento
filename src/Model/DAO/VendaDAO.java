@@ -91,6 +91,7 @@ public class VendaDAO implements InterfaceDAO<Venda>{
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Venda> load() {
 		if(new File("database/vendas").canRead() == true) {
 			try {

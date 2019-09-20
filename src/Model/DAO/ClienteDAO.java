@@ -107,6 +107,7 @@ public class ClienteDAO implements InterfaceDAO <Cliente> {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Cliente> load() {
 		if(new File("database/clientes").canRead() == true) {
 			try {

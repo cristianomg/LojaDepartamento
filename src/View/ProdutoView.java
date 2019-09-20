@@ -10,41 +10,71 @@ import Model.Entites.ProdutoEletronico;
 public class ProdutoView {
 	private Scanner sc = new Scanner(System.in);
 	
+	@SuppressWarnings("unused")
 	public HashMap<String, String> cadastrarProduto() {
 		System.out.printf("%-18s%s%-20s%s%-18s", "--------------------", "  ","Cadastro de Produtos"," ", "---------------------");
 		System.out.println();
 		HashMap<String, String> response = new HashMap<String, String>();
-		System.out.print("Informe o nome do produto: ");
-		String nome = sc.nextLine();
-		response.put("nome", nome);
-		System.out.print("Informe a Preço unitario do produto: ");
-		String preco = sc.nextLine();
-		response.put("preco", preco);
-		System.out.print("Informe a descrição do produto: ");
-		String descricao = sc.nextLine();
-		response.put("descricao", descricao);
-		System.out.print("Informe o Id do departamento que o produto será vendido: ");
-		String idDepartamento = sc.nextLine();
-		response.put("idDepartamento", idDepartamento);
+		boolean inputConcluido = false;
+		do {
+			try {
+				System.out.print("Informe o nome do produto: ");
+				String nome = sc.nextLine();
+				System.out.print("Informe a Preço unitario do produto: ");
+				String preco = sc.nextLine();
+				float precoTest = Float.parseFloat(preco);
+				System.out.print("Informe a descrição do produto: ");
+				String descricao = sc.nextLine();
+				System.out.print("Informe o Id do departamento que o produto será vendido: ");
+				String idDepartamento = sc.nextLine();
+				int idDepartamentoTest = Integer.parseInt(idDepartamento);
+				if(nome.length() > 0 && descricao.length() > 0) {
+					response.put("nome", nome);
+					response.put("preco", preco);
+					response.put("descricao", descricao);
+					response.put("idDepartamento", idDepartamento);
+					inputConcluido = true;
+				}
+				else {
+					System.out.println("Erro: Informações invalida, tente novamente");
+				}
+			}
+			catch(NumberFormatException e) {
+				System.out.println("Erro: Informações invalida, tente novamente");
+			}
+		}while(!inputConcluido);
 		return response;
 	}
 	
+	@SuppressWarnings("unused")
 	public HashMap<String, String> cadastrarProdutoSimilar() {
 		System.out.printf("%-18s%s%-20s%s%-18s", "--------------------", "  ","Cadastro de Produtos Similar"," ", "---------------------");
 		System.out.println();
 		HashMap<String, String> response = new HashMap<String, String>();
-		System.out.print("Informe o nome do produto: ");
-		String nome = sc.nextLine();
-		response.put("nome", nome);
-		System.out.print("Informe a Preço unitario do produto: ");
-		String preco = sc.nextLine();
-		response.put("preco", preco);
-		System.out.print("Informe a descrição do produto: ");
-		String descricao = sc.nextLine();
-		response.put("descricao", descricao);
-		System.out.print("Informe o id do Produto Original: ");
-		String produtoOriginal = sc.nextLine();
-		response.put("produtoOriginal", produtoOriginal);
+		boolean inputConcluido = false;
+		do {
+			try {
+				System.out.print("Informe o nome do produto: ");
+				String nome = sc.nextLine();
+				System.out.print("Informe a Preço unitario do produto: ");
+				String preco = sc.nextLine();
+				float precoTest = Float.parseFloat(preco);
+				System.out.print("Informe a descrição do produto: ");
+				String descricao = sc.nextLine();
+				System.out.print("Informe o id do Produto Original: ");
+				String produtoOriginal = sc.nextLine();
+				float produtoIdTest = Float.parseFloat(produtoOriginal);
+				if(nome.length() > 0 && descricao.length() > 0 ) {
+					response.put("nome", nome);
+					response.put("preco", preco);
+					response.put("descricao", descricao);
+					response.put("produtoOriginal", produtoOriginal);
+					inputConcluido = true;
+				}
+			}catch(NumberFormatException e) {
+				System.out.println("Erro: Informações invalida, tente novamente");
+			}
+		}while(!inputConcluido);
 		return response;
 	}
 	

@@ -2,6 +2,7 @@ package View;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -15,24 +16,39 @@ public class FuncionarioView {
 	public HashMap<String, Integer> solicitarDepartamentoID() {
 		System.out.printf("%-18s%s%-20s%s%-18s", "--------------------", "  ","Cadastro de Funcionarios"," ", "---------------------");
 		System.out.println();
+		boolean inputConcluido = false;
 		HashMap<String, Integer> response = new HashMap<String, Integer>();
-		System.out.print("Informe o ID do departamento que deseja cadastrar o funcionario: ");
-		Integer idDepartamento = Integer.parseInt(sc.nextLine());
-		response.put("idDepartamento", idDepartamento);
+		do {
+			try {
+				System.out.print("Informe o ID do departamento que deseja cadastrar o funcionario: ");
+				Integer idDepartamento = Integer.parseInt(sc.nextLine());
+				response.put("idDepartamento", idDepartamento);
+				inputConcluido = true;
+			}
+			catch (NumberFormatException e) {
+				System.out.println("Erro: informação invalida, tente novamente.");
+			}
+		}while(!inputConcluido);
 		return response;
 	}
 	
 	public HashMap<String, String> cadastrarFuncionario() {
 		HashMap<String, String> response = new HashMap<String, String>();
-		System.out.print("Informe o nome do funcionario: ");
-		String nome = sc.nextLine();
-		System.out.print("Informe a matricula do funcionario: ");
-		String matricula = sc.nextLine();
-		System.out.print("Informe a senha do funcionario: ");
-		String senha = sc.nextLine();
-		response.put("nome", nome);
-		response.put("matricula", matricula);
-		response.put("senha", senha);
+		boolean inputConcluido = false;
+		do {
+			System.out.print("Informe o nome do funcionario: ");
+			String nome = sc.nextLine();
+			System.out.print("Informe a matricula do funcionario: ");
+			String matricula = sc.nextLine();
+			System.out.print("Informe a senha do funcionario: ");
+			String senha = sc.nextLine();
+			if(nome.length() > 0 && matricula.length() > 0 && senha.length() > 0) {
+				response.put("nome", nome);
+				response.put("matricula", matricula);
+				response.put("senha", senha);
+				inputConcluido = true;
+			}
+		}while(!inputConcluido);
 		return response;
 	}
 	public static void listarFuncionarios(List<Funcionario> lista) {
@@ -52,17 +68,31 @@ public class FuncionarioView {
 		}
 		System.out.println();
 	}
+	@SuppressWarnings("unused")
 	public HashMap<String, String> buscarFuncionarioRequest() {
 		HashMap<String, String> response = new HashMap<String, String>();
-		System.out.print("Informe a matricula do vendedor: ");
-		String matricula= sc.nextLine();
-		response.put("matricula", matricula);
-		System.out.print("Informe a data inicial da busca [dd/MM/yyyy]: ");
-		String dataInicial = sc.nextLine();
-		response.put("dataInicial", dataInicial);
-		System.out.print("Informe a data final da busca [dd/MM/yyyy]: ");
-		String dataFinal = sc.nextLine();
-		response.put("dataFinal", dataFinal);
+		boolean inputConcluido = false;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		do { 
+			try {
+				System.out.print("Informe a matricula do vendedor: ");
+				String matricula= sc.nextLine();
+				System.out.print("Informe a data inicial da busca [dd/MM/yyyy]: ");
+				String dataInicial = sc.nextLine();
+				LocalDate dataInicioTest = LocalDate.parse(dataInicial, formatter);
+				System.out.print("Informe a data final da busca [dd/MM/yyyy]: ");
+				String dataFinal = sc.nextLine();
+				LocalDate dataFinalTest = LocalDate.parse(dataFinal, formatter);
+				if(matricula.length() > 0) {
+					response.put("matricula", matricula);
+					response.put("dataInicial", dataInicial);
+					response.put("dataFinal", dataFinal);
+					inputConcluido = true;
+				}
+			}catch(DateTimeParseException e) {
+				System.out.println("Erro: Data com formato invalido, tente novamente;");
+			}
+		}while(!inputConcluido);
 		return response;
 	}
 

@@ -10,37 +10,60 @@ public class ClienteView {
 	private Scanner sc = new Scanner(System.in);
 	
 	public HashMap<String, String> cadastroCliente() {
+		boolean inputConcluido = false;
 		HashMap<String, String> retornoCliente = new HashMap<String, String>();
-		System.out.print("Informe o nome do cliente: ");
-		String nome = sc.nextLine();
-		retornoCliente.put("nome", nome);
-		System.out.print("Informe o cpf ou cnpj do cliente:");
-		String cpf_cnpj = sc.nextLine();
-		retornoCliente.put("cpf_cnpj", cpf_cnpj);
+		String nome;
+		String cpf_cnpj;
+		do {
+			System.out.print("Informe o nome do cliente: ");
+			nome = sc.nextLine();
+			System.out.print("Informe o cpf ou cnpj do cliente:");
+			cpf_cnpj = sc.nextLine();
+			if(nome.length() > 0 && cpf_cnpj.length() > 0) {
+				retornoCliente.put("nome", nome);
+				retornoCliente.put("cpf_cnpj", cpf_cnpj);
+				inputConcluido = true;
+			}
+			else {
+				System.out.println("Erro: Informações insuficientes, tente novamente.");
+			}
+		}while(!inputConcluido);
 		return retornoCliente;
 		
 	}
 	public HashMap<String, String> cadastrarEndereco(){
+		boolean inputConcluido = false;
 		HashMap<String, String> retornoEndereco = new HashMap<String, String>();
-		System.out.print("Informe o nome da rua: ");
-		String rua = sc.nextLine();
-		retornoEndereco.put("rua", rua);
-		System.out.print("Informe o numero: ");
-		String numero = sc.nextLine();
-		retornoEndereco.put("numero",  numero);
-		System.out.print("Informe o bairro: ");
-		String bairro = sc.nextLine();
-		retornoEndereco.put("bairro", bairro);
-		System.out.print("Informe o cep: ");
-		String cep = sc.nextLine();
-		retornoEndereco.put("cep", cep);
-		System.out.print("Informe a cidade: ");
-		String cidade = sc.nextLine();
-		retornoEndereco.put("cidade", cidade);
-		System.out.print("Informe o estado: ");
-		String estado = sc.nextLine();
-		retornoEndereco.put("estado", estado);
+		do {
+			System.out.print("Informe o nome da rua: ");
+			String rua = sc.nextLine();
+			System.out.print("Informe o numero: ");
+			String numero = sc.nextLine();
+			System.out.print("Informe o bairro: ");
+			String bairro = sc.nextLine();
+			System.out.print("Informe o cep: ");
+			String cep = sc.nextLine();
+			System.out.print("Informe a cidade: ");
+			String cidade = sc.nextLine();
+			System.out.print("Informe o estado: ");
+			String estado = sc.nextLine();
+
+			if(rua.length()>0 && numero.length() > 0 && bairro.length() > 0 && cep.length() > 0 && cidade.length() > 0 && estado.length() > 0){
+				retornoEndereco.put("rua", rua);
+				retornoEndereco.put("numero",  numero);
+				retornoEndereco.put("bairro", bairro);
+				retornoEndereco.put("cep", cep);
+				retornoEndereco.put("cidade", cidade);
+				retornoEndereco.put("estado", estado);
+				inputConcluido = true;
+			}
+			else {
+				System.out.println("Erro: Informações insuficientes, tente novamente.");
+			}
+		}while(!inputConcluido);
 		return retornoEndereco;
+
+
 		
 	}
 	public static void listarClientes(List<Cliente> clientes) {

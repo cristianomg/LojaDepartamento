@@ -98,7 +98,18 @@ public class VendaView {
 	}
 	public int requestBuscaPorVenda() {
 		System.out.print("Infome o codigo da venda: ");
-		int codigo = Integer.parseInt(sc.nextLine());
+		int codigo = 0;
+		boolean inputConcluido = false;
+		do {
+			try {
+				codigo = Integer.parseInt(sc.nextLine());
+				inputConcluido = true;
+			}
+			catch(NumberFormatException e) {
+				System.out.println("Erro: Informações invalida, tente novamente");
+				sc.next();
+			}
+		}while(!inputConcluido);
 		return codigo;
 		
 	}
@@ -118,36 +129,44 @@ public class VendaView {
 	
 	public String requestAbrirVenda() {
 		System.out.print("Informe o cpf ou cnpj do cliente: ");
-		String cpf_cnpj = sc.nextLine();
-		if (cpf_cnpj.length() == 11) {
-			return cpf_cnpj;
-		}
-		else {
-			System.out.println("Entrada invalida, tente novamente.");
-			return requestAbrirVenda();
-		}
+		String cpf_cnpj;
+		boolean inputConcluido = false;
+		do {
+			cpf_cnpj = sc.nextLine();
+			if (cpf_cnpj.length() == 11) {
+				inputConcluido = true;
+			}
+			else {
+				System.out.print("Entrada invalida, tente novamente: ");
+			}
+		}while(!inputConcluido);
+		return cpf_cnpj;
 
 	}
 	
 	public HashMap<String, Integer> adicionarProdutoVenda() {
-		try {
-			HashMap<String, Integer> response = new HashMap<String, Integer>();
-			System.out.print("Informe o Id do produto: [digite -1 para finalizar] ");
-			Integer idProduto = sc.nextInt();
-			response.put("idProduto", idProduto);
-			System.out.print("Informe a quantidade: ");
-			Integer quantidade = sc.nextInt();
-			response.put("quantidade", quantidade);
-			System.out.print("Informe o desconto: ");
-			Integer desconto = sc.nextInt();
-			response.put("desconto", desconto);
-			return response;
-		}
-		catch (InputMismatchException e) {
-			System.out.println("Valor invalido, tente novamente.");
-			return this.adicionarProdutoVenda();
-		}
+		HashMap<String, Integer> response = new HashMap<String, Integer>();
+		boolean inputConcluido = false;
+		do {
+			try {
+				System.out.print("Informe o Id do produto: [digite -1 para finalizar] ");
+				Integer idProduto = sc.nextInt();
+				response.put("idProduto", idProduto);
+				System.out.print("Informe a quantidade: ");
+				Integer quantidade = sc.nextInt();
+				response.put("quantidade", quantidade);
+				System.out.print("Informe o desconto: ");
+				Integer desconto = sc.nextInt();
+				response.put("desconto", desconto);
+				inputConcluido = true;
 
+			}
+			catch (InputMismatchException e) {
+				System.out.println("Valor invalido, tente novamente.");
+				sc.next();
+			}
+		}while(!inputConcluido);
+		return response;
 	}
 }
 	

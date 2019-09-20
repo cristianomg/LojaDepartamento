@@ -14,12 +14,21 @@ public class DepartamentoView {
 		System.out.printf("%-18s%s%-20s%s%-18s", "--------------------", "  ","Cadastro de Departamentos"," ", "---------------------");
 		System.out.println();
 		HashMap<String, String> response = new HashMap<String, String>();
-		System.out.print("Informe o nome do Departamento: ");
-		String nome = sc.nextLine();
-		response.put("nome", nome);
-		System.out.print("Informe a Sigla:");
-		String sigla = sc.nextLine();
-		response.put("sigla", sigla);
+		boolean inputConcluido = false;
+		do {
+			System.out.print("Informe o nome do Departamento: ");
+			String nome = sc.nextLine();
+			System.out.print("Informe a Sigla:");
+			String sigla = sc.nextLine();
+			if (nome.length() > 0 && sigla.length() > 0) {
+				response.put("nome", nome);
+				response.put("sigla", sigla);
+				inputConcluido = true;
+			}
+			else {
+				System.out.println("Erro: Informações insuficientes, tente novamente.");
+			}
+		}while(!inputConcluido);
 		return response;
 	}
 		

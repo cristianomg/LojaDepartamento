@@ -103,6 +103,7 @@ public class ProdutoDAO implements InterfaceDAO<Produto> {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Produto> load() {
 		if(new File("database/produtos").canRead() == true) {
 			try {

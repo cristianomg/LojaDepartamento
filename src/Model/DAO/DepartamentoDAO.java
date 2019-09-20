@@ -104,6 +104,7 @@ public class DepartamentoDAO implements InterfaceDAO <Departamento> {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Departamento> load() {
 		if(new File("database/departamentos").canRead() == true) {
 			try {

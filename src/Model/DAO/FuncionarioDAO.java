@@ -99,6 +99,7 @@ public class FuncionarioDAO implements InterfaceDAO<Funcionario> {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Funcionario> load() {
 		if(new File("database/funcionarios").canRead() == true) {
 			try {

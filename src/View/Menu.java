@@ -5,195 +5,187 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
-	private Scanner sc;
+	private Scanner sc = new Scanner(System.in);
 
 	
 	public HashMap<String, String> autorizacaoView(){
 		System.out.printf("%-23s%s%-20s%s%-23s", "----------------------", " ","X Y Z Comercio LTDA","  ", "-----------------------");
 		System.out.println();
+		boolean inputConcluido = false;
 		HashMap<String, String> dadosFuncionario = new HashMap<String, String>();
-		System.out.print("Informe a matricula: ");
-		String matricula = sc.next();
-		System.out.print("Informe a senha: ");
-		String senha = sc.next();
-		dadosFuncionario.put("matricula", matricula);
-		dadosFuncionario.put("senha", senha);
+		do {
+			System.out.print("Informe a matricula: ");
+			String matricula = sc.next();
+			System.out.print("Informe a senha: ");
+			String senha = sc.next();
+			if(matricula.length() > 0 && senha.length() > 0) {
+				dadosFuncionario.put("matricula", matricula);
+				dadosFuncionario.put("senha", senha);
+				inputConcluido = true;
+			}
+			else {
+				System.out.println("Erro: Informações insuficientes, tente novamente.");
+			}
+		}while(!inputConcluido);
 		return dadosFuncionario;
 		
 	}
 	
 	public int menuPrincipal() {
-		int menuPrincipal = 1;
 		int respostaPrincipal = 0;
-		sc = new Scanner(System.in);
 		System.out.printf("%-23s%s%-20s%s%-23s", "----------------------", " ","X Y Z Comercio LTDA","  ", "-----------------------");
 		System.out.println("");
-		try {
-			while (menuPrincipal == 1){
-				System.out.println("1. Menu de cadastro");
-				System.out.println("2. Menu de vendas");
-				System.out.println("3. Menu de relatorios");
-				System.out.println("4. Menu de movimentações");
-				System.out.println("5. Menu de listagens");
-				System.out.println("6. Menu de Buscas");
-					respostaPrincipal = sc.nextInt();
-					if (respostaPrincipal > 0 && respostaPrincipal < 7){
-						menuPrincipal = 0;
-					}
-					else {
-						System.out.println("Opção Invalida!!!");
-					}
+		boolean inputConcluido = false;
+		System.out.println("1. Menu de cadastro");
+		System.out.println("2. Menu de vendas");
+		System.out.println("3. Menu de relatorios");
+		System.out.println("4. Menu de movimentações");
+		System.out.println("5. Menu de listagens");
+		System.out.println("6. Menu de Buscas");
+		do {
+			try {
+				respostaPrincipal = sc.nextInt();
+				if (respostaPrincipal > 0 && respostaPrincipal < 7){
+					inputConcluido = true;
 				}
+				else {
+					System.out.print("Erro: Opção Invalida, tente novamente: ");
+				}
+			}catch(InputMismatchException e) {
+				System.out.print("Erro: Opção Invalida, tente novamente: ");
+				sc.next();
 			}
-		catch(InputMismatchException e) {
-			System.out.println("Opção Invalida!!!");
-			Menu m = new Menu();
-			respostaPrincipal = m.menuPrincipal();
-			}
+		}while(!inputConcluido);
 		return respostaPrincipal;
 	}
 		
 	public int menuCadastro(){
-		int menuCadastro = 1;
 		int respostaCadastro = 0;
-		sc = new Scanner(System.in);
+		boolean inputConcluido = false;
 		System.out.printf("%-23s%s%-20s%s%-23s", "----------------------", " ","X Y Z Comercio LTDA","  ", "-----------------------");
 		System.out.println("");
-		try {
-		while (menuCadastro == 1){
-			System.out.println("1. Cadastrar Cliente");
-			System.out.println("2. Cadastrar Funcionario");
-			System.out.println("3. Cadastrar Departamento");
-			System.out.println("4. Cadastrar Produto");
-			System.out.println("5. Cadastrar Produtos Similares");
-			respostaCadastro = sc.nextInt();
-			if (respostaCadastro > 0 && respostaCadastro < 6){
-				menuCadastro = 0;
+		System.out.println("1. Cadastrar Cliente");
+		System.out.println("2. Cadastrar Funcionario");
+		System.out.println("3. Cadastrar Departamento");
+		System.out.println("4. Cadastrar Produto");
+		System.out.println("5. Cadastrar Produtos Similares");
+		do {
+			try {
+				respostaCadastro = sc.nextInt();
+				if (respostaCadastro > 0 && respostaCadastro < 6){
+					inputConcluido = true;
+				}else {
+					System.out.print("Erro: Opção Invalida, tente novamente: ");
+				}
+			}catch(InputMismatchException e) {
+				System.out.print("Erro: Opção Invalida, tente novamente: ");
+				sc.next();
 			}
-			else {
-				System.out.println("Opção invalida!!!");
-			}
-		}
-		}
-		catch(InputMismatchException e) {
-			Menu m = new Menu();
-			respostaCadastro = m.menuCadastro();
-		}
+		}while(!inputConcluido);
 		return respostaCadastro;
-		
 	}
+	
 	public int menuVenda() {
-		int menuCadastro = 1;
 		int respostaCadastro = 0;
-		sc = new Scanner(System.in);
+		boolean inputConcluido = false;
 		System.out.printf("%-23s%s%-20s%s%-23s", "----------------------", " ","X Y Z Comercio LTDA","  ", "-----------------------");
 		System.out.println("");
-		try {
-		while (menuCadastro == 1){
-			System.out.println("1. abrir Venda");
-			System.out.println("2. adicionar produto");
-			System.out.println("3. remover Produto");
-			System.out.println("4. calcular valor da venda");
-			System.out.println("5. finalizar venda");
-			System.out.println("6. Voltar pro menu principal");
-			respostaCadastro = sc.nextInt();
-			if (respostaCadastro > 0 && respostaCadastro < 7){
-				menuCadastro = 0;
+		System.out.println("1. abrir Venda");
+		System.out.println("2. adicionar produto");
+		System.out.println("3. remover Produto");
+		System.out.println("4. calcular valor da venda");
+		System.out.println("5. finalizar venda");
+		System.out.println("6. Voltar pro menu principal");
+		do {
+			try {
+				respostaCadastro = sc.nextInt();
+				if (respostaCadastro > 0 && respostaCadastro < 7){
+					inputConcluido = true;
+				}else {
+					System.out.print("Erro: Opção Invalida, tente novamente: ");
+				}
+			}catch(InputMismatchException e) {
+				System.out.print("Erro: Opção Invalida, tente novamente: ");
+				sc.next();
 			}
-			else {
-				System.out.println("Opção invalida!!!");
-			}
-		}
-		}
-		catch(InputMismatchException e) {
-			Menu m = new Menu();
-			respostaCadastro = m.menuCadastro();
-		}
+		}while(!inputConcluido);
 		return respostaCadastro;
 	}
 	
 	public int menuListagem() {
-		int menuListagem = 1;
 		int respostaListagem = 0;
-		sc = new Scanner(System.in);
+		boolean inputConcluido = false;
 		System.out.printf("%-23s%s%-20s%s%-23s", "----------------------", " ","X Y Z Comercio LTDA","  ", "-----------------------");
 		System.out.println("");
-		try {
-		while (menuListagem == 1){
-			System.out.println("1. Listar Cliente");
-			System.out.println("2. Listar Departamento");
-			System.out.println("3. Listar Funcionario");
-			System.out.println("4. Listar Produto");
-			System.out.println("5. Listar Vendas");
-			respostaListagem = sc.nextInt();
-			if ( respostaListagem > 0 && respostaListagem < 6){
-				menuListagem = 0;
+		System.out.println("1. Listar Cliente");
+		System.out.println("2. Listar Departamento");
+		System.out.println("3. Listar Funcionario");
+		System.out.println("4. Listar Produto");
+		System.out.println("5. Listar Vendas");
+		do {
+			try {
+				respostaListagem = sc.nextInt();
+				if (respostaListagem > 0 && respostaListagem < 7){
+					inputConcluido = true;
+				}else {
+					System.out.print("Erro: Opção Invalida, tente novamente: ");
+				}
+			}catch(InputMismatchException e) {
+				System.out.print("Erro: Opção Invalida, tente novamente: ");
+				sc.next();
 			}
-			else {
-				System.out.println("Opção invalida!!!");
-			}
-		}
-		}
-		catch(InputMismatchException e) {
-			Menu m = new Menu();
-			respostaListagem = m.menuListagem();
-		}
+		}while(!inputConcluido);
 		return respostaListagem;
 	}
 	
 	public int menuMovimentacoes() {
-		int menuMovimentacoes = 1;
 		int respostaMovimentacoes = 0;
-		sc = new Scanner(System.in);
+		boolean inputConcluido = false;
 		System.out.printf("%-23s%s%-20s%s%-23s", "----------------------", " ","X Y Z Comercio LTDA","  ", "-----------------------");
 		System.out.println("");
-		try {
-		while (menuMovimentacoes == 1){
-			System.out.println("1. Comprar Produto para o estoque");
-			System.out.println("2. Mover produto de departamento");
-			System.out.println("3. Mover funcionario de departamento");
-			System.out.println("4. Promover funcionario a chefe");
-			System.out.println("5. Voltar para menu principal");
-			respostaMovimentacoes = sc.nextInt();
-			if ( respostaMovimentacoes > 0 && respostaMovimentacoes < 6){
-				menuMovimentacoes = 0;
+		System.out.println("1. Comprar Produto para o estoque");
+		System.out.println("2. Mover produto de departamento");
+		System.out.println("3. Mover funcionario de departamento");
+		System.out.println("4. Promover funcionario a chefe");
+		System.out.println("5. Voltar para menu principal");
+		do {
+			try {
+				respostaMovimentacoes = sc.nextInt();
+				if (respostaMovimentacoes > 0 && respostaMovimentacoes < 7){
+					inputConcluido = true;
+				}else {
+					System.out.print("Erro: Opção Invalida, tente novamente: ");
+				}
+			}catch(InputMismatchException e) {
+				System.out.print("Erro: Opção Invalida, tente novamente: ");
+				sc.next();
 			}
-			else {
-				System.out.println("Opção invalida!!!");
-			}
-		}
-		}
-		catch(InputMismatchException e) {
-			Menu m = new Menu();
-			respostaMovimentacoes = m.menuListagem();
-		}
+		}while(!inputConcluido);
 		return respostaMovimentacoes;
 	}
+	
 	public int menuBusca() {
-		int menuBusca = 1;
 		int response = 0;
-		sc = new Scanner(System.in);
+		boolean inputConcluido = false;
 		System.out.printf("%-23s%s%-20s%s%-23s", "----------------------", " ","X Y Z Comercio LTDA","  ", "-----------------------");
 		System.out.println("");
-		try {
-			while (menuBusca == 1){
-				System.out.println("1. Buscar Vendedor");
-				System.out.println("2. Buscar Registro de Venda	");
-				System.out.println("3. Buscar Produtos similares de um produto Marca");
-				System.out.println("5. Voltar para menu principal");
+		System.out.println("1. Buscar Vendedor");
+		System.out.println("2. Buscar Registro de Venda	");
+		System.out.println("3. Buscar Produtos similares de um produto Marca");
+		System.out.println("5. Voltar para menu principal");
+		do {
+			try {
 				response = sc.nextInt();
-				if ( response > 0 && response < 6){
-					menuBusca = 0;
+				if (response > 0 && response < 7){
+					inputConcluido = true;
+				}else {
+					System.out.print("Erro: Opção Invalida, tente novamente: ");
 				}
-				else {
-					System.out.println("Opção invalida!!!");
-				}
+			}catch(InputMismatchException e) {
+				System.out.print("Erro: Opção Invalida, tente novamente: ");
+				sc.next();
 			}
-		}
-		catch(InputMismatchException e) {
-			Menu m = new Menu();
-			response = m.menuListagem();
-		}
+		}while(!inputConcluido);
 		return response;
 	}
 	
