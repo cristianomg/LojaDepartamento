@@ -99,6 +99,7 @@ public class Venda implements Serializable {
 				if (vp.getProduto().getId() == produtoId) {
 					vp.getProduto().addQuantidade(vp.getQuantidade());
 					this.listaVendaProduto.remove(vp);
+					contem = true;
 					break;
 				}
 			}

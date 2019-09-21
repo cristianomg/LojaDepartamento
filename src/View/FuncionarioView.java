@@ -13,23 +13,22 @@ import Model.Entites.Venda;
 public class FuncionarioView {
 	private Scanner sc = new Scanner(System.in);
 	
-	public HashMap<String, Integer> solicitarDepartamentoID() {
+	public Integer solicitarDepartamentoID() {
 		System.out.printf("%-18s%s%-20s%s%-18s", "--------------------", "  ","Cadastro de Funcionarios"," ", "---------------------");
 		System.out.println();
 		boolean inputConcluido = false;
-		HashMap<String, Integer> response = new HashMap<String, Integer>();
+		Integer idDepartamento = null;
 		do {
 			try {
 				System.out.print("Informe o ID do departamento que deseja cadastrar o funcionario: ");
-				Integer idDepartamento = Integer.parseInt(sc.nextLine());
-				response.put("idDepartamento", idDepartamento);
+				idDepartamento = Integer.parseInt(sc.nextLine());
 				inputConcluido = true;
 			}
 			catch (NumberFormatException e) {
 				System.out.println("Erro: informação invalida, tente novamente.");
 			}
 		}while(!inputConcluido);
-		return response;
+		return idDepartamento;
 	}
 	
 	public HashMap<String, String> cadastrarFuncionario() {
@@ -96,7 +95,7 @@ public class FuncionarioView {
 		return response;
 	}
 
-	public void buscarFuncionarioResponse(Funcionario funcionario, List<Venda> vendasPeriodo, LocalDate dataInicio, LocalDate dataFinal) {
+	public static void buscarFuncionarioResponse(Funcionario funcionario, List<Venda> vendasPeriodo, LocalDate dataInicio, LocalDate dataFinal) {
 		String str = "-";
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		System.out.println(str.repeat(69));

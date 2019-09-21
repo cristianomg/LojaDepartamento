@@ -82,7 +82,23 @@ public class Funcionario implements Serializable{
 	public void setEnsinoSuperior(boolean ensinoSuperior) {
 		this.ensinoSuperior = ensinoSuperior;
 	}
+	public void adicionarVenda(Venda venda) {
+		this.listaVenda.add(venda);
+	}
 	
-	
-	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		
+		if(!(obj instanceof Funcionario)) {
+			return false;
+		}
+		if (this.getMatricula() == ((Funcionario) obj).getMatricula()) {
+			return true;
+		}
+		return false;
+		
+	}
 }

@@ -13,7 +13,7 @@ import Model.Entites.Venda;
 import Model.Entites.VendaProduto;
 
 public class VendaView {
-	private Scanner sc = new Scanner(System.in);
+	private Scanner sc;
 		
 	public static void listaProdutosDepartamento(List<Produto> produtos, Departamento departamento) {
 		System.out.println("Lista de Produtos do departamento: ");
@@ -97,6 +97,7 @@ public class VendaView {
 		}
 	}
 	public int requestBuscaPorVenda() {
+		sc = new Scanner(System.in);
 		System.out.print("Infome o codigo da venda: ");
 		int codigo = 0;
 		boolean inputConcluido = false;
@@ -128,6 +129,7 @@ public class VendaView {
 	}
 	
 	public String requestAbrirVenda() {
+		sc = new Scanner(System.in);
 		System.out.print("Informe o cpf ou cnpj do cliente: ");
 		String cpf_cnpj;
 		boolean inputConcluido = false;
@@ -145,6 +147,7 @@ public class VendaView {
 	}
 	
 	public HashMap<String, Integer> adicionarProdutoVenda() {
+		sc = new Scanner(System.in);
 		HashMap<String, Integer> response = new HashMap<String, Integer>();
 		boolean inputConcluido = false;
 		do {
@@ -152,21 +155,41 @@ public class VendaView {
 				System.out.print("Informe o Id do produto: [digite -1 para finalizar] ");
 				Integer idProduto = sc.nextInt();
 				response.put("idProduto", idProduto);
-				System.out.print("Informe a quantidade: ");
-				Integer quantidade = sc.nextInt();
-				response.put("quantidade", quantidade);
-				System.out.print("Informe o desconto: ");
-				Integer desconto = sc.nextInt();
-				response.put("desconto", desconto);
-				inputConcluido = true;
-
+				if (idProduto == -1) {
+					break;
+				}
+				else {
+					System.out.print("Informe a quantidade: ");
+					Integer quantidade = sc.nextInt();
+					response.put("quantidade", quantidade);
+					System.out.print("Informe o desconto: ");
+					Integer desconto = sc.nextInt();
+					response.put("desconto", desconto);
+					inputConcluido = true;
+				}
 			}
-			catch (InputMismatchException e) {
+			catch (InputMismatchException | NullPointerException e) {
 				System.out.println("Valor invalido, tente novamente.");
 				sc.next();
 			}
 		}while(!inputConcluido);
 		return response;
+	}
+	
+	public int solicitarIdProdutoRemover() {
+		sc = new Scanner(System.in);
+		boolean inputConcluido = false;
+		int idProduto = 0;
+		do {
+			try {
+				System.out.println("Infome o id do produto a ser removido: ");
+				idProduto = sc.nextInt();
+				inputConcluido = true;
+			}catch (InputMismatchException e) {
+				System.out.print("Erro: Informação invalida, tente novamente: ");
+			}
+		}while(!inputConcluido);
+		return idProduto;
 	}
 }
 	

@@ -20,9 +20,7 @@ public class ControllerBusca {
 	private static FuncionarioDAO funcionarios = FuncionarioDAO.getInstance();
 	private static VendaDAO vendas = VendaDAO.getInstance();
 
-	public void buscarVendedor() {
-		FuncionarioView funcionarioView = new FuncionarioView();
-		HashMap<String, String> request = funcionarioView.buscarFuncionarioRequest();
+	public void buscarVendedor(HashMap<String, String> request) {
 		try {
 			Funcionario funcionario = funcionarios.getFuncionario(request.get("matricula"));
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -30,13 +28,17 @@ public class ControllerBusca {
 			LocalDate dataFinal = LocalDate.parse(request.get("dataFinal"), formatter);
 			List<Venda> vendasFuncionario = funcionario.getListaVenda();
 			List<Venda> vendasPeriodo = new ArrayList<Venda>();
-			if(vendasFuncionario.size()==0){
+			if(vendasFuncionario.size()>0){
 				for (Venda venda: vendasFuncionario) {
+					System.out.println(venda.getData());
+					System.out.println(dataInicio);
+					System.out.println(dataFinal);
 					if(venda.getData().compareTo(dataInicio) >= 0 && venda.getData().compareTo(dataFinal) <= 0) {
+						System.out.println("entrou");
 						vendasPeriodo.add(venda);
 					}
 				}
-				funcionarioView.buscarFuncionarioResponse(funcionario, vendasPeriodo, dataInicio, dataFinal);
+				FuncionarioView.buscarFuncionarioResponse(funcionario, vendasPeriodo, dataInicio, dataFinal);
 			}
 			else {
 				System.out.println("O vendedor não realizou nenhuma venda até o momento");
@@ -50,9 +52,7 @@ public class ControllerBusca {
 		}
 	}
 	
-	public void buscarRegistroVenda() {
-		VendaView vendaView = new VendaView();
-		int codigo = vendaView.requestBuscaPorVenda();
+	public void buscarRegistroVenda(int codigo) {
 		Venda vendaEncontrada;
 		try {
 			vendaEncontrada = vendas.getVenda(codigo);

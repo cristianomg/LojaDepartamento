@@ -51,7 +51,7 @@ public class DepartamentoDAO implements InterfaceDAO <Departamento> {
 				return true;
 			}
 		}
-		System.out.println("Erro: Departamento n�o encontrado no sistema!!!");
+		System.out.println("Erro: Departamento não encontrado no sistema!!!");
 		return false;
 	}
 

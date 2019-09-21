@@ -6,7 +6,14 @@ import java.util.Scanner;
 import Exceptions.FuncionarioNaoEncontradoException;
 import Model.DAO.FuncionarioDAO;
 import Model.Entites.Funcionario;
+import View.ClienteView;
+import View.DepartamentoView;
+import View.FuncionarioView;
 import View.Menu;
+import View.MovimentacaoView;
+import View.ProdutoView;
+import View.RelatorioView;
+import View.VendaView;
 
 public class ControllerPrincipal {
 	private Menu menu;
@@ -45,19 +52,24 @@ public class ControllerPrincipal {
 		ControllerCadastro controllerCadastro = new ControllerCadastro();
 		switch(respCadastro) {
 		case 1:
-			controllerCadastro.cadastrarCliente();
+			ClienteView clienteView = new ClienteView();
+			controllerCadastro.cadastrarCliente(clienteView.cadastroCliente());
 			break;
 		case 2:
-			controllerCadastro.cadastrarFuncionario();
+			FuncionarioView funcionarioView = new FuncionarioView();
+			controllerCadastro.cadastrarFuncionario(funcionarioView.solicitarDepartamentoID());
 			break;
 		case 3:
-			controllerCadastro.cadastrarDepartamento();
+			DepartamentoView departamentoView = new DepartamentoView();
+			controllerCadastro.cadastrarDepartamento(departamentoView.cadastrarDepartamento());
 			break;
 		case 4:
-			controllerCadastro.cadastrarProduto();
+			ProdutoView produtoView = new ProdutoView();
+			controllerCadastro.cadastrarProduto(produtoView.cadastrarProduto());
 			break;
 		case 5:
-			controllerCadastro.cadastrarProdutoSimilar();
+			ProdutoView produtoView1 = new ProdutoView();
+			controllerCadastro.cadastrarProdutoSimilar(produtoView1.cadastrarProdutoSimilar());
 			break;
 		}
 		this.retornarMenuPrincipal();
@@ -70,21 +82,22 @@ public class ControllerPrincipal {
 			ControllerVendas vendas = new ControllerVendas(funcionario); 
 			while (running) {
 				int opc = menu.menuVenda();
+				VendaView vendaView = new VendaView();
 				switch (opc) {
 				case 1:
-					vendas.abrirVender();
+					vendas.abrirVender(vendaView.requestAbrirVenda());
 					break;
 				case 2:
-					vendas.adicionarProduto();
+					vendas.adicionarProduto(vendaView.requestBuscaPorVenda());
 					break;
 				case 3:
-					vendas.removerProdutos();
+					vendas.removerProdutos(vendaView.requestBuscaPorVenda());
 					break;
 				case 4:
-					vendas.calcularValorVenda();
+					vendas.calcularValorVenda(vendaView.requestBuscaPorVenda());
 					break;
 				case 5:
-					vendas.finalizarVenda();
+					vendas.finalizarVenda(vendaView.requestBuscaPorVenda());
 					break;
 				case 6:
 					running = false;
@@ -96,8 +109,6 @@ public class ControllerPrincipal {
 		} catch (FuncionarioNaoEncontradoException e) {
 			System.out.println("Matricula ou senha invalida tente novamente!");
 			running = false;
-			this.controllerPrincipal();
-			e.getStackTrace();
 			this.retornarMenuPrincipal();
 		}
 		
@@ -106,21 +117,23 @@ public class ControllerPrincipal {
 	}
 	public void controllerRelatorios() {
 		ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
-		controllerRelatorio.relatorioMensal();
+		RelatorioView relatorioView = new RelatorioView();
+		controllerRelatorio.relatorioMensal(relatorioView.solicitarMes());
 		
 	}
 	public void controllerMovimentacoes() {
 		int respostaListagem = menu.menuMovimentacoes();
 		ControllerMovimentacoes controllerMovimentacoes = new ControllerMovimentacoes();
+		MovimentacaoView movimentacaoView = new MovimentacaoView();
 		switch(respostaListagem) {
 		case 1:
-			controllerMovimentacoes.comprarProduto();
+			controllerMovimentacoes.comprarProduto(movimentacaoView.dadosComprarProduto());
 			break;
 		case 2:
-			controllerMovimentacoes.moverProdutoDepartamento();
+			controllerMovimentacoes.moverProdutoDepartamento(movimentacaoView.dadosMoverProduto());
 			break;
 		case 3:
-			controllerMovimentacoes.moverFuncionarioDepartamento();
+			controllerMovimentacoes.moverFuncionarioDepartamento(movimentacaoView.dadosMoverFuncionario());
 			break;
 		}
 		this.retornarMenuPrincipal();
@@ -156,10 +169,12 @@ public class ControllerPrincipal {
 		ControllerBusca controllerBusca = new ControllerBusca();
 		switch(respostaListagem) {
 		case 1:
-			controllerBusca.buscarVendedor();
+			FuncionarioView funcionarioView = new FuncionarioView();
+			controllerBusca.buscarVendedor(funcionarioView.buscarFuncionarioRequest());
 			break;
 		case 2:
-			controllerBusca.buscarRegistroVenda();
+			VendaView vendaView = new VendaView();
+			controllerBusca.buscarRegistroVenda(vendaView.requestBuscaPorVenda());
 			break;
 		case 3:
 			controllerBusca.buscarProdutoSimiliar();
