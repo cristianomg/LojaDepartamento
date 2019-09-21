@@ -69,10 +69,15 @@ public class ControllerCadastro {
 			String nome = request.get("nome");
 			String matricula = request.get("matricula");
 			String senha = request.get("senha");
-			Funcionario f = new Funcionario(nome, matricula, senha);
-			f.setDepartamento(departamento);
-			funcionarios.inserir(f);
-			System.out.println("Funcionario Cadastrado com sucesso!!!");
+			if(!funcionarios.testeFuncionarioExiste(matricula)) {
+				Funcionario f = new Funcionario(nome, matricula, senha);
+				f.setDepartamento(departamento);
+				funcionarios.inserir(f);
+				System.out.println("Funcionario Cadastrado com sucesso!!!");
+			}
+			else {
+				System.out.println("Erro: Matricula já cadastrada, insira uma nova.");
+			}
 		}
 		catch (DepartamentoNaoEncontradoException e) {
 			System.out.println(e.getMessage());

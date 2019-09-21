@@ -122,4 +122,13 @@ public class FuncionarioDAO implements InterfaceDAO<Funcionario> {
 		return new ArrayList<Funcionario>();
 		
 	}
+	public boolean testeFuncionarioExiste(String matricula) {
+		for(Funcionario f: listaFuncionario) {
+			if(f.getMatricula().equals(matricula)) {
+				return true;
+			}
+		}
+		return false;
+		
+	}
 }
