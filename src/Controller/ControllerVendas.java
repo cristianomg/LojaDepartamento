@@ -51,7 +51,7 @@ public class ControllerVendas {
 		finalizarAddProdutos = true;
 		try {
 			venda = vendas.getVenda(codigoVenda);
-			if (venda.getFuncionario() == funcionario) {
+			if (venda.getFuncionario().equals(funcionario)) {
 				VendaView.listaProdutosDepartamento(produtos.getLista(), funcionario.getDepartamento());
 				while (finalizarAddProdutos){
 					HashMap<String, Integer> solicitarProduto = vendaView.adicionarProdutoVenda();
@@ -62,7 +62,7 @@ public class ControllerVendas {
 						Produto produto = produtos.getProduto(idProduto);
 						if (produto.getDepartamento().equals(funcionario.getDepartamento())) {
 							venda.adicionarProduto(produto, quantidade, desconto);
-							System.out.println(venda.getListaVendaProduto());
+							System.out.println("Produto Adicionado.");
 							vendas.atualizar(venda);
 						}else {
 							System.out.println("Erro: Esse produto não pertence ao departamento.");
@@ -91,7 +91,7 @@ public class ControllerVendas {
 				System.out.println("Produto removido com sucesso.");
 				vendas.atualizar(venda);
 			}else {
-				System.out.println("Erro: Essa venda pertence ao funcionario " + venda.getFuncionario().getNome() + "contate o mesmo.");
+				System.out.println("Erro: Essa venda pertence ao funcionario " + venda.getFuncionario().getNome() + " contate o mesmo.");
 			}
 
 		}catch (VendaNaoEncontradaException | VendaEncerradaExpcetion e) {

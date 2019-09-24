@@ -25,7 +25,7 @@ public class ControllerCadastro {
 	private static FuncionarioDAO funcionarios = FuncionarioDAO.getInstance();
 	private static ProdutoDAO produtos = ProdutoDAO.getInstance();
 	
-	public void cadastrarCliente(HashMap<String, String>infoCliente) {
+	public String cadastrarCliente(HashMap<String, String>infoCliente) {
 		String nome = infoCliente.get("nome");
 		String cpf_cnpj = infoCliente.get("cpf_cnpj");
 		Estado estado = new Estado(infoCliente.get("estado"));
@@ -39,11 +39,16 @@ public class ControllerCadastro {
 			Cliente cliente = new Cliente(id, nome, cpf_cnpj);
 			Endereco endereco = cadastrarEndereco(rua, numero, bairro, cep, cidade, estado);
 			cliente.setEndereco(endereco);
-			clientes.inserir(cliente);
-			System.out.println("Cliente cadastrado com sucesso!!!");
+			if (!clientes.testClienteExiste(cliente)) {
+				clientes.inserir(cliente);
+				return "Cliente cadastrado com sucesso!!!";
+			}
+			else {
+				return "Erro: Já existe um cliente cadastrado com esse cpf_cnpj";
+			}
 		}
 		catch(ValidateCpfException e){
-			System.out.println(e);
+			return e.getMessage();
 		}
 	}
 	private Endereco cadastrarEndereco(String rua , int numero, String bairro, String cep, Cidade cidade, Estado estado) {
@@ -52,16 +57,16 @@ public class ControllerCadastro {
 		estado.addCidadeLista(cidade);
 		return endereco;
 	}
-	public void cadastrarDepartamento(HashMap<String, String> dadosDepartamento) {
+	public String cadastrarDepartamento(HashMap<String, String> dadosDepartamento) {
 		String nome = dadosDepartamento.get("nome");
 		String sigla = dadosDepartamento.get("sigla");
 		int idDepartamento = departamentos.getLista().size();
 		Departamento dp = new Departamento(idDepartamento, nome, sigla);
 		departamentos.inserir(dp);
-		System.out.println("Departamento Cadastrado com sucesso!!!");
+		return "Departamento Cadastrado com sucesso!!!";
 	}
 	
-	public void cadastrarFuncionario(int idDepartamento) {
+	public String cadastrarFuncionario(int idDepartamento) {
 		FuncionarioView funcionarioView = new FuncionarioView();
 		try {
 			Departamento departamento = departamentos.getDepartamento(idDepartamento);
@@ -69,21 +74,27 @@ public class ControllerCadastro {
 			String nome = request.get("nome");
 			String matricula = request.get("matricula");
 			String senha = request.get("senha");
+			String cursoSuperior = request.get("cursoSuperior");
 			if(!funcionarios.testeFuncionarioExiste(matricula)) {
 				Funcionario f = new Funcionario(nome, matricula, senha);
+				if(cursoSuperior.equals("s")) {
+					f.setEnsinoSuperior(true);
+				}
 				f.setDepartamento(departamento);
+				departamento.addFuncionarioList(f);
 				funcionarios.inserir(f);
-				System.out.println("Funcionario Cadastrado com sucesso!!!");
+				departamentos.atualizar(departamento);
+				return "Funcionario Cadastrado com sucesso!!!";
 			}
 			else {
-				System.out.println("Erro: Matricula já cadastrada, insira uma nova.");
+				return "Erro: Matricula já cadastrada, insira uma nova.";
 			}
 		}
 		catch (DepartamentoNaoEncontradoException e) {
-			System.out.println(e.getMessage());
+			return e.getMessage();
 		}
 	}
-	public void cadastrarProduto(HashMap<String, String> dadosProduto ) {
+	public String cadastrarProduto(HashMap<String, String> dadosProduto ) {
 		String nome = dadosProduto.get("nome");
 		String descricao = dadosProduto.get("descricao");
 		float preco = Float.parseFloat(dadosProduto.get("preco"));
@@ -95,21 +106,21 @@ public class ControllerCadastro {
 				int idProduto = produtos.getLista().size();
 				ProdutoEletronico p = new ProdutoEletronico(idProduto, nome, descricao, preco, quantidade, departamento);
 				produtos.inserir(p);
-				System.out.println("Produto Eletronico Cadastrado com sucesso!!!");
+				return "Produto Eletronico Cadastrado com sucesso!!!";
 			}
 			else {
 				int idProduto = produtos.getLista().size();
 				Produto p = new Produto(idProduto, nome, descricao, preco, quantidade, departamento);
 				produtos.inserir(p);
-				System.out.println("Produto Cadastrado com sucesso!!!");
+				return "Produto Cadastrado com sucesso!!!";
 			}
 		}
 		catch (DepartamentoNaoEncontradoException e){
-			System.out.println(e.getMessage());
+			return e.getMessage();
 		}
 	}
 	
-	public void cadastrarProdutoSimilar(HashMap<String, String> dadosProdutoSimilar) {
+	public String cadastrarProdutoSimilar(HashMap<String, String> dadosProdutoSimilar) {
 		String nome = dadosProdutoSimilar.get("nome");
 		String descricao = dadosProdutoSimilar.get("descricao");
 		float preco = Float.parseFloat(dadosProdutoSimilar.get("preco"));
@@ -124,12 +135,15 @@ public class ControllerCadastro {
 				p.setProdutoMarca((ProdutoEletronico) produtoOriginal);
 				((ProdutoEletronico) produtoOriginal).cadastrarSimilar(p);
 				produtos.inserir(p);
-				System.out.println("Produto Cadastrado com sucesso!!!");
+				return "Produto Cadastrado com sucesso!!!";
+			}
+			else {
+				return "O Produto não é um eletronico!!!";
 			}
 
 		}
 		catch (ProdutoNaoEncontradoException e){
-			System.out.println(e.getMessage());
+			return e.getMessage();
 		}
 	}
 }

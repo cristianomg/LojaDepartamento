@@ -41,11 +41,18 @@ public class FuncionarioView {
 			String matricula = sc.nextLine();
 			System.out.print("Informe a senha do funcionario: ");
 			String senha = sc.nextLine();
+			System.out.print("Informe se o funcionario possui curso superior [s / n]: ");
+			String cursoSuperior = sc.nextLine();
 			if(nome.length() > 0 && matricula.length() > 0 && senha.length() > 0) {
-				response.put("nome", nome);
-				response.put("matricula", matricula);
-				response.put("senha", senha);
-				inputConcluido = true;
+				if(cursoSuperior.equals("s") || cursoSuperior.equals("n")) {
+					response.put("nome", nome);
+					response.put("matricula", matricula);
+					response.put("senha", senha);
+					response.put("cursoSuperior", cursoSuperior);
+					inputConcluido = true;
+					
+				}
+
 			}
 		}while(!inputConcluido);
 		return response;
@@ -56,16 +63,21 @@ public class FuncionarioView {
 		System.out.printf("%-19s%s%-20s%s%-20s", "--------------------", "  ","Listagem de Funcionarios"," ", "----------------------");
 		System.out.println();
 		System.out.println();
-		System.out.printf("%-10s%-2s%-36s%-2s%-12s%-2s%s","Matricula", " ","Nome do Funcionario", " ", "departamento", " ", "Chefe");
-		System.out.println();
-		System.out.printf("%-10s%-2s%-36s%-2s%-12s%-2s%s","----------", " ","------------------------------------", " ", "------------", " ", "-----");
-		System.out.println();
-		for(Funcionario funcionario: lista) {
+		if(!lista.isEmpty()) {
+			System.out.printf("%-10s%-2s%-36s%-2s%-12s%-2s%s","Matricula", " ","Nome do Funcionario", " ", "departamento", " ", "Chefe");
 			System.out.println();
-			System.out.printf("%-10s%-2s%-36s%-2s%-12s%-2s%s",funcionario.getMatricula(), " ",funcionario.getNome(), " ", funcionario.getDepartamento().getNome(), " ", funcionario.isChefe());
+			System.out.printf("%-10s%-2s%-36s%-2s%-12s%-2s%s","----------", " ","------------------------------------", " ", "------------", " ", "-----");
 			System.out.println();
+			for(Funcionario funcionario: lista) {
+				System.out.println();
+				System.out.printf("%-10s%-2s%-36s%-2s%-12s%-2s%s",funcionario.getMatricula(), " ",funcionario.getNome(), " ", funcionario.getDepartamento().getNome(), " ", funcionario.isChefe());
+				System.out.println();
+			}
+			System.out.println();
+		}else {
+			System.out.println("Nenhum funcionario cadastrado.");
 		}
-		System.out.println();
+		
 	}
 	@SuppressWarnings("unused")
 	public HashMap<String, String> buscarFuncionarioRequest() {

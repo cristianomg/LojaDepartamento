@@ -69,10 +69,11 @@ public class Menu {
 		System.out.println("3. Cadastrar Departamento");
 		System.out.println("4. Cadastrar Produto");
 		System.out.println("5. Cadastrar Produtos Similares");
+		System.out.println("6. Retorna para menu principal");
 		do {
 			try {
 				respostaCadastro = sc.nextInt();
-				if (respostaCadastro > 0 && respostaCadastro < 6){
+				if (respostaCadastro > 0 && respostaCadastro < 7){
 					inputConcluido = true;
 				}else {
 					System.out.print("Erro: Opção Invalida, tente novamente: ");
@@ -95,7 +96,7 @@ public class Menu {
 		System.out.println("3. remover Produto");
 		System.out.println("4. calcular valor da venda");
 		System.out.println("5. finalizar venda");
-		System.out.println("6. Voltar pro menu principal");
+		System.out.println("6. Retorna para menu principal");
 		do {
 			try {
 				respostaCadastro = sc.nextInt();
@@ -122,6 +123,7 @@ public class Menu {
 		System.out.println("3. Listar Funcionario");
 		System.out.println("4. Listar Produto");
 		System.out.println("5. Listar Vendas");
+		System.out.println("6. Retorna para menu principal");
 		do {
 			try {
 				respostaListagem = sc.nextInt();
@@ -147,7 +149,8 @@ public class Menu {
 		System.out.println("2. Mover produto de departamento");
 		System.out.println("3. Mover funcionario de departamento");
 		System.out.println("4. Promover funcionario a chefe");
-		System.out.println("5. Voltar para menu principal");
+		System.out.println("5. Alterar comissão do departamento");
+		System.out.println("6. Retorna para menu principal");
 		do {
 			try {
 				respostaMovimentacoes = sc.nextInt();
@@ -172,11 +175,11 @@ public class Menu {
 		System.out.println("1. Buscar Vendedor");
 		System.out.println("2. Buscar Registro de Venda	");
 		System.out.println("3. Buscar Produtos similares de um produto Marca");
-		System.out.println("5. Voltar para menu principal");
+		System.out.println("4. Retorna para menu principal");
 		do {
 			try {
 				response = sc.nextInt();
-				if (response > 0 && response < 7){
+				if (response > 0 && response < 5){
 					inputConcluido = true;
 				}else {
 					System.out.print("Erro: Opção Invalida, tente novamente: ");

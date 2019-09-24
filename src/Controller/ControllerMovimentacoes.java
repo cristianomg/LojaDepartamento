@@ -12,62 +12,113 @@ import Model.Entites.Departamento;
 import Model.Entites.Funcionario;
 import Model.Entites.Produto;
 import Model.Entites.ProdutoEletronico;
+import View.MovimentacaoView;
 
 public class ControllerMovimentacoes {
 	private static ProdutoDAO produtos = ProdutoDAO.getInstance();
 	private static DepartamentoDAO departamentos = DepartamentoDAO.getInstance();
 	private static FuncionarioDAO funcionarios = FuncionarioDAO.getInstance();
-	
-	public void comprarProduto(HashMap<String, Integer> request){
+
+	public String comprarProduto(HashMap<String, Integer> request) {
 		try {
 			Produto produto = produtos.getProduto(request.get("idProduto"));
 			produto.addQuantidade(request.get("quantidade"));
 			produtos.save();
-			System.out.println("Compra realizada!!!");
+			return "Compra realizada com sucesso.";
 		} catch (ProdutoNaoEncontradoException e) {
-			System.out.println(e.getMessage());
+			return e.getMessage();
 		}
-		
+
 	}
-	public void moverProdutoDepartamento(HashMap<String, Integer> request) {
+
+	public String moverProdutoDepartamento(HashMap<String, Integer> request) {
 		Produto produto;
 		try {
 			produto = produtos.getProduto(request.get("idProduto"));
 			Departamento departamento = departamentos.getDepartamento(request.get("idDepartamento"));
 			if (produto.getDepartamento().getNome().equals("Eletronico")) {
 				ProdutoEletronico produto1 = (ProdutoEletronico) produto;
-				for (ProdutoEletronico p: produto1.getListaSimilar()) {
+				for (ProdutoEletronico p : produto1.getListaSimilar()) {
 					p.setDepartamento(departamento);
 				}
 			}
 			produto.setDepartamento(departamento);
 
 			produtos.save();
-			System.out.println("Produto movido de departamento.");
-		}
-		catch(DepartamentoNaoEncontradoException e1) {
-			System.out.println(e1);
+			return "Produto movido de departamento.";
+		} catch (DepartamentoNaoEncontradoException e1) {
+			return e1.getMessage();
 		} catch (ProdutoNaoEncontradoException e) {
-			System.out.println(e);
+			return e.getMessage();
 		}
 
 	}
-	public void moverFuncionarioDepartamento(HashMap<String, String> request) {
+
+	public String moverFuncionarioDepartamento(int idDepartamentoOrigem) {
+		MovimentacaoView movimentacaoView = new MovimentacaoView();
 		Funcionario funcionario;
-		String matricula = request.get("matricula");
-		int idDepartamento = Integer.parseInt(request.get("idDepartamento"));
 		try {
-			funcionario = funcionarios.getFuncionario(matricula);
-			Departamento departamento = departamentos.getDepartamento(idDepartamento);
-			funcionario.setDepartamento(departamento);
-			funcionarios.save();
-			System.out.println("Funcionario movido de departamento.");
-		} catch (FuncionarioNaoEncontradoException e) {
-			System.out.println(e);
+			Departamento departamentoOrigem = departamentos.getDepartamento(idDepartamentoOrigem);
+			System.out.println(departamentoOrigem.getListFuncionario().size());
+			movimentacaoView.listarFuncionariosDepartamento(departamentoOrigem.getListFuncionario());
+			if (!departamentoOrigem.getListFuncionario().isEmpty()) {
+				try {
+					HashMap<String, String> request = movimentacaoView.dadosMoverFuncionario();
+					String matricula = request.get("matricula");
+					int idDepartamento = Integer.parseInt(request.get("idDepartamento"));
+					funcionario = funcionarios.getFuncionario(matricula);
+					Departamento departamentoNovo = departamentos.getDepartamento(idDepartamento);
+					funcionario.setDepartamento(departamentoNovo);
+					departamentoOrigem.removerFuncionarioList(funcionario);
+					departamentoNovo.addFuncionarioList(funcionario);
+					funcionarios.save();
+					departamentos.save();
+					return "Funcionario movido de departamento.";
+				} catch (FuncionarioNaoEncontradoException e) {
+					return e.getMessage();
+				} catch (DepartamentoNaoEncontradoException e1) {
+					return e1.getMessage();
+				}
+			} else {
+				return "Nenhum funcionario cadastrado nesse departamento.";
+			}
+		} catch (DepartamentoNaoEncontradoException e2) {
+			return e2.getMessage();
 		}
-		catch (DepartamentoNaoEncontradoException e1) {
-			System.out.println(e1);
-		}
-
 	}
+
+	public String promoverFuncionarioChefe(int idDepartamento) {
+		MovimentacaoView movimentacaoView1 = new MovimentacaoView();
+		Departamento departamento;
+		try {
+			departamento = departamentos.getDepartamento(idDepartamento);
+			movimentacaoView1.listarFuncionariosDepartamento(departamento.getListFuncionario());
+			String matricula = movimentacaoView1.solicitarMatricularFuncionario();
+			Funcionario funcionario = funcionarios.getFuncionario(matricula);
+			boolean chefiaRealizada = departamento.setChefe(funcionario);
+			departamentos.save();
+			funcionarios.save();
+			if (chefiaRealizada) {
+				return "Funcionario Promovido a chefe com sucesso.";
+			} else {
+				return "Promoção não concluida, verifique se o funcionario possui ensino superior.";
+			}
+		} catch (DepartamentoNaoEncontradoException | FuncionarioNaoEncontradoException e) {
+			// TODO Auto-generated catch block
+			return e.getMessage();
+		}
+	}
+	public String modificarComissao(int idDepartamento) {
+		try {
+			Departamento departamento = departamentos.getDepartamento(idDepartamento);
+			MovimentacaoView movimentacaoView = new MovimentacaoView();
+			double comissao = movimentacaoView.solicitarNovaComissao();
+			departamento.setPercentualComissao(comissao);
+			departamentos.save();
+			return "Comissão alterada com sucesso.";
+		} catch (DepartamentoNaoEncontradoException e) {
+			return e.getMessage();
+		}
+	}
+	
 }

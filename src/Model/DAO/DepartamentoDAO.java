@@ -75,7 +75,7 @@ public class DepartamentoDAO implements InterfaceDAO <Departamento> {
 				return dep;
 			}
 		}
-		throw new DepartamentoNaoEncontradoException("Erro: Departamento n�o encontrado no sistema!!");
+		throw new DepartamentoNaoEncontradoException("Erro: Departamento não encontrado no sistema!!");
 	}
 	
 	public Departamento getDepartamento(int id) throws DepartamentoNaoEncontradoException {
@@ -84,7 +84,7 @@ public class DepartamentoDAO implements InterfaceDAO <Departamento> {
 				return dep;
 			}
 		}
-		throw new DepartamentoNaoEncontradoException("Erro: Departamento n�o encontrado no sistema!!");
+		throw new DepartamentoNaoEncontradoException("Erro: Departamento não encontrado no sistema!!");
 
 	}
 	

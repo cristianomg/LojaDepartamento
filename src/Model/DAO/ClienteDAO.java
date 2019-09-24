@@ -130,4 +130,13 @@ public class ClienteDAO implements InterfaceDAO <Cliente> {
 		return new ArrayList<Cliente>();
 		
 	}
+	public boolean testClienteExiste(Cliente cliente) {
+		var cli = this.listaClientes.stream().filter(c -> c.getCpf_cnpj().equals(cliente.getCpf_cnpj())).findFirst();
+		if (cli.isPresent()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 }

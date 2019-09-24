@@ -43,33 +43,44 @@ public class ControllerPrincipal {
 		case 5:
 			this.controllerListagem();
 			break;
-		case 6: controllerBusca();
+		case 6: 
+			this.controllerBusca();
+			break;
 		}
 		
 	}
 	public void controllerCadastro() {
 		int respCadastro = menu.menuCadastro();
 		ControllerCadastro controllerCadastro = new ControllerCadastro();
+		String result;
 		switch(respCadastro) {
 		case 1:
 			ClienteView clienteView = new ClienteView();
-			controllerCadastro.cadastrarCliente(clienteView.cadastroCliente());
+			result = controllerCadastro.cadastrarCliente(clienteView.cadastroCliente());
+			System.out.println(result);
 			break;
 		case 2:
 			FuncionarioView funcionarioView = new FuncionarioView();
-			controllerCadastro.cadastrarFuncionario(funcionarioView.solicitarDepartamentoID());
+			result = controllerCadastro.cadastrarFuncionario(funcionarioView.solicitarDepartamentoID());
+			System.out.println(result);
 			break;
 		case 3:
 			DepartamentoView departamentoView = new DepartamentoView();
-			controllerCadastro.cadastrarDepartamento(departamentoView.cadastrarDepartamento());
+			result = controllerCadastro.cadastrarDepartamento(departamentoView.cadastrarDepartamento());
+			System.out.println(result);
 			break;
 		case 4:
 			ProdutoView produtoView = new ProdutoView();
-			controllerCadastro.cadastrarProduto(produtoView.cadastrarProduto());
+			result = controllerCadastro.cadastrarProduto(produtoView.cadastrarProduto());
+			System.out.println(result);
 			break;
 		case 5:
 			ProdutoView produtoView1 = new ProdutoView();
-			controllerCadastro.cadastrarProdutoSimilar(produtoView1.cadastrarProdutoSimilar());
+			result = controllerCadastro.cadastrarProdutoSimilar(produtoView1.cadastrarProdutoSimilar());
+			System.out.println(result);
+			break;
+		case 6:
+			this.controllerPrincipal();
 			break;
 		}
 		this.retornarMenuPrincipal();
@@ -119,21 +130,36 @@ public class ControllerPrincipal {
 		ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
 		RelatorioView relatorioView = new RelatorioView();
 		controllerRelatorio.relatorioMensal(relatorioView.solicitarMes());
+		this.retornarMenuPrincipal();
 		
 	}
 	public void controllerMovimentacoes() {
 		int respostaListagem = menu.menuMovimentacoes();
 		ControllerMovimentacoes controllerMovimentacoes = new ControllerMovimentacoes();
 		MovimentacaoView movimentacaoView = new MovimentacaoView();
+		String result;
 		switch(respostaListagem) {
 		case 1:
-			controllerMovimentacoes.comprarProduto(movimentacaoView.dadosComprarProduto());
+			result = controllerMovimentacoes.comprarProduto(movimentacaoView.dadosComprarProduto());
+			System.out.println(result);
 			break;
 		case 2:
-			controllerMovimentacoes.moverProdutoDepartamento(movimentacaoView.dadosMoverProduto());
+			result = controllerMovimentacoes.moverProdutoDepartamento(movimentacaoView.dadosMoverProduto());
+			System.out.println(result);
 			break;
 		case 3:
-			controllerMovimentacoes.moverFuncionarioDepartamento(movimentacaoView.dadosMoverFuncionario());
+			result = controllerMovimentacoes.moverFuncionarioDepartamento(movimentacaoView.solicitarDepartamento());
+			System.out.println(result);
+			break;
+		case 4:
+			result = controllerMovimentacoes.promoverFuncionarioChefe(movimentacaoView.solicitarDepartamento());
+			System.out.println(result);
+			break;
+		case 5:
+			result = controllerMovimentacoes.modificarComissao(movimentacaoView.solicitarDepartamento());
+			System.out.println(result);
+		case 6:
+			this.controllerPrincipal();
 			break;
 		}
 		this.retornarMenuPrincipal();
@@ -160,6 +186,9 @@ public class ControllerPrincipal {
 		case 5:
 			controllerListagem.listarVendas();
 			break;
+		case 6:
+			this.controllerPrincipal();
+			break;
 		}
 		this.retornarMenuPrincipal();
 	}
@@ -178,6 +207,9 @@ public class ControllerPrincipal {
 			break;
 		case 3:
 			controllerBusca.buscarProdutoSimiliar();
+			break;
+		case 4:
+			this.controllerPrincipal();
 			break;
 		}
 		this.retornarMenuPrincipal();

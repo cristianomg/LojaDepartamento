@@ -17,6 +17,7 @@ public class Venda implements Serializable {
 	private Funcionario funcionario;
 	private ArrayList<VendaProduto> listaVendaProduto = new ArrayList<VendaProduto>();
 	private boolean vendaFinalizada;
+	private double comissaoFuncionario;
 		
 	public Venda(int codigo, Cliente cliente, Funcionario funcionario) {
 		this.codigo = codigo;
@@ -84,13 +85,21 @@ public class Venda implements Serializable {
 	public void finalizarVenda() throws VendaEncerradaExpcetion {
 		if(!vendaFinalizada) {
 			this.precoTotal = this.calcularPrecoFinal();
+			this.calcularComissao();
 			this.data = LocalDate.now();
-			System.out.println(this.data);
 			vendaFinalizada = true;
 		}
 		else {
 			throw new VendaEncerradaExpcetion("Venda encerrada para modifica-la reabra!!!");
 		}
+	}
+	private void calcularComissao() {
+		float precoFinal = this.precoTotal;
+		this.comissaoFuncionario = (precoFinal * this.funcionario.getDepartamento().getPercentualComissao())/100;
+		
+	}
+	public double getComissaoFuncionario() {
+		return comissaoFuncionario;
 	}
 	public void removerProduto(int produtoId) throws VendaNaoEncontradaException, VendaEncerradaExpcetion{
 		if (!vendaFinalizada) {
@@ -149,5 +158,4 @@ public class Venda implements Serializable {
 			throw new VendaEncerradaExpcetion("Venda encerrada para modifica-la reabra!!!");
 		}
 	}
-	
 }

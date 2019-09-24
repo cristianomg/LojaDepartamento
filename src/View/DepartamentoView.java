@@ -38,26 +38,31 @@ public class DepartamentoView {
 		System.out.printf("%-18s%s%-20s%s%-18s", "--------------------", "  ","Listagem de Departamentos"," ", "---------------------");
 		System.out.println();
 		System.out.println();
-		System.out.printf("%-4s%-2s%-50s%-2s%-11s","ID", " ","Nome do Departamento", " ", "Sigla");
-		System.out.println();
-		System.out.printf("%-4s%-2s%-50s%-2s%-11s","----", " ","------------------------------------------------", " ", "-----------");
-		for(Departamento departamento: departamentos) {
-			System.out.println();
-			System.out.printf("%-4s%-2s%-50s%-2s%-11s",departamento.getId(), " ",departamento.getNome(), " ", departamento.getSigla());
-			System.out.println();
-			System.out.println();
-			System.out.println("Lista de Produtos");
-			System.out.printf("%-4s%-2s%-38s%-2s%-10s%-2s%-5s","----", " ","-------------------------------------", " ", "-----", " ", "-----------");
-			System.out.println();
-			System.out.printf("%-4s%-2s%-38s%-2s%-10s%-2s%-5s","ID", " ","Nome dos Produtos do Departamento", " ", "Preço", " ", "Quantidade");
-			System.out.println();
-			System.out.printf("%-4s%-2s%-38s%-2s%-10s%-2s%-5s","----", " ","-------------------------------------", " ", "-----", " ", "-----------");
-			System.out.println();
-			for(Produto produto: departamento.getProdutos()) {
-				System.out.printf("%-4s%-2s%-38s%-2s%-10s%-2s%-5s", produto.getId(), " ",produto.getNome(), " ", produto.getPreco(), " ", produto.getQuantidade());
+		if(!departamentos.isEmpty()) {
+			for(Departamento departamento: departamentos) {
+				System.out.printf("%-4s%-2s%-50s%-2s%-11s","ID", " ","Nome do Departamento", " ", "Sigla");
 				System.out.println();
+				System.out.printf("%-4s%-2s%-50s%-2s%-11s","----", " ","------------------------------------------------", " ", "-----------");
+				System.out.println();
+				System.out.printf("%-4s%-2s%-50s%-2s%-11s",departamento.getId(), " ",departamento.getNome(), " ", departamento.getSigla());
+				System.out.println();
+				System.out.println();
+				System.out.println("Lista de Produtos");
+				System.out.printf("%-4s%-2s%-38s%-2s%-10s%-2s%-5s","----", " ","-------------------------------------", " ", "-----", " ", "-----------");
+				System.out.println();
+				System.out.printf("%-4s%-2s%-38s%-2s%-10s%-2s%-5s","ID", " ","Nome dos Produtos do Departamento", " ", "Preço", " ", "Quantidade");
+				System.out.println();
+				System.out.printf("%-4s%-2s%-38s%-2s%-10s%-2s%-5s","----", " ","-------------------------------------", " ", "-----", " ", "-----------");
+				System.out.println();
+				for(Produto produto: departamento.getProdutos()) {
+					System.out.printf("%-4s%-2s%-38s%-2s%-10s%-2s%-5s", produto.getId(), " ",produto.getNome(), " ", produto.getPreco(), " ", produto.getQuantidade());
+					System.out.println();
+				}
 			}
+			System.out.println();
+		}else {
+			System.out.println("Nenhum departamento cadastrado.");
 		}
-		System.out.println();
+
 	}
 }

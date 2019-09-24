@@ -95,7 +95,7 @@ public class Funcionario implements Serializable{
 		if(!(obj instanceof Funcionario)) {
 			return false;
 		}
-		if (this.getMatricula() == ((Funcionario) obj).getMatricula()) {
+		if (this.getMatricula().equals(((Funcionario) obj).getMatricula()) ) {
 			return true;
 		}
 		return false;
