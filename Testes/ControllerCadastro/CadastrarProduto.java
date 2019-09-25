@@ -41,13 +41,40 @@ public class CadastrarProduto {
 			return e.getMessage();
 		}
 	}
+	
+	public String cadastrarProdutoSimilar(HashMap<String, String> dadosProdutoSimilar) {
+		String nome = dadosProdutoSimilar.get("nome");
+		String descricao = dadosProdutoSimilar.get("descricao");
+		float preco = Float.parseFloat(dadosProdutoSimilar.get("preco"));
+		int quantidade = 0;
+		int idProdutoOriginal = Integer.parseInt(dadosProdutoSimilar.get("produtoOriginal"));
+		try {
+			Produto produtoOriginal = produtos.get(idProdutoOriginal);
+			if (produtoOriginal instanceof ProdutoEletronico) {
+				Departamento departamento = produtoOriginal.getDepartamento() ;
+				int idProduto = produtos.size();
+				ProdutoEletronico p = new ProdutoEletronico(idProduto, nome, descricao, preco, quantidade, departamento);
+				p.setProdutoMarca((ProdutoEletronico) produtoOriginal);
+				((ProdutoEletronico) produtoOriginal).cadastrarSimilar(p);
+				produtos.add(p);
+				return "Produto Cadastrado com sucesso!!!";
+			}
+			else {
+				return "O Produto não é um eletronico!!!";
+			}
+
+		}
+		catch (Exception e){
+			return e.getMessage();
+		}
+	}
 
 	@Test
-	public void test() {
-		departamentos.add(new Departamento(0, "", ""));
+	public void testCreateProduto() {
+		departamentos.add(new Departamento(0, "Eletronico", ""));
 		String expected = "Produto Cadastrado com sucesso!!!";
 		HashMap<String, String> dadosProduto = new HashMap<String, String>();
-		dadosProduto.put("nome", " ");
+		dadosProduto.put("nome", "tv");
 		dadosProduto.put("preco", "1000");
 		dadosProduto.put("descricao", "");
 		dadosProduto.put("idDepartamento", "0");
@@ -55,4 +82,16 @@ public class CadastrarProduto {
 		assertEquals(expected, actual);
 	}
 
+	@Test
+	public void testCreateProdutoSimilar() {
+		this.testCreateProduto();
+		String expected = "Produto Cadastrado com sucesso!!!";
+		HashMap<String, String> dadosProdutoSimilar = new HashMap<String, String>();
+		dadosProdutoSimilar.put("nome", "tv");
+		dadosProdutoSimilar.put("preco", "1000");
+		dadosProdutoSimilar.put("descricao", "");
+		dadosProdutoSimilar.put("produtoOriginal", "0");
+		String actual = cadastrarProdutoSimilar(dadosProdutoSimilar);
+		assertEquals(expected, actual);
+	}
 }

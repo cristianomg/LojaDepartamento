@@ -150,11 +150,12 @@ public class Menu {
 		System.out.println("3. Mover funcionario de departamento");
 		System.out.println("4. Promover funcionario a chefe");
 		System.out.println("5. Alterar comissão do departamento");
-		System.out.println("6. Retorna para menu principal");
+		System.out.println("6. Demitir funcionario");
+		System.out.println("7. Retorna para menu principal");
 		do {
 			try {
 				respostaMovimentacoes = sc.nextInt();
-				if (respostaMovimentacoes > 0 && respostaMovimentacoes < 7){
+				if (respostaMovimentacoes > 0 && respostaMovimentacoes < 8){
 					inputConcluido = true;
 				}else {
 					System.out.print("Erro: Opção Invalida, tente novamente: ");

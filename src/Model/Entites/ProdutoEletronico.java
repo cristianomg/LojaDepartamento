@@ -1,11 +1,12 @@
 package Model.Entites;
 import java.util.ArrayList;
+import java.util.List;
 public class ProdutoEletronico extends Produto{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6300711613510005988L;
-	private ArrayList<ProdutoEletronico> listaSimilar = new ArrayList<ProdutoEletronico>();
+	private List<ProdutoEletronico> listaSimilar = new ArrayList<ProdutoEletronico>();
 	private ProdutoEletronico produtoMarca;
 
 	public ProdutoEletronico(int id, String nome, String descricao,
@@ -48,7 +49,7 @@ public class ProdutoEletronico extends Produto{
 	}
 
 
-	public ArrayList<ProdutoEletronico> getListaSimilar() {
+	public List<ProdutoEletronico> getListaSimilar() {
 		return listaSimilar;
 	}
 

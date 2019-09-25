@@ -87,7 +87,7 @@ public class ControllerVendas {
 			if(venda.getFuncionario().equals(funcionario)) {
 				VendaView.listarProdutosVenda(venda.getListaVendaProduto());
 				int idProduto = vendaView.solicitarIdProdutoRemover();
-				venda.removerProduto(idProduto); // corrigir esse metodo
+				venda.removerProduto(idProduto); 
 				System.out.println("Produto removido com sucesso.");
 				vendas.atualizar(venda);
 			}else {

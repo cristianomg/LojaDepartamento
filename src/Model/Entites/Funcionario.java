@@ -1,6 +1,7 @@
 package Model.Entites;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Funcionario implements Serializable{
@@ -12,9 +13,12 @@ public class Funcionario implements Serializable{
 	private boolean chefe;
 	private boolean ensinoSuperior;
 	private ArrayList<Venda> listaVenda = new ArrayList<Venda>();
+	private boolean desligado;
+	private LocalDate dataDeChefia;
 	
 	public Funcionario(String nome) {
 		this.nome = nome;
+		this.desligado = true;
 	}
 	
 	public Funcionario(String nome, String matricula) {
@@ -72,6 +76,7 @@ public class Funcionario implements Serializable{
 	}
 
 	public void setChefe(boolean chefe) {
+		this.dataDeChefia = LocalDate.now();
 		this.chefe = chefe;
 	}
 
@@ -86,6 +91,18 @@ public class Funcionario implements Serializable{
 		this.listaVenda.add(venda);
 	}
 	
+	public boolean isDesligado() {
+		return desligado;
+	}
+
+	public void setDesligado(boolean desligado) {
+		this.desligado = desligado;
+	}
+
+	public LocalDate getDataDeChefia() {
+		return dataDeChefia;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {

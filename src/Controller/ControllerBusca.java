@@ -8,10 +8,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import Exceptions.FuncionarioNaoEncontradoException;
+import Exceptions.ProdutoNaoEncontradoException;
 import Exceptions.VendaNaoEncontradaException;
 import Model.DAO.FuncionarioDAO;
+import Model.DAO.ProdutoDAO;
 import Model.DAO.VendaDAO;
 import Model.Entites.Funcionario;
+import Model.Entites.Produto;
+import Model.Entites.ProdutoEletronico;
 import Model.Entites.Venda;
 import View.FuncionarioView;
 import View.VendaView;
@@ -19,6 +23,7 @@ import View.VendaView;
 public class ControllerBusca {
 	private static FuncionarioDAO funcionarios = FuncionarioDAO.getInstance();
 	private static VendaDAO vendas = VendaDAO.getInstance();
+	private static ProdutoDAO produtos = ProdutoDAO.getInstance();
 
 	public void buscarVendedor(HashMap<String, String> request) {
 		try {
@@ -30,11 +35,7 @@ public class ControllerBusca {
 			List<Venda> vendasPeriodo = new ArrayList<Venda>();
 			if(vendasFuncionario.size()>0){
 				for (Venda venda: vendasFuncionario) {
-					System.out.println(venda.getData());
-					System.out.println(dataInicio);
-					System.out.println(dataFinal);
 					if(venda.getData().compareTo(dataInicio) >= 0 && venda.getData().compareTo(dataFinal) <= 0) {
-						System.out.println("entrou");
 						vendasPeriodo.add(venda);
 					}
 				}
@@ -63,7 +64,19 @@ public class ControllerBusca {
 
 
 	}
-	public void buscarProdutoSimiliar() {
-		
+	public List<ProdutoEletronico> buscarProdutoSimiliar(int id) {
+		Produto produto;
+		try {
+			produto = produtos.getProduto(id);
+			if (produto instanceof ProdutoEletronico) {
+				if (!((ProdutoEletronico) produto).getListaSimilar().isEmpty()) {
+					return ((ProdutoEletronico) produto).getListaSimilar();
+				}
+			}
+		} catch (ProdutoNaoEncontradoException e) {
+			System.out.println(e.getMessage());
+		}
+		return null;
+
 	}
 }

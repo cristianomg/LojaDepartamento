@@ -30,7 +30,7 @@ public class RelatorioView {
 		System.out.println("10. Outubro");
 		System.out.println("11. Novembro");
 		System.out.println("12. Dezembro");
-		System.out.print("Opção");
+		System.out.print("Opção: ");
 		do {
 			try {
 				opc = sc.nextInt();

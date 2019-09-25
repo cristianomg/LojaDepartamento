@@ -1,11 +1,14 @@
 package Controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
+import Exceptions.FuncionarioDesligadoException;
 import Exceptions.FuncionarioNaoEncontradoException;
 import Model.DAO.FuncionarioDAO;
 import Model.Entites.Funcionario;
+import Model.Entites.ProdutoEletronico;
 import View.ClienteView;
 import View.DepartamentoView;
 import View.FuncionarioView;
@@ -117,8 +120,8 @@ public class ControllerPrincipal {
 				}
 				
 			}
-		} catch (FuncionarioNaoEncontradoException e) {
-			System.out.println("Matricula ou senha invalida tente novamente!");
+		} catch (FuncionarioNaoEncontradoException | FuncionarioDesligadoException e) {
+			System.out.println(e.getMessage());
 			running = false;
 			this.retornarMenuPrincipal();
 		}
@@ -159,6 +162,9 @@ public class ControllerPrincipal {
 			result = controllerMovimentacoes.modificarComissao(movimentacaoView.solicitarDepartamento());
 			System.out.println(result);
 		case 6:
+			result = controllerMovimentacoes.demitirFuncionario(movimentacaoView.solicitarMatricularFuncionario());
+			System.out.println(result);
+		case 7:
 			this.controllerPrincipal();
 			break;
 		}
@@ -206,7 +212,9 @@ public class ControllerPrincipal {
 			controllerBusca.buscarRegistroVenda(vendaView.requestBuscaPorVenda());
 			break;
 		case 3:
-			controllerBusca.buscarProdutoSimiliar();
+			ProdutoView produtoView = new ProdutoView();
+			List<ProdutoEletronico> result = controllerBusca.buscarProdutoSimiliar(produtoView.buscarProdutoRequest());
+			produtoView.listarProdutoSimilar(result);
 			break;
 		case 4:
 			this.controllerPrincipal();
@@ -216,10 +224,15 @@ public class ControllerPrincipal {
 	}
 
 	
-	public Funcionario autentificacao() throws FuncionarioNaoEncontradoException {
+	public Funcionario autentificacao() throws FuncionarioNaoEncontradoException, FuncionarioDesligadoException {
 		HashMap<String, String> dadosFuncionario = menu.autorizacaoView();
 		Funcionario funcionario = funcionarioDAO.getFuncionario(dadosFuncionario.get("matricula"), dadosFuncionario.get("senha"));
-		return funcionario;
+		if(!funcionario.isDesligado()) {
+			return funcionario;
+		}
+		else {
+			throw new FuncionarioDesligadoException("O funcionario está desligado da loja e não possui acesso a vendas.");
+		}
 	}
 	
 	private void retornarMenuPrincipal() {

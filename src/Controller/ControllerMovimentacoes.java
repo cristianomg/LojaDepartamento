@@ -67,13 +67,19 @@ public class ControllerMovimentacoes {
 					String matricula = request.get("matricula");
 					int idDepartamento = Integer.parseInt(request.get("idDepartamento"));
 					funcionario = funcionarios.getFuncionario(matricula);
-					Departamento departamentoNovo = departamentos.getDepartamento(idDepartamento);
-					funcionario.setDepartamento(departamentoNovo);
-					departamentoOrigem.removerFuncionarioList(funcionario);
-					departamentoNovo.addFuncionarioList(funcionario);
-					funcionarios.save();
-					departamentos.save();
-					return "Funcionario movido de departamento.";
+					if(!funcionario.isDesligado()) {
+						Departamento departamentoNovo = departamentos.getDepartamento(idDepartamento);
+						funcionario.setDepartamento(departamentoNovo);
+						departamentoOrigem.removerFuncionarioList(funcionario);
+						departamentoNovo.addFuncionarioList(funcionario);
+						funcionarios.save();
+						departamentos.save();
+						return "Funcionario movido de departamento.";
+					}else {
+						return "Mudança de departamento não realizada, o funcionario está desligado da loja.";
+					}
+					
+
 				} catch (FuncionarioNaoEncontradoException e) {
 					return e.getMessage();
 				} catch (DepartamentoNaoEncontradoException e1) {
@@ -95,14 +101,19 @@ public class ControllerMovimentacoes {
 			movimentacaoView1.listarFuncionariosDepartamento(departamento.getListFuncionario());
 			String matricula = movimentacaoView1.solicitarMatricularFuncionario();
 			Funcionario funcionario = funcionarios.getFuncionario(matricula);
-			boolean chefiaRealizada = departamento.setChefe(funcionario);
-			departamentos.save();
-			funcionarios.save();
-			if (chefiaRealizada) {
-				return "Funcionario Promovido a chefe com sucesso.";
-			} else {
-				return "Promoção não concluida, verifique se o funcionario possui ensino superior.";
+			if(!funcionario.isDesligado()) {
+				boolean chefiaRealizada = departamento.setChefe(funcionario);
+				departamentos.save();
+				funcionarios.save();
+				if (chefiaRealizada) {
+					return "Funcionario Promovido a chefe com sucesso.";
+				} else {
+					return "Promoção não concluida, verifique se o funcionario possui ensino superior.";
+				}
+			}else {
+				return "Promoção não concluida, o funcionario está desligado da loja.";
 			}
+
 		} catch (DepartamentoNaoEncontradoException | FuncionarioNaoEncontradoException e) {
 			// TODO Auto-generated catch block
 			return e.getMessage();
@@ -117,6 +128,21 @@ public class ControllerMovimentacoes {
 			departamentos.save();
 			return "Comissão alterada com sucesso.";
 		} catch (DepartamentoNaoEncontradoException e) {
+			return e.getMessage();
+		}
+	}
+	
+	public String demitirFuncionario(String matriculaFuncionario) {
+		try {
+			Funcionario funcionario = funcionarios.getFuncionario(matriculaFuncionario);
+			if(!funcionario.isDesligado()) {
+				funcionario.setDesligado(true);
+				funcionarios.save();
+				return "Demissao realizada com sucesso.";
+			}else {
+				return "O funcionario já está desligado da Loja.";
+			}
+		}catch(FuncionarioNaoEncontradoException e) {
 			return e.getMessage();
 		}
 	}

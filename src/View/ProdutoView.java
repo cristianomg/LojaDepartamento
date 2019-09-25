@@ -1,6 +1,7 @@
 package View;
 
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -123,7 +124,35 @@ public class ProdutoView {
 		}
 	}
 
-	public static void buscarProdutoRequest() {
+	public int buscarProdutoRequest() {
+		boolean inputConcluido = false;
+		int idProduto = 0;
+		do {
+			try {
+				System.out.print("Informe o id do produto: ");
+				idProduto = sc.nextInt();
+				inputConcluido = true;
+			}catch (InputMismatchException e) {
+				System.out.println(e.getMessage());
+			}
 
+		}while(!inputConcluido);
+		return idProduto;
+	}
+	public void listarProdutoSimilar(List<ProdutoEletronico> listaSimilares) {
+		System.out.printf("%-5s%-2s%-40s%-2s%-16s","Id", " ", "Nome do Produto Similar", " ", "Preço");
+		System.out.println();
+		System.out.printf("%-5s%-2s%-40s%-2s%-16s","-".repeat(5), " ", "-".repeat(40), " ", "-".repeat(16));
+		System.out.println();
+		if(listaSimilares != null) {
+			for(ProdutoEletronico produto: listaSimilares) {
+				System.out.printf("%-5s%-2s%-40s%-2s%-16s", produto.getId(), " ", produto.getNome(), " ", produto.getPreco());
+				System.out.println();
+			}
+		}
+		else {
+			System.out.println("O produto buscado não possui nenhum produto similar.");
+		}
+		System.out.println();
 	}
 }

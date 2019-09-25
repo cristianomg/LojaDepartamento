@@ -58,6 +58,7 @@ public class FuncionarioView {
 		return response;
 	}
 	public static void listarFuncionarios(List<Funcionario> lista) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		System.out.printf("%-23s%s%-20s%s%-23s", "----------------------", " ","X Y Z Comercio LTDA","  ", "-----------------------");
 		System.out.println();
 		System.out.printf("%-19s%s%-20s%s%-20s", "--------------------", "  ","Listagem de Funcionarios"," ", "----------------------");
@@ -71,6 +72,14 @@ public class FuncionarioView {
 			for(Funcionario funcionario: lista) {
 				System.out.println();
 				System.out.printf("%-10s%-2s%-36s%-2s%-12s%-2s%s",funcionario.getMatricula(), " ",funcionario.getNome(), " ", funcionario.getDepartamento().getNome(), " ", funcionario.isChefe());
+				System.out.println();
+				System.out.println();
+				if(funcionario.isChefe()) {
+					System.out.println("Assumiu o cargo de chefia em: " + funcionario.getDataDeChefia().format(formatter));
+				}
+				if(funcionario.isDesligado()) {
+					System.out.println("O Funcionario está desligado da loja.");
+				}
 				System.out.println();
 			}
 			System.out.println();
@@ -118,9 +127,11 @@ public class FuncionarioView {
 		System.out.println();
 		if(vendasPeriodo.size()>0) {
 			System.out.printf("%-30s%-10s", "Codigo da Venda", "Data");
+			System.out.println();
 			System.out.println(str.repeat(69));
 			for(Venda venda: vendasPeriodo) {
 				System.out.printf("%-30s%-10s",venda.getCodigo(), venda.getData().format(formatter));
+				System.out.println();
 			}
 		}
 		else {
