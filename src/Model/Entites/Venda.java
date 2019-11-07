@@ -15,6 +15,7 @@ public class Venda implements Serializable {
 	private float precoTotal;
 	private Cliente cliente;
 	private Funcionario funcionario;
+	private Departamento departamento;
 	private ArrayList<VendaProduto> listaVendaProduto = new ArrayList<VendaProduto>();
 	private boolean vendaFinalizada;
 	private double comissaoFuncionario;
@@ -23,6 +24,7 @@ public class Venda implements Serializable {
 		this.codigo = codigo;
 		this.cliente = cliente;
 		this.funcionario = funcionario;
+		this.departamento = funcionario.getDepartamento();
 	}
 	public Venda(int codigo, LocalDate data, float precoTotal, Cliente cliente, Funcionario funcionario,
 			ArrayList<VendaProduto> listaVendaProduto) {
@@ -78,7 +80,7 @@ public class Venda implements Serializable {
 	public float calcularPrecoFinal() {
 		precoTotal = 0;
 		for(VendaProduto vp: this.listaVendaProduto) {
-			precoTotal += vp.getPreco();
+			precoTotal += vp.getSubTotal();
 		}
 		return precoTotal;
 	}
@@ -157,5 +159,11 @@ public class Venda implements Serializable {
 		else {
 			throw new VendaEncerradaExpcetion("Venda encerrada para modifica-la reabra!!!");
 		}
+	}
+	public Departamento getDepartamento() {
+		return departamento;
+	}
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
 	}
 }

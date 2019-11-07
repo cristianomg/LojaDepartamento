@@ -1,7 +1,9 @@
 package Controller;
 
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 import Exceptions.FuncionarioDesligadoException;
@@ -9,91 +11,99 @@ import Exceptions.FuncionarioNaoEncontradoException;
 import Model.DAO.FuncionarioDAO;
 import Model.Entites.Funcionario;
 import Model.Entites.ProdutoEletronico;
-import View.ClienteView;
-import View.DepartamentoView;
-import View.FuncionarioView;
-import View.Menu;
-import View.MovimentacaoView;
-import View.ProdutoView;
-import View.RelatorioView;
-import View.VendaView;
+import View.MenuBuscasView;
+import View.MenuCadastrosView;
+import View.MenuListagensView;
+import View.MenuMovimentacoesView;
+import View.MenuPrincipalView;
+import View.MenuRelatoriosView;
+import View.MenuVendasView;
+import View2.FuncionarioView;
+import View2.Menu;
+import View2.MovimentacaoView;
+import View2.ProdutoView;
+import View2.RelatorioView;
+import View2.VendaView;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
-public class ControllerPrincipal {
+public class ControllerPrincipal  implements Initializable{
+
+    @FXML
+    private Button btnMenuCadastro;
+
+    @FXML
+    private Button btnMenuVendas;
+
+    @FXML
+    private Button btnMenuBuscas;
+
+    @FXML
+    private Button btnMenuMovimentacoes;
+
+    @FXML
+    private Button btnMenuListagens;
+
+    @FXML
+    private Button btnMenuRelatorio;
+    
+    
+    
 	private Menu menu;
 	private Scanner sc = new Scanner(System.in);
 	boolean repetir = true;
 	FuncionarioDAO funcionarioDAO = FuncionarioDAO.getInstance();
 
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+			
+	}
 	
-	public ControllerPrincipal() {
-		menu = new Menu();
+	public void btnMenuCadastro_Action() {
+		MenuPrincipalView.getStage().close();
+		MenuCadastrosView menuCadastros = new MenuCadastrosView(); 
+		menuCadastros.start(new Stage());
 	}
-	public void controllerPrincipal() {
-		int resp = menu.menuPrincipal();
-		switch(resp) {
-		case 1:
-			this.controllerCadastro();
-			break;
-		case 2:
-			this.controllerVendas();
-			break;
-		case 3:
-			this.controllerRelatorios();
-			break;
-		case 4:
-			this.controllerMovimentacoes();
-			break;
-		case 5:
-			this.controllerListagem();
-			break;
-		case 6: 
-			this.controllerBusca();
-			break;
-		}
-		
+	
+	public void btnMenuVendas_Action() {
+		MenuPrincipalView.getStage().close();
+		MenuVendasView menuVendas = new MenuVendasView(); 
+		menuVendas.start(new Stage());
 	}
-	public void controllerCadastro() {
-		int respCadastro = menu.menuCadastro();
-		ControllerCadastro controllerCadastro = new ControllerCadastro();
-		String result;
-		switch(respCadastro) {
-		case 1:
-			ClienteView clienteView = new ClienteView();
-			result = controllerCadastro.cadastrarCliente(clienteView.cadastroCliente());
-			System.out.println(result);
-			break;
-		case 2:
-			FuncionarioView funcionarioView = new FuncionarioView();
-			result = controllerCadastro.cadastrarFuncionario(funcionarioView.solicitarDepartamentoID());
-			System.out.println(result);
-			break;
-		case 3:
-			DepartamentoView departamentoView = new DepartamentoView();
-			result = controllerCadastro.cadastrarDepartamento(departamentoView.cadastrarDepartamento());
-			System.out.println(result);
-			break;
-		case 4:
-			ProdutoView produtoView = new ProdutoView();
-			result = controllerCadastro.cadastrarProduto(produtoView.cadastrarProduto());
-			System.out.println(result);
-			break;
-		case 5:
-			ProdutoView produtoView1 = new ProdutoView();
-			result = controllerCadastro.cadastrarProdutoSimilar(produtoView1.cadastrarProdutoSimilar());
-			System.out.println(result);
-			break;
-		case 6:
-			this.controllerPrincipal();
-			break;
-		}
-		this.retornarMenuPrincipal();
+	
+	
+	public void btnMenuRelatorios_Action() {
+		MenuPrincipalView.getStage().close();
+		MenuRelatoriosView menuRelatorios = new MenuRelatoriosView(); 
+		menuRelatorios.start(new Stage());
 	}
+	
+	public void btnMenuMovimentacoes_Action() {
+		MenuPrincipalView.getStage().close();
+		MenuMovimentacoesView menuMovimentacoes = new MenuMovimentacoesView(); 
+		menuMovimentacoes.start(new Stage());
+	}
+	
+	public void btnMenuListagens_Action() {
+		MenuPrincipalView.getStage().close();
+		MenuListagensView menuListagens = new MenuListagensView(); 
+		menuListagens.start(new Stage());
+	}
+	
+	public void btnMenuBuscas_Action() {
+		MenuPrincipalView.getStage().close();
+		MenuBuscasView menuBuscas = new MenuBuscasView(); 
+		menuBuscas.start(new Stage());
+	}
+	
 	public void controllerVendas() {
 		boolean running;
 		try {
 			Funcionario funcionario = autentificacao();
 			running = true;
-			ControllerVendas vendas = new ControllerVendas(funcionario); 
+			MenuVendasController vendas = new MenuVendasController(funcionario); 
 			while (running) {
 				int opc = menu.menuVenda();
 				VendaView vendaView = new VendaView();
@@ -115,7 +125,6 @@ public class ControllerPrincipal {
 					break;
 				case 6:
 					running = false;
-					this.controllerPrincipal();
 					break;
 				}
 				
@@ -165,35 +174,6 @@ public class ControllerPrincipal {
 			result = controllerMovimentacoes.demitirFuncionario(movimentacaoView.solicitarMatricularFuncionario());
 			System.out.println(result);
 		case 7:
-			this.controllerPrincipal();
-			break;
-		}
-		this.retornarMenuPrincipal();
-	}
-	
-	
-
-	public void controllerListagem() {
-		int respostaListagem = menu.menuListagem();
-		ControllerListagem controllerListagem = new ControllerListagem();
-		switch(respostaListagem) {
-		case 1:
-			controllerListagem.listarClientes();
-			break;
-		case 2:
-			controllerListagem.listaDepartamentos();
-			break;
-		case 3:
-			controllerListagem.listaFuncionario();
-			break;
-		case 4:
-			controllerListagem.listarProdutos();
-			break;
-		case 5:
-			controllerListagem.listarVendas();
-			break;
-		case 6:
-			this.controllerPrincipal();
 			break;
 		}
 		this.retornarMenuPrincipal();
@@ -217,7 +197,6 @@ public class ControllerPrincipal {
 			produtoView.listarProdutoSimilar(result);
 			break;
 		case 4:
-			this.controllerPrincipal();
 			break;
 		}
 		this.retornarMenuPrincipal();
@@ -239,7 +218,6 @@ public class ControllerPrincipal {
 		System.out.println("Digite '1' para voltar pro menu principal");
 		int opc = sc.nextInt();
 		if (opc==1) {
-			this.controllerPrincipal();
 		}
 		else {
 			System.out.println("Opção invalida!!!");

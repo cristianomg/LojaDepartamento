@@ -49,7 +49,7 @@ public class ClienteDAO implements InterfaceDAO <Cliente> {
 	@Override
 	public boolean deletar(Cliente objeto) {
 		for(Cliente cliente: listaClientes) {
-			if (objeto.getCpf_cnpj().equals(cliente.getCpf_cnpj())){
+			if (cliente.equals(objeto)){
 				listaClientes.remove(objeto);
 				this.save();
 				return true;
@@ -131,7 +131,7 @@ public class ClienteDAO implements InterfaceDAO <Cliente> {
 		
 	}
 	public boolean testClienteExiste(Cliente cliente) {
-		var cli = this.listaClientes.stream().filter(c -> c.getCpf_cnpj().equals(cliente.getCpf_cnpj())).findFirst();
+		var cli = this.listaClientes.stream().filter(c -> c.equals(cliente)).findFirst();
 		if (cli.isPresent()) {
 			return true;
 		}

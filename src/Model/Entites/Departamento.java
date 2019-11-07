@@ -15,19 +15,19 @@ public class Departamento implements Serializable {
 	private double percentualComissao;
 	private ArrayList<Funcionario> listFuncionario = new ArrayList<Funcionario>();
 
-	public Departamento(int id) {
-		this.id = id;
+	public Departamento() {
+		this.id = hashCode();
 		this.percentualComissao = 3;
 	}
 
-	public Departamento(int id, String nome, String sigla) {
-		this(id);
+	public Departamento(String nome, String sigla) {
+		this();
 		this.nome = nome;
 		this.sigla = sigla;
 	}
 
-	public Departamento(int id, String nome, String sigla, ArrayList<Funcionario> listFuncionario) {
-		this(id, nome, sigla);
+	public Departamento(String nome, String sigla, ArrayList<Funcionario> listFuncionario) {
+		this(nome, sigla);
 		this.listFuncionario = listFuncionario;
 	}
 
@@ -99,19 +99,40 @@ public class Departamento implements Serializable {
 		this.percentualComissao = percentualComissao;
 	}
 
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((sigla == null) ? 0 : sigla.hashCode());
+		return result;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
-			return false;
-		}
-
-		if (!(obj instanceof Departamento)) {
-			return false;
-		}
-		if (this.getId() == ((Departamento) obj).getId()) {
+		if (this == obj)
 			return true;
-		}
-		return false;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Departamento other = (Departamento) obj;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		if (sigla == null) {
+			if (other.sigla != null)
+				return false;
+		} else if (!sigla.equals(other.sigla))
+			return false;
+		return true;
+	}
 
+	@Override
+	public String toString() {
+		return nome;
 	}
 }

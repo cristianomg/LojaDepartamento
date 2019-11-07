@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="72.0" prefWidth="600.0" style="-fx-background-color: #ff8800;">
+         <children>
+            <Label layoutX="21.0" layoutY="20.0" text="Buscar Vendedor - Loja Departamento" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="Arial Black" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane prefHeight="329.0" prefWidth="600.0" style="-fx-background-color: #52504F;">
+         <children>
+            <TextField layoutX="300.0" layoutY="216.0" style="-fx-background-color: #ADABA6;" />
+            <Label layoutX="224.0" layoutY="219.0" text="Matricula: " textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="211.0" layoutY="251.0" prefHeight="17.0" prefWidth="98.0" text="Data Inicial: " textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Label>
+            <DatePicker layoutX="300.0" layoutY="247.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #52504F;" />
+            <Label layoutX="220.0" layoutY="285.0" prefHeight="17.0" prefWidth="98.0" text="Data Final: " textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Label>
+            <DatePicker layoutX="300.0" layoutY="280.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #52504F;" />
+            <Button cancelButton="true" layoutX="460.0" layoutY="280.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="132.0" style="-fx-background-color: #FC0505;" text="Menu Principal" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Button>
+            <Button cancelButton="true" layoutX="460.0" layoutY="247.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="132.0" style="-fx-background-color: #ff8800;" text="Buscar" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Button>
+            <TableView layoutY="1.0" prefHeight="60.0" prefWidth="600.0">
+              <columns>
+                <TableColumn editable="false" prefWidth="161.0" text="Matricula" />
+                <TableColumn editable="false" prefWidth="127.0" text="Data Inicial" />
+                  <TableColumn editable="false" prefWidth="128.0" text="Data Final" />
+              </columns>
+            </TableView>
+            <TableView layoutX="-1.0" layoutY="61.0" prefHeight="153.0" prefWidth="600.0">
+               <columns>
+                  <TableColumn editable="false" prefWidth="293.0" text="Codigo da Venda" />
+                  <TableColumn editable="false" prefWidth="306.0" text="Data" />
+               </columns>
+            </TableView>
+         </children>
+      </Pane>
+   </children>
+</VBox>

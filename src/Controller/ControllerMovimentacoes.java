@@ -12,7 +12,7 @@ import Model.Entites.Departamento;
 import Model.Entites.Funcionario;
 import Model.Entites.Produto;
 import Model.Entites.ProdutoEletronico;
-import View.MovimentacaoView;
+import View2.MovimentacaoView;
 
 public class ControllerMovimentacoes {
 	private static ProdutoDAO produtos = ProdutoDAO.getInstance();

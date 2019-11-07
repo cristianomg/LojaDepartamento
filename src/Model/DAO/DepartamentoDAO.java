@@ -88,6 +88,13 @@ public class DepartamentoDAO implements InterfaceDAO <Departamento> {
 
 	}
 	
+	public boolean contains(Departamento departamento) {
+		for(Departamento dep:listaDepartamentos) {
+			if (dep.equals(departamento)) return true;
+		}
+		return false;
+	}
+	
 	public void save() {
 		try {
 			FileOutputStream out = new FileOutputStream("database/departamentos");

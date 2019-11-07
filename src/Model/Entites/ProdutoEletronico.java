@@ -35,6 +35,12 @@ public class ProdutoEletronico extends Produto{
 		this.listaSimilar.remove(produto);
 		produto.setProdutoMarca(null);
 	}
+	@Override
+	public String toString() {
+		return this.nome;
+	}
+
+
 	public boolean ehProdutoMarca() {
 		if(this.produtoMarca == null) {
 			return true;

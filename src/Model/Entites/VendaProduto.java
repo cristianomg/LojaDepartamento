@@ -7,17 +7,18 @@ public class VendaProduto implements Serializable {
 	private Venda venda;
 	private Produto produto;
 	private float preco;
+	private float subTotal;
 	private int quantidade;
 	private float desconto;
 	
 	public VendaProduto(Venda venda, Produto produto, int quantidade, float desconto) {
 		super();
 		this.desconto = (100-desconto)/100;
-
+		this.preco = produto.getPreco();
 		this.venda = venda;
 		this.produto = produto;
 		this.quantidade = quantidade;
-		this.preco = (produto.getPreco() * quantidade * this.desconto); 
+		this.subTotal = (produto.getPreco() * quantidade * this.desconto); 
 	}
 	
 	public Venda getVenda() {
@@ -42,8 +43,8 @@ public class VendaProduto implements Serializable {
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
 	}
-	public float getPreco() {
-		return preco;
+	public float getSubTotal() {
+		return subTotal;
 	}
 	public Cliente getCliente() {
 		return venda.getCliente();
@@ -51,6 +52,11 @@ public class VendaProduto implements Serializable {
 	public Funcionario getFuncionario() {
 		return venda.getFuncionario();
 	}
+
+	public float getPreco() {
+		return preco;
+	}
+
 	
 	
 

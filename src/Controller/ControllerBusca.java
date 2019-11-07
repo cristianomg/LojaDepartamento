@@ -17,8 +17,8 @@ import Model.Entites.Funcionario;
 import Model.Entites.Produto;
 import Model.Entites.ProdutoEletronico;
 import Model.Entites.Venda;
-import View.FuncionarioView;
-import View.VendaView;
+import View2.FuncionarioView;
+import View2.VendaView;
 
 public class ControllerBusca {
 	private static FuncionarioDAO funcionarios = FuncionarioDAO.getInstance();

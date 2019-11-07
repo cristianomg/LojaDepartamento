@@ -34,6 +34,8 @@ funcionarios estão ligados a um departamento.</p>
 4. Implementação das classes Views:
 + Listagem de Clientes, Departamentos, Funcionarios, Produtos;
 5. persistência de dados em binário;
+6. Implementação da Interface Gráfica:
++ Todas telas de listagem, Telas de cadastro (cliente, funcionario, departamento), Todas telas de menus
 
 
 

@@ -71,7 +71,8 @@ public class Funcionario implements Serializable{
 		this.listaVenda = listaVenda;
 	}
 
-	public boolean isChefe() {
+	public boolean isChefe()
+	{
 		return chefe;
 	}
 
@@ -81,7 +82,7 @@ public class Funcionario implements Serializable{
 	}
 
 	public boolean isEnsinoSuperior() {
-		return ensinoSuperior;
+		return this.ensinoSuperior;
 	}
 
 	public void setEnsinoSuperior(boolean ensinoSuperior) {
@@ -92,7 +93,7 @@ public class Funcionario implements Serializable{
 	}
 	
 	public boolean isDesligado() {
-		return desligado;
+		return this.desligado;
 	}
 
 	public void setDesligado(boolean desligado) {
@@ -118,4 +119,11 @@ public class Funcionario implements Serializable{
 		return false;
 		
 	}
+
+	@Override
+	public String toString() {
+		return matricula;
+	}
+	
+	
 }

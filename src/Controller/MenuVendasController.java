@@ -16,10 +16,10 @@ import Model.Entites.Cliente;
 import Model.Entites.Funcionario;
 import Model.Entites.Produto;
 import Model.Entites.Venda;
-import View.VendaView;
+import View2.VendaView;
 
 
-public class ControllerVendas {
+public class MenuVendasController {
 	private static ClienteDAO clientes = ClienteDAO.getInstance();
 	private static VendaDAO vendas = VendaDAO.getInstance();
 	private static ProdutoDAO produtos = ProdutoDAO.getInstance();
@@ -28,7 +28,7 @@ public class ControllerVendas {
 	private Funcionario funcionario;
 	private VendaView vendaView = new VendaView();
 	
-	public ControllerVendas(Funcionario funcionario) {
+	public MenuVendasController(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
 

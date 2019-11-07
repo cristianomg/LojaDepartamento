@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory ?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ListagemProdutosController">
+   <children>
+      <Pane prefHeight="72.0" prefWidth="600.0" style="-fx-background-color: #ff8800;">
+         <children>
+            <Label layoutX="21.0" layoutY="20.0" text="Lista de Produtos - Loja Departamento" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="Arial Black" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane prefHeight="329.0" prefWidth="600.0" style="-fx-background-color: #52504F;">
+         <children>
+            <Button fx:id="btnMenuPrincipal" cancelButton="true" layoutX="469.0" layoutY="290.0" mnemonicParsing="false" onAction="#btnMenuPrincipal_Action" prefHeight="25.0" prefWidth="117.0" style="-fx-background-color: #FC0505;" text="Menu Principal" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Button>
+            <TableView fx:id="tabelaProdutos" layoutX="5.0" layoutY="7.0" prefHeight="275.0" prefWidth="590.0" style="-fx-background-color: #8c8987;">
+               <columns>
+                  <TableColumn editable="false" prefWidth="75.0" text="ID" >
+                    <cellValueFactory>
+               			<PropertyValueFactory property="id" />
+                	</cellValueFactory>                   
+                  </TableColumn>
+                  <TableColumn editable="false" prefWidth="180.0" text="Nome" >
+                    <cellValueFactory>
+               			<PropertyValueFactory property="nome" />
+                	</cellValueFactory>                   
+                  </TableColumn>
+                  <TableColumn editable="false" minWidth="0.0" prefWidth="93.0" text="Departamento" >
+                    <cellValueFactory>
+               			<PropertyValueFactory property="departamento" />
+                	</cellValueFactory>                   
+                  </TableColumn>
+                  <TableColumn prefWidth="81.0" text="Preco" >
+                    <cellValueFactory>
+               			<PropertyValueFactory property="preco" />
+                	</cellValueFactory>                   
+                  </TableColumn>
+                  <TableColumn prefWidth="78.0" text="Quantidade" >
+                     <cellValueFactory>
+               			<PropertyValueFactory property="quantidade" />
+                	</cellValueFactory>                  
+                  </TableColumn>
+                  <TableColumn prefWidth="82.0" text="Prod Marca" >
+                    <cellValueFactory>
+               			<PropertyValueFactory property="produtoMarca" />
+                	</cellValueFactory>                   
+                  </TableColumn>
+                  
+               </columns>
+            </TableView>
+         </children>
+      </Pane>
+   </children>
+</VBox>

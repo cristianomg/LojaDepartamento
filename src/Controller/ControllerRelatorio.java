@@ -7,7 +7,7 @@ import java.util.List;
 import Model.DAO.DepartamentoDAO;
 import Model.DAO.VendaDAO;
 import Model.Entites.Venda;
-import View.RelatorioView;
+import View2.RelatorioView;
 
 public class ControllerRelatorio {
 	private static DepartamentoDAO departamentos = DepartamentoDAO.getInstance();
