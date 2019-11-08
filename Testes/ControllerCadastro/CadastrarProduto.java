@@ -25,14 +25,12 @@ public class CadastrarProduto {
 		try {
 			Departamento departamento = departamentos.get(idDepartamento);
 			if (departamento.getNome().equals("Eletronico")) {
-				int idProduto = produtos.size();
-				ProdutoEletronico p = new ProdutoEletronico(idProduto, nome, descricao, preco, quantidade, departamento);
+				ProdutoEletronico p = new ProdutoEletronico(nome, descricao, preco, quantidade, departamento);
 				produtos.add(p);
 				return "Produto Cadastrado com sucesso!!!";
 			}
 			else {
-				int idProduto = produtos.size();
-				Produto p = new Produto(idProduto, nome, descricao, preco, quantidade, departamento);
+				Produto p = new Produto(nome, descricao, preco, quantidade, departamento);
 				produtos.add(p);
 				return "Produto Cadastrado com sucesso!!!";
 			}
@@ -52,10 +50,8 @@ public class CadastrarProduto {
 			Produto produtoOriginal = produtos.get(idProdutoOriginal);
 			if (produtoOriginal instanceof ProdutoEletronico) {
 				Departamento departamento = produtoOriginal.getDepartamento() ;
-				int idProduto = produtos.size();
-				ProdutoEletronico p = new ProdutoEletronico(idProduto, nome, descricao, preco, quantidade, departamento);
+				ProdutoEletronico p = new ProdutoEletronico(nome, descricao, preco, quantidade, departamento);
 				p.setProdutoMarca((ProdutoEletronico) produtoOriginal);
-				((ProdutoEletronico) produtoOriginal).cadastrarSimilar(p);
 				produtos.add(p);
 				return "Produto Cadastrado com sucesso!!!";
 			}
@@ -71,7 +67,7 @@ public class CadastrarProduto {
 
 	@Test
 	public void testCreateProduto() {
-		departamentos.add(new Departamento(0, "Eletronico", ""));
+		departamentos.add(new Departamento("Eletronico", ""));
 		String expected = "Produto Cadastrado com sucesso!!!";
 		HashMap<String, String> dadosProduto = new HashMap<String, String>();
 		dadosProduto.put("nome", "tv");

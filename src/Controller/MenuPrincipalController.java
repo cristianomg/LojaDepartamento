@@ -1,35 +1,26 @@
 package Controller;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
-import Exceptions.FuncionarioDesligadoException;
-import Exceptions.FuncionarioNaoEncontradoException;
 import Model.DAO.FuncionarioDAO;
 import Model.Entites.Funcionario;
-import Model.Entites.ProdutoEletronico;
+import View.LoginView;
 import View.MenuBuscasView;
 import View.MenuCadastrosView;
 import View.MenuListagensView;
 import View.MenuMovimentacoesView;
 import View.MenuPrincipalView;
 import View.MenuRelatoriosView;
-import View.MenuVendasView;
-import View2.FuncionarioView;
 import View2.Menu;
 import View2.MovimentacaoView;
-import View2.ProdutoView;
 import View2.RelatorioView;
-import View2.VendaView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class ControllerPrincipal  implements Initializable{
+public class MenuPrincipalController  implements Initializable{
 
     @FXML
     private Button btnMenuCadastro;
@@ -48,12 +39,11 @@ public class ControllerPrincipal  implements Initializable{
 
     @FXML
     private Button btnMenuRelatorio;
-    
-    
-    
-	private Menu menu;
-	private Scanner sc = new Scanner(System.in);
+    private static Funcionario userLogado;
+    private Menu menu;
 	boolean repetir = true;
+	
+	
 	FuncionarioDAO funcionarioDAO = FuncionarioDAO.getInstance();
 
 	@Override
@@ -69,8 +59,8 @@ public class ControllerPrincipal  implements Initializable{
 	
 	public void btnMenuVendas_Action() {
 		MenuPrincipalView.getStage().close();
-		MenuVendasView menuVendas = new MenuVendasView(); 
-		menuVendas.start(new Stage());
+		LoginView loginView = new LoginView(); 
+		loginView.start(new Stage());
 	}
 	
 	
@@ -98,51 +88,10 @@ public class ControllerPrincipal  implements Initializable{
 		menuBuscas.start(new Stage());
 	}
 	
-	public void controllerVendas() {
-		boolean running;
-		try {
-			Funcionario funcionario = autentificacao();
-			running = true;
-			MenuVendasController vendas = new MenuVendasController(funcionario); 
-			while (running) {
-				int opc = menu.menuVenda();
-				VendaView vendaView = new VendaView();
-				switch (opc) {
-				case 1:
-					vendas.abrirVender(vendaView.requestAbrirVenda());
-					break;
-				case 2:
-					vendas.adicionarProduto(vendaView.requestBuscaPorVenda());
-					break;
-				case 3:
-					vendas.removerProdutos(vendaView.requestBuscaPorVenda());
-					break;
-				case 4:
-					vendas.calcularValorVenda(vendaView.requestBuscaPorVenda());
-					break;
-				case 5:
-					vendas.finalizarVenda(vendaView.requestBuscaPorVenda());
-					break;
-				case 6:
-					running = false;
-					break;
-				}
-				
-			}
-		} catch (FuncionarioNaoEncontradoException | FuncionarioDesligadoException e) {
-			System.out.println(e.getMessage());
-			running = false;
-			this.retornarMenuPrincipal();
-		}
-		
-
-		
-	}
 	public void controllerRelatorios() {
 		ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
 		RelatorioView relatorioView = new RelatorioView();
 		controllerRelatorio.relatorioMensal(relatorioView.solicitarMes());
-		this.retornarMenuPrincipal();
 		
 	}
 	public void controllerMovimentacoes() {
@@ -176,52 +125,15 @@ public class ControllerPrincipal  implements Initializable{
 		case 7:
 			break;
 		}
-		this.retornarMenuPrincipal();
 	}
 	
-	public void controllerBusca() {
-		int respostaListagem = menu.menuBusca();
-		ControllerBusca controllerBusca = new ControllerBusca();
-		switch(respostaListagem) {
-		case 1:
-			FuncionarioView funcionarioView = new FuncionarioView();
-			controllerBusca.buscarVendedor(funcionarioView.buscarFuncionarioRequest());
-			break;
-		case 2:
-			VendaView vendaView = new VendaView();
-			controllerBusca.buscarRegistroVenda(vendaView.requestBuscaPorVenda());
-			break;
-		case 3:
-			ProdutoView produtoView = new ProdutoView();
-			List<ProdutoEletronico> result = controllerBusca.buscarProdutoSimiliar(produtoView.buscarProdutoRequest());
-			produtoView.listarProdutoSimilar(result);
-			break;
-		case 4:
-			break;
-		}
-		this.retornarMenuPrincipal();
+
+	public static Funcionario getUserLogado() {
+		return userLogado;
 	}
 
-	
-	public Funcionario autentificacao() throws FuncionarioNaoEncontradoException, FuncionarioDesligadoException {
-		HashMap<String, String> dadosFuncionario = menu.autorizacaoView();
-		Funcionario funcionario = funcionarioDAO.getFuncionario(dadosFuncionario.get("matricula"), dadosFuncionario.get("senha"));
-		if(!funcionario.isDesligado()) {
-			return funcionario;
-		}
-		else {
-			throw new FuncionarioDesligadoException("O funcionario está desligado da loja e não possui acesso a vendas.");
-		}
+	public static void setUserLogado(Funcionario userLogado) {
+		MenuPrincipalController.userLogado = userLogado;
 	}
 	
-	private void retornarMenuPrincipal() {
-		System.out.println("Digite '1' para voltar pro menu principal");
-		int opc = sc.nextInt();
-		if (opc==1) {
-		}
-		else {
-			System.out.println("Opção invalida!!!");
-			this.retornarMenuPrincipal();
-			}
-	}
 }

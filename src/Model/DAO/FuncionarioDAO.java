@@ -83,6 +83,16 @@ public class FuncionarioDAO implements InterfaceDAO<Funcionario> {
 		}
 		throw new FuncionarioNaoEncontradoException("Erro: Matricula ou senha invalida tente novamente!!!");
 	}
+	
+	public List<Funcionario> getFuncionariosDepartamento(int idDepartamento){
+		List<Funcionario> funcionariosDepartamento = new ArrayList<Funcionario>();
+		for (Funcionario f: listaFuncionario) {
+			if (f.getDepartamento().getId()== idDepartamento) {
+				funcionariosDepartamento.add(f);
+			}
+		}
+		return funcionariosDepartamento;
+	}
 	public void save() {
 		try {
 			FileOutputStream out = new FileOutputStream("database/funcionarios");

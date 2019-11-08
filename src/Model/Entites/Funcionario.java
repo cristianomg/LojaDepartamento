@@ -3,6 +3,9 @@ package Model.Entites;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+
+import Model.DAO.VendaDAO;
 
 public class Funcionario implements Serializable{
 	private static final long serialVersionUID = -7844914350878174481L;
@@ -12,13 +15,12 @@ public class Funcionario implements Serializable{
 	private Departamento departamento;
 	private boolean chefe;
 	private boolean ensinoSuperior;
-	private ArrayList<Venda> listaVenda = new ArrayList<Venda>();
 	private boolean desligado;
 	private LocalDate dataDeChefia;
 	
 	public Funcionario(String nome) {
 		this.nome = nome;
-		this.desligado = true;
+		this.desligado = false;
 	}
 	
 	public Funcionario(String nome, String matricula) {
@@ -63,12 +65,11 @@ public class Funcionario implements Serializable{
 		this.departamento = departamento;
 	}
 
-	public ArrayList<Venda> getListaVenda() {
-		return listaVenda;
-	}
-
-	public void setListaVenda(ArrayList<Venda> listaVenda) {
-		this.listaVenda = listaVenda;
+	public List<Venda> getListaVenda() {
+		List<Venda> listaVenda = VendaDAO.getInstance().getLista();
+		List<Venda> response = new ArrayList<Venda>();
+		listaVenda.stream().filter(x -> x.getFuncionario().equals(this)).forEach(x -> response.add(x));
+		return response;
 	}
 
 	public boolean isChefe()
@@ -88,10 +89,7 @@ public class Funcionario implements Serializable{
 	public void setEnsinoSuperior(boolean ensinoSuperior) {
 		this.ensinoSuperior = ensinoSuperior;
 	}
-	public void adicionarVenda(Venda venda) {
-		this.listaVenda.add(venda);
-	}
-	
+
 	public boolean isDesligado() {
 		return this.desligado;
 	}

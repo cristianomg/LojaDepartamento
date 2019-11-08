@@ -1,11 +1,13 @@
 package Controller;
 
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import Exceptions.FuncionarioNaoEncontradoException;
 import Exceptions.ProdutoNaoEncontradoException;
@@ -17,13 +19,66 @@ import Model.Entites.Funcionario;
 import Model.Entites.Produto;
 import Model.Entites.ProdutoEletronico;
 import Model.Entites.Venda;
+import View.BuscarProdutosSimilaresView;
+import View.BuscarVendaView;
+import View.BuscarVendedorView;
+import View.MenuBuscasView;
+import View.MenuPrincipalView;
 import View2.FuncionarioView;
 import View2.VendaView;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
-public class ControllerBusca {
-	private static FuncionarioDAO funcionarios = FuncionarioDAO.getInstance();
-	private static VendaDAO vendas = VendaDAO.getInstance();
-	private static ProdutoDAO produtos = ProdutoDAO.getInstance();
+public class MenuBuscasController implements Initializable{
+	 @FXML
+	    private Button btnBuscarVendedor;
+
+	    @FXML
+	    private Button btnMenuPrincipal;
+
+	    @FXML
+	    private Button btnBuscarProdutosSimilares;
+
+	    @FXML
+	    private Button btnBuscarRegistroVenda;
+	    
+	    
+		private static FuncionarioDAO funcionarios = FuncionarioDAO.getInstance();
+		private static VendaDAO vendas = VendaDAO.getInstance();
+		private static ProdutoDAO produtos = ProdutoDAO.getInstance();
+		
+		@Override
+		public void initialize(URL arg0, ResourceBundle arg1) {
+			// TODO Auto-generated method stub
+			
+		}		
+		
+	    public void btnBuscarVendedor_Action() {
+			MenuBuscasView.getStage().close();
+			BuscarVendedorView buscarVendedor = new BuscarVendedorView();
+			buscarVendedor.start(new Stage());
+	    }
+
+	    public void btnBuscarRegistroVenda_Action() {
+			MenuBuscasView.getStage().close();
+			BuscarVendaView buscarVendas = new BuscarVendaView();
+			buscarVendas.start(new Stage());
+	    }
+
+	    public void btnBuscarProdutosSimilares() {
+			MenuBuscasView.getStage().close();
+			BuscarProdutosSimilaresView buscarProdutoSimiliares = new BuscarProdutosSimilaresView();
+			buscarProdutoSimiliares.start(new Stage());
+	    }
+
+	    public void btnMenuPrincipal_Action() {
+			MenuBuscasView.getStage().close();
+			MenuPrincipalView menuPrincipal = new MenuPrincipalView();
+			menuPrincipal.start(new Stage());
+	    }
+
 
 	public void buscarVendedor(HashMap<String, String> request) {
 		try {
@@ -79,4 +134,6 @@ public class ControllerBusca {
 		return null;
 
 	}
+
+
 }

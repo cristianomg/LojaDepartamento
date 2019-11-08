@@ -3,6 +3,8 @@ package Model.Entites;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Random;
 
 import Exceptions.QuantidadeInsuficienteException;
 import Exceptions.VendaEncerradaExpcetion;
@@ -19,16 +21,18 @@ public class Venda implements Serializable {
 	private ArrayList<VendaProduto> listaVendaProduto = new ArrayList<VendaProduto>();
 	private boolean vendaFinalizada;
 	private double comissaoFuncionario;
+	private static HashSet<Integer> listaIds= new HashSet<Integer>();
+	
 		
-	public Venda(int codigo, Cliente cliente, Funcionario funcionario) {
-		this.codigo = codigo;
+	public Venda(Cliente cliente, Funcionario funcionario) {
+		this.codigo = gerarId();
 		this.cliente = cliente;
 		this.funcionario = funcionario;
 		this.departamento = funcionario.getDepartamento();
 	}
-	public Venda(int codigo, LocalDate data, float precoTotal, Cliente cliente, Funcionario funcionario,
+	public Venda(LocalDate data, float precoTotal, Cliente cliente, Funcionario funcionario,
 			ArrayList<VendaProduto> listaVendaProduto) {
-		this(codigo, cliente, funcionario);
+		this(cliente, funcionario);
 		this.data = data;
 		this.precoTotal = precoTotal;
 		this.listaVendaProduto = listaVendaProduto;
@@ -36,9 +40,6 @@ public class Venda implements Serializable {
 	
 	public int getCodigo() {
 		return codigo;
-	}
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
 	}
 	public LocalDate getData() {
 		return data;
@@ -165,5 +166,11 @@ public class Venda implements Serializable {
 	}
 	public void setDepartamento(Departamento departamento) {
 		this.departamento = departamento;
+	}
+	
+	private int gerarId() {
+		Random rand = new Random();
+		int id = rand.nextInt((10 - 0) + 1) + 0;
+		return listaIds.add(id) ? id :  gerarId();
 	}
 }

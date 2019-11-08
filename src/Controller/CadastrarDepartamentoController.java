@@ -66,7 +66,7 @@ public class CadastrarDepartamentoController implements Initializable {
 		});
 		carregarTabela();
 		habilitarBotoes(false);
-
+		this.tabelaDepartamentos.getSelectionModel().selectFirst();
 	}
 
 	private void carregarTabela() {
@@ -76,10 +76,11 @@ public class CadastrarDepartamentoController implements Initializable {
 	}
 	
 	private void habilitarBotoes(boolean habilitar) {
+		tabelaDepartamentos.setDisable(habilitar);
 		txfNome.setDisable(!habilitar);
 		txfSigla.setDisable(!habilitar);
 		btnInserir.setDisable(habilitar);
-		btnExcluir.setDisable(habilitar);
+		btnExcluir.setDisable(!habilitar);
 		btnAtualizar.setDisable(!habilitar);
 		btnCancelar.setDisable(!habilitar);
 		btnSalvar.setDisable(!habilitar);
@@ -95,6 +96,7 @@ public class CadastrarDepartamentoController implements Initializable {
 	public void btnInserir_Action() {
 		ehInserir = true;
 		habilitarBotoes(true);
+		btnExcluir.setDisable(true);
 		btnAtualizar.setDisable(true);
 		txfNome.setText("");
 		txfSigla.setText("");

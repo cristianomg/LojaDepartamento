@@ -87,6 +87,13 @@ public class ProdutoDAO implements InterfaceDAO<Produto> {
 		}
 		throw new ProdutoNaoEncontradoException("Erro: Produto não encontrado!!!");
 	}
+	
+	public boolean existe(Produto produto) {
+		for(Produto p: listaProdutos) {
+			if(p.equals(produto)) return true;
+		}
+		return false;
+	}
 	public void save() {
 		try {
 			FileOutputStream out = new FileOutputStream("database/produtos");

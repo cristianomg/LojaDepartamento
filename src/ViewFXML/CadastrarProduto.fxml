@@ -24,24 +24,24 @@
                <columns>
                   <TableColumn prefWidth="343.0" text="ID">
                      <cellValueFactory>
-                        <PropertyValueFactory property="nome" />
+                        <PropertyValueFactory property="id" />
                      </cellValueFactory>
                   </TableColumn>
                   <TableColumn prefWidth="256.0" text="Nome">
                      <cellValueFactory>
-                        <PropertyValueFactory property="idade" />
+                        <PropertyValueFactory property="nome" />
                      </cellValueFactory>
                   </TableColumn>
                </columns>
             </TableView>
-            <TitledPane collapsible="false" layoutY="139.0" prefHeight="155.0" prefWidth="600.0" text="Informações do Cliente">
+            <TitledPane collapsible="false" layoutY="139.0" prefHeight="155.0" prefWidth="600.0" text="Informações do Produto">
                <content>
                   <GridPane prefHeight="106.0" prefWidth="535.0" style="-fx-background-color: #52504F;">
                      <children>
                         <TextField fx:id="txfPreco" promptText="Preço" GridPane.columnIndex="1" />
                         <TextField fx:id="txfNome" promptText="Nome" />
                         <TextField fx:id="txfDescricao" promptText="Descrição" GridPane.rowIndex="1" />
-                        <ChoiceBox fx:id="choiceBoxDepartamento" prefHeight="25.0" prefWidth="283.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ChoiceBox fx:id="choiceBoxDep" prefHeight="25.0" prefWidth="283.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="293.0" minWidth="10.0" prefWidth="292.0" />
@@ -54,12 +54,12 @@
                   </GridPane>
                </content>
             </TitledPane>
-            <Button fx:id="btnExcluir" layoutX="429.0" layoutY="107.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="151.0" style="-fx-background-color: #ff8800;" text="Excluir" textFill="WHITE" />
-            <Button fx:id="btnAtualizar" layoutX="237.0" layoutY="106.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="151.0" style="-fx-background-color: #fa992a;" text="Atualizar" textFill="WHITE" />
-            <Button fx:id="btnInserir" layoutX="29.0" layoutY="105.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="151.0" style="-fx-background-color: #ff8800;" text="Inserir" textFill="WHITE" />
+            <Button fx:id="btnExcluir" layoutX="429.0" layoutY="107.0" mnemonicParsing="false" onAction="#btnExcluir_Action" prefHeight="25.0" prefWidth="151.0" style="-fx-background-color: #ff8800;" text="Excluir" textFill="WHITE" />
+            <Button fx:id="btnAtualizar" layoutX="237.0" layoutY="106.0" mnemonicParsing="false" onAction="#btnAtualizar_Action" prefHeight="25.0" prefWidth="151.0" style="-fx-background-color: #fa992a;" text="Atualizar" textFill="WHITE" />
+            <Button fx:id="btnInserir" layoutX="29.0" layoutY="105.0" mnemonicParsing="false" onAction="#btnInserir_Action" prefHeight="25.0" prefWidth="151.0" style="-fx-background-color: #ff8800;" text="Inserir" textFill="WHITE" />
             <Button fx:id="btnMenuPrincipal" layoutX="29.0" layoutY="297.0" mnemonicParsing="false" onAction="#btnMenuPrincipal_Action" prefHeight="25.0" prefWidth="151.0" style="-fx-background-color: #FC0505;" text="Menu Principal" textFill="WHITE" />
-            <Button fx:id="btnCancelar" layoutX="237.0" layoutY="298.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="151.0" style="-fx-background-color: #fa992a;" text="Cancelar" textFill="WHITE" />
-            <Button fx:id="btnSalvar" layoutX="429.0" layoutY="299.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="151.0" style="-fx-background-color: #ff8800;" text="Salvar" textFill="WHITE" />
+            <Button fx:id="btnCancelar" layoutX="237.0" layoutY="298.0" mnemonicParsing="false" onAction="#btnCancelar_Action" prefHeight="25.0" prefWidth="151.0" style="-fx-background-color: #fa992a;" text="Cancelar" textFill="WHITE" />
+            <Button fx:id="btnSalvar" layoutX="429.0" layoutY="299.0" mnemonicParsing="false" onAction="#btnSalvar_Action" prefHeight="25.0" prefWidth="151.0" style="-fx-background-color: #ff8800;" text="Salvar" textFill="WHITE" />
          </children>
       </Pane>
    </children>

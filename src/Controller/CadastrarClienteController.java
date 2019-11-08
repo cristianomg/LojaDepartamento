@@ -99,6 +99,7 @@ public class CadastrarClienteController implements Initializable{
 		});
 		carregarTabela();
 		habilitarBotoes(false);
+		this.tabelaCliente.getSelectionModel().selectFirst();
 		
 	}
 	
@@ -110,6 +111,7 @@ public class CadastrarClienteController implements Initializable{
 	}
 	
 	private void habilitarBotoes(boolean habilitar) {
+		tabelaCliente.setDisable(habilitar);
 		txfNome.setDisable(!habilitar);
 		txfCpf_Cnpj.setDisable(!habilitar);
 		txfRua.setDisable(!habilitar);
@@ -175,7 +177,7 @@ public class CadastrarClienteController implements Initializable{
 				if (ehInserir) {
 					boolean cadastro = cadastrarCliente(txfNome.getText(), txfCpf_Cnpj.getText(), txfEstado.getText(),
 							txfCidade.getText(), txfRua.getText(), Integer.parseInt(txfNumero.getText()),
-							txfBairro.getText(), txfCep.getText(), Integer.parseInt(txfTelefone.getText()));
+							txfBairro.getText(), txfCep.getText(), Long.parseLong(txfTelefone.getText()));
 					if (cadastro) {
 						Alert cadastroRealizado = new Alert(AlertType.INFORMATION);
 						cadastroRealizado.setTitle("Cadastro Realizado");
@@ -235,7 +237,7 @@ public class CadastrarClienteController implements Initializable{
 	}
 	
 	private boolean cadastrarCliente(String nome, String cpf_cnpj, String estado, String cidade,
-									String rua, int numero, String bairro, String cep, int telefone) throws ValidateCpfException{
+									String rua, int numero, String bairro, String cep, long telefone) throws ValidateCpfException{
 		Estado _estado = new Estado(estado);
 		Cidade _cidade = new Cidade(cidade, _estado);
 		Cliente cliente = new Cliente(nome, cpf_cnpj, telefone);

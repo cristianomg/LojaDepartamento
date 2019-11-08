@@ -1,5 +1,6 @@
 package View;
 	
+import Model.Entites.Funcionario;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -30,11 +31,12 @@ public class LoginView extends Application {
 		launch(args);
 	}
 
-	public Stage getStage() {
+	public static Stage getStage() {
 		return stage;
 	}
 
 	public void setStage(Stage stage) {
 		LoginView.stage = stage;
 	}
+
 }

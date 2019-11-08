@@ -7,12 +7,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
-public class BuscarVendedorView extends Application {
+public class PainelVendasView extends Application {
 	private static Stage stage;
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			VBox root = (VBox)FXMLLoader.load(getClass().getResource("/ViewFXML/BuscarVendedor.fxml"));
+			VBox root = (VBox)FXMLLoader.load(getClass().getResource("/ViewFXML/PainelVendas.fxml"));
 			Scene scene = new Scene(root,600,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
@@ -30,11 +30,11 @@ public class BuscarVendedorView extends Application {
 		launch(args);
 	}
 
-	public static Stage getStage() {
+	public Stage getStage() {
 		return stage;
 	}
 
 	public void setStage(Stage stage) {
-		BuscarVendedorView.stage = stage;
+		PainelVendasView.stage = stage;
 	}
 }

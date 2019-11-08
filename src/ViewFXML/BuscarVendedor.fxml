@@ -4,8 +4,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.control.cell.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.BuscarVendedorController">
    <children>
       <Pane prefHeight="72.0" prefWidth="600.0" style="-fx-background-color: #ff8800;">
          <children>
@@ -18,7 +19,7 @@
       </Pane>
       <Pane prefHeight="329.0" prefWidth="600.0" style="-fx-background-color: #52504F;">
          <children>
-            <TextField layoutX="300.0" layoutY="216.0" style="-fx-background-color: #ADABA6;" />
+            <TextField fx:id="txfMatricula" layoutX="300.0" layoutY="216.0" style="-fx-background-color: #ADABA6;" />
             <Label layoutX="224.0" layoutY="219.0" text="Matricula: " textFill="WHITE">
                <font>
                   <Font name="Arial Black" size="12.0" />
@@ -29,31 +30,43 @@
                   <Font name="Arial Black" size="12.0" />
                </font>
             </Label>
-            <DatePicker layoutX="300.0" layoutY="247.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #52504F;" />
+            <DatePicker fx:id="txfDateInitial" layoutX="300.0" layoutY="247.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #52504F;" />
             <Label layoutX="220.0" layoutY="285.0" prefHeight="17.0" prefWidth="98.0" text="Data Final: " textFill="WHITE">
                <font>
                   <Font name="Arial Black" size="12.0" />
                </font>
             </Label>
-            <DatePicker layoutX="300.0" layoutY="280.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #52504F;" />
-            <Button cancelButton="true" layoutX="460.0" layoutY="280.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="132.0" style="-fx-background-color: #FC0505;" text="Menu Principal" textFill="WHITE">
+            <DatePicker fx:id="txfDateFinal" layoutX="300.0" layoutY="280.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #52504F;" />
+            <Button fx:id="btnMenuPrincipal" cancelButton="true" layoutX="460.0" layoutY="280.0" mnemonicParsing="false" onAction="#btnMenuPrincipal_Action" prefHeight="25.0" prefWidth="132.0" style="-fx-background-color: #FC0505;" text="Menu Principal" textFill="WHITE">
                <font>
                   <Font name="Arial Black" size="12.0" />
                </font>
             </Button>
-            <Button cancelButton="true" layoutX="460.0" layoutY="247.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="132.0" style="-fx-background-color: #ff8800;" text="Buscar" textFill="WHITE">
+            <Button fx:id="btnBuscar" cancelButton="true" layoutX="460.0" layoutY="247.0" mnemonicParsing="false" onAction="#btnBuscar_Action" prefHeight="25.0" prefWidth="132.0" style="-fx-background-color: #ff8800;" text="Buscar" textFill="WHITE">
                <font>
                   <Font name="Arial Black" size="12.0" />
                </font>
             </Button>
-            <TableView layoutY="1.0" prefHeight="60.0" prefWidth="600.0">
+            <TableView fx:id="tabelaFuncionario" layoutY="1.0" prefHeight="60.0" prefWidth="600.0">
               <columns>
-                <TableColumn editable="false" prefWidth="161.0" text="Matricula" />
-                <TableColumn editable="false" prefWidth="127.0" text="Data Inicial" />
-                  <TableColumn editable="false" prefWidth="128.0" text="Data Final" />
+                <TableColumn editable="false" prefWidth="161.0" text="Matricula" >
+                	<cellValueFactory>
+                        <PropertyValueFactory property="matricula" />
+                	</cellValueFactory>
+                </TableColumn>
+                <TableColumn editable="false" prefWidth="127.0" text="Data Inicial" >
+                	<cellValueFactory>
+                        <PropertyValueFactory property="dataInicial" />
+                	</cellValueFactory>
+                </TableColumn>
+                  <TableColumn editable="false" prefWidth="128.0" text="Data Final" >
+                   	<cellValueFactory>
+                        <PropertyValueFactory property="dataFinal" />
+                	</cellValueFactory>
+                  </TableColumn>
               </columns>
             </TableView>
-            <TableView layoutX="-1.0" layoutY="61.0" prefHeight="153.0" prefWidth="600.0">
+            <TableView fx:id="tabelaVendas" layoutX="-1.0" layoutY="61.0" prefHeight="153.0" prefWidth="600.0">
                <columns>
                   <TableColumn editable="false" prefWidth="293.0" text="Codigo da Venda" />
                   <TableColumn editable="false" prefWidth="306.0" text="Data" />

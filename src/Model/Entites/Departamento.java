@@ -1,9 +1,11 @@
 package Model.Entites;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 
+import Model.DAO.FuncionarioDAO;
 import Model.DAO.ProdutoDAO;
 
 public class Departamento implements Serializable {
@@ -13,22 +15,13 @@ public class Departamento implements Serializable {
 	private String sigla;
 	private Funcionario chefe;
 	private double percentualComissao;
-	private ArrayList<Funcionario> listFuncionario = new ArrayList<Funcionario>();
-
-	public Departamento() {
-		this.id = hashCode();
-		this.percentualComissao = 3;
-	}
+	private static HashSet<Integer> listaIds= new HashSet<Integer>();
 
 	public Departamento(String nome, String sigla) {
-		this();
 		this.nome = nome;
 		this.sigla = sigla;
-	}
-
-	public Departamento(String nome, String sigla, ArrayList<Funcionario> listFuncionario) {
-		this(nome, sigla);
-		this.listFuncionario = listFuncionario;
+		this.percentualComissao = 3;
+		this.id = gerarId();
 	}
 
 	public int getId() {
@@ -55,23 +48,11 @@ public class Departamento implements Serializable {
 		this.sigla = sigla;
 	}
 
-	public ArrayList<Funcionario> getListFuncionario() {
-		return listFuncionario;
-	}
-
-	public void setListFuncionario(ArrayList<Funcionario> listFuncionario) {
-		this.listFuncionario = listFuncionario;
-	}
-
-	public void addFuncionarioList(Funcionario funcionario) {
-		listFuncionario.add(funcionario);
-
+	public List<Funcionario> getListFuncionario() {
+		List<Funcionario> funcionarios = FuncionarioDAO.getInstance().getFuncionariosDepartamento(this.id);
+		return funcionarios;
 	}
 	
-	public void removerFuncionarioList(Funcionario funcionario) {
-		listFuncionario.remove(funcionario);
-	}
-
 	public List<Produto> getProdutos() {
 		List<Produto> produtos = ProdutoDAO.getInstance().getProdutoDepartamento(this.id);
 		return produtos;
@@ -134,5 +115,11 @@ public class Departamento implements Serializable {
 	@Override
 	public String toString() {
 		return nome;
+	}
+	
+	private int gerarId() {
+		Random rand = new Random();
+		int id = rand.nextInt((10 - 0) + 1) + 0;
+		return listaIds.add(id) ? id :  gerarId();
 	}
 }

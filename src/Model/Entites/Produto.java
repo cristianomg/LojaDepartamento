@@ -2,6 +2,8 @@ package Model.Entites;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Random;
 
 import Model.Entites.Logradouro.Cidade;
 
@@ -14,17 +16,18 @@ public class Produto implements Serializable{
 	protected int quantidade;
 	protected ArrayList<VendaProduto> listaVendaProduto = new ArrayList<VendaProduto>();
 	protected Departamento departamento;
+	private static HashSet<Integer> listaIds= new HashSet<Integer>();
 	
-	public Produto(int id, String nome, String descricao, float preco, int quantidade, Departamento departamento) {
-		this.id = id;
+	public Produto(String nome, String descricao, float preco, int quantidade, Departamento departamento) {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
 		this.quantidade = quantidade;
 		this.departamento = departamento;
+		this.id = gerarId();
 	}
-	public Produto(int id, String nome, String descricao, float preco, int quantidade, Departamento departamento, ArrayList<VendaProduto> listaVendaProduto) {
-		this(id, nome, descricao, preco, quantidade, departamento);
+	public Produto(String nome, String descricao, float preco, int quantidade, Departamento departamento, ArrayList<VendaProduto> listaVendaProduto) {
+		this(nome, descricao, preco, quantidade, departamento);
 		this.listaVendaProduto = listaVendaProduto;
 	}
 	public int getId() {
@@ -98,5 +101,41 @@ public class Produto implements Serializable{
 	public void addQuantidade(int quantidade) {
 		this.quantidade += quantidade;
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((departamento == null) ? 0 : departamento.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Produto other = (Produto) obj;
+		if (departamento == null) {
+			if (other.departamento != null)
+				return false;
+		} else if (!departamento.equals(other.departamento))
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		return true;
+	}
+	
+	protected int gerarId() {
+		Random rand = new Random();
+		int id = rand.nextInt((1000000 - 0) + 1) + 0;
+		return listaIds.add(id) ? id :  gerarId();
+	}
+	
 	
 }

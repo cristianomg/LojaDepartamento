@@ -70,8 +70,6 @@ public class ControllerMovimentacoes {
 					if(!funcionario.isDesligado()) {
 						Departamento departamentoNovo = departamentos.getDepartamento(idDepartamento);
 						funcionario.setDepartamento(departamentoNovo);
-						departamentoOrigem.removerFuncionarioList(funcionario);
-						departamentoNovo.addFuncionarioList(funcionario);
 						funcionarios.save();
 						departamentos.save();
 						return "Funcionario movido de departamento.";

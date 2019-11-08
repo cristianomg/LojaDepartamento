@@ -83,6 +83,7 @@ public class CadastrarFuncionarioController implements Initializable {
 				txfNome.setText(funcionarioSelecionado.getNome());
 				txfMatricula.setText(funcionarioSelecionado.getMatricula());
 				txfSenha.setText(funcionarioSelecionado.getSenha());
+				choiceBoxDep.setValue(funcionarioNovo.getDepartamento());
 				if (funcionarioSelecionado.isEnsinoSuperior()) {
 					CheckCurso.setSelected(true);
 				}else CheckCurso.setSelected(false);
@@ -97,9 +98,11 @@ public class CadastrarFuncionarioController implements Initializable {
 		carregarTabela();
 		carregarChoiceBox();
 		habilitarBotoes(false);
+		this.tabelaFuncionarios.getSelectionModel().selectFirst();
 	}
 	
 	private void habilitarBotoes(boolean habilitar) {
+		tabelaFuncionarios.setDisable(habilitar);
 		txfNome.setDisable(!habilitar);
 		txfMatricula.setDisable(!habilitar);
 		txfSenha.setDisable(!habilitar);
@@ -195,15 +198,13 @@ public class CadastrarFuncionarioController implements Initializable {
 	}
 	
 
-	public void cadastrarFuncionario(String nome, String matricula, String senha,
+	private void cadastrarFuncionario(String nome, String matricula, String senha,
 			Departamento departamento, boolean cursoSuperior) {
 			if(!funcionariosDAO.testeFuncionarioExiste(matricula)) {
 				Funcionario f = new Funcionario(nome, matricula, senha);
 				f.setEnsinoSuperior(cursoSuperior);
 				f.setDepartamento(departamento);
-				departamento.addFuncionarioList(f);
 				funcionariosDAO.inserir(f);
-				departamentosDAO.atualizar(departamento);
 				Alert cadastroRealizado = new Alert(AlertType.INFORMATION);
 				cadastroRealizado.setTitle("Cadastro Realizado");
 				cadastroRealizado.setHeaderText("Cadastro Realizado com sucesso");

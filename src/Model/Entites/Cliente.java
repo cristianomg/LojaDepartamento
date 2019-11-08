@@ -2,29 +2,32 @@ package Model.Entites;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Random;
 
 import Exceptions.ValidateCpfException;
 import Model.Entites.Logradouro.Endereco;
 
 public class Cliente implements Serializable{
+	private static HashSet<Integer> listaIds = new HashSet<Integer>();
 	private static final long serialVersionUID = 6061610663606490041L;
 	private int id;
 	private String nome;
 	private String cpf_cnpj;
 	private Endereco endereco;
-	private int telefone;
+	private long telefone;
 	private ArrayList<Venda> listaCompras = new ArrayList<Venda>();
 	
 	
-	public Cliente(String nome, int telefone) {
+	public Cliente(String nome, long telefone) {
 		this.nome = nome;
 		this.telefone = telefone;
 	}
 	
-	public Cliente(String nome, String cpf_cnpj, int telefone){
+	public Cliente(String nome, String cpf_cnpj, long telefone){
 		this(nome, telefone);
 		this.cpf_cnpj = cpf_cnpj;
-		this.id = hashCode();
+		this.id = gerarId();
 	}
 	public int getId() {
 		return id;
@@ -52,7 +55,7 @@ public class Cliente implements Serializable{
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-	public int getTelefone() {
+	public long getTelefone() {
 		return telefone;
 	}
 	public void setTelefone(int telefone) {
@@ -96,7 +99,11 @@ public class Cliente implements Serializable{
 		return true;
 	}
 
-
+	private int gerarId() {
+		Random rand = new Random();
+		int id = rand.nextInt((10000000 - 0) + 1) + 0;
+		return listaIds.add(id) ? id :  gerarId();
+	}
 
 	
 }

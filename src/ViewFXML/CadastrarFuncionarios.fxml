@@ -34,7 +34,7 @@
                   </TableColumn>
                </columns>
             </TableView>
-            <TitledPane collapsible="false" layoutY="139.0" prefHeight="155.0" prefWidth="600.0" text="Informações do Cliente">
+            <TitledPane collapsible="false" layoutY="139.0" prefHeight="155.0" prefWidth="600.0" text="Informações do Funcionario">
                <content>
                   <GridPane prefHeight="106.0" prefWidth="535.0" style="-fx-background-color: #52504F;">
                      <children>

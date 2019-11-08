@@ -16,8 +16,7 @@ public class CadastrarDepartamento {
 	public String cadastrarDepartamento(HashMap<String, String> dadosDepartamento) {
 		String nome = dadosDepartamento.get("nome");
 		String sigla = dadosDepartamento.get("sigla");
-		int idDepartamento = departamentos.size();
-		Departamento dp = new Departamento(idDepartamento, nome, sigla);
+		Departamento dp = new Departamento(nome, sigla);
 		departamentos.add(dp);
 		return "Departamento Cadastrado com sucesso!!!";
 	}

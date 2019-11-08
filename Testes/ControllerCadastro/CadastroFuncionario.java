@@ -27,7 +27,6 @@ public class CadastroFuncionario {
 					f.setEnsinoSuperior(true);
 				}
 				f.setDepartamento(departamento);
-				departamento.addFuncionarioList(f);
 				funcionarios.add(f);
 				return "Funcionario Cadastrado com sucesso!!!";
 			} else {
@@ -38,7 +37,7 @@ public class CadastroFuncionario {
 
 	@Test
 	public void testCadastroFuncionario() {
-		Departamento d = new Departamento(0, "eletronico", "sigla");
+		Departamento d = new Departamento("eletronico", "sigla");
 		departamentos.add(d);
 		String esperado = "Funcionario Cadastrado com sucesso!!!";
 		String atual = cadastrarFuncionario(0, "teste1", "123123", "123123");
