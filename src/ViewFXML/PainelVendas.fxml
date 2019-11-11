@@ -31,7 +31,12 @@
                 		<PropertyValueFactory property="preco" />
                 	</cellValueFactory>
                 </TableColumn>
-                  <TableColumn editable="false" prefWidth="438.0" text="Descrição">
+                  <TableColumn prefWidth="130.0" text="Qtd em Estoque" >
+                  	<cellValueFactory>
+                		<PropertyValueFactory property="quantidade" />
+                	</cellValueFactory>                  
+                  </TableColumn>
+                  <TableColumn editable="false" prefWidth="309.0" text="Descrição">
                 <cellValueFactory>
                 	<PropertyValueFactory property="descricao" />
                 </cellValueFactory>                  
@@ -47,25 +52,50 @@
                   <Font name="Arial Black" size="12.0" />
                </font>
             </Button>
-            <TableView fx:id="tabelaVendaProduto" layoutX="4.0" layoutY="3.0" prefHeight="180.0" prefWidth="320.0">
+            <TableView fx:id="tabelaVendaProduto" layoutX="4.0" layoutY="-1.0" prefHeight="159.0" prefWidth="320.0">
                <columns>
-                  <TableColumn editable="false" prefWidth="141.0" text="Nome" />
-                  <TableColumn editable="false" prefWidth="86.0" text="Preço" />
-                  <TableColumn prefWidth="92.0" text="Quantidade" />
+                  <TableColumn editable="false" prefWidth="107.0" text="Nome">
+                    <cellValueFactory>
+                		<PropertyValueFactory property="produto" />
+                	</cellValueFactory>             
+                  </TableColumn>
+                  <TableColumn editable="false" prefWidth="56.0" text="Preço">
+                	<cellValueFactory>
+                		<PropertyValueFactory property="preco" />
+                	</cellValueFactory>                               
+                  </TableColumn>
+                  <TableColumn prefWidth="77.0" text="Quantidade">
+                <cellValueFactory>
+                	<PropertyValueFactory property="quantidade" />
+                </cellValueFactory>                            
+                </TableColumn>
+                  <TableColumn prefWidth="78.0" text="SubTotal">
+                <cellValueFactory>
+                	<PropertyValueFactory property="subTotal" />
+                </cellValueFactory>                           
+                  </TableColumn>   
                </columns>
             </TableView>
-            <ChoiceBox fx:id="choiceBoxCliente" layoutX="332.0" layoutY="57.0" prefHeight="25.0" prefWidth="258.0" />
+            <ChoiceBox fx:id="choiceBoxCliente" layoutX="332.0" layoutY="68.0" prefHeight="25.0" prefWidth="258.0" />
             <Button fx:id="btnAddProduto" layoutX="487.0" layoutY="9.0" mnemonicParsing="false" onAction="#btnAddProduto_Action" prefHeight="25.0" prefWidth="104.0" style="-fx-background-color: #ff8700;" text="Add Produto" textFill="WHITE">
                <font>
                   <Font name="Consolas" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="btnFinalizar" cancelButton="true" layoutX="370.0" layoutY="102.0" mnemonicParsing="false" onAction="#btnFinalizar_Action" prefHeight="37.0" prefWidth="196.0" style="-fx-background-color: #ff8800;" text="Finzalizar Venda" textFill="WHITE">
+            <Button fx:id="btnFinalizar" cancelButton="true" layoutX="370.0" layoutY="102.0" mnemonicParsing="false" onAction="#btnFinalizar_Action" prefHeight="37.0" prefWidth="196.0" style="-fx-background-color: #ff8800;" text="Finalizar Venda" textFill="WHITE">
                <font>
                   <Font name="Arial Black" size="12.0" />
                </font>
             </Button>
             <TextField fx:id="txfQuantidade" layoutX="332.0" layoutY="10.0" promptText="Quantidade" />
+            <TextField fx:id="txfDesconto" layoutX="332.0" layoutY="39.0" promptText="Desconto" />
+            <Label layoutX="5.0" layoutY="167.0" text="Preço Total:" textFill="WHITE" />
+            <TextField fx:id="txfPreco" editable="false" layoutX="69.0" layoutY="160.0" prefHeight="25.0" prefWidth="95.0" />
+            <Button fx:id="btnRemoverProduto" layoutX="487.0" layoutY="39.0" mnemonicParsing="false" onAction="#btnRemoverProduto_Action" prefHeight="25.0" prefWidth="104.0" style="-fx-background-color: #ff8700;" text="Remover Produto" textFill="WHITE">
+               <font>
+                  <Font name="Consolas" size="10.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
    </children>

@@ -2,13 +2,11 @@ package Model.Entites;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 
-import Exceptions.QuantidadeInsuficienteException;
-import Exceptions.VendaEncerradaExpcetion;
-import Exceptions.VendaNaoEncontradaException;
+import Model.DAO.IdsDAO;
 
 public class Venda implements Serializable {
 	private static final long serialVersionUID = 5197014291763156867L;
@@ -18,20 +16,20 @@ public class Venda implements Serializable {
 	private Cliente cliente;
 	private Funcionario funcionario;
 	private Departamento departamento;
-	private ArrayList<VendaProduto> listaVendaProduto = new ArrayList<VendaProduto>();
+	private List<VendaProduto> listaVendaProduto;
 	private boolean vendaFinalizada;
 	private double comissaoFuncionario;
-	private static HashSet<Integer> listaIds= new HashSet<Integer>();
 	
 		
 	public Venda(Cliente cliente, Funcionario funcionario) {
 		this.codigo = gerarId();
+		IdsDAO.getInstance().save();
 		this.cliente = cliente;
 		this.funcionario = funcionario;
 		this.departamento = funcionario.getDepartamento();
 	}
 	public Venda(LocalDate data, float precoTotal, Cliente cliente, Funcionario funcionario,
-			ArrayList<VendaProduto> listaVendaProduto) {
+			List<VendaProduto> listaVendaProduto) {
 		this(cliente, funcionario);
 		this.data = data;
 		this.precoTotal = precoTotal;
@@ -65,18 +63,15 @@ public class Venda implements Serializable {
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
-	public ArrayList<VendaProduto> getListaVendaProduto() {
+	public List<VendaProduto> getListaVendaProduto() {
 		return listaVendaProduto;
 	}
-	public void setListaVendaProduto(ArrayList<VendaProduto> listaVendaProduto) {
+	public void setListaVendaProduto(List<VendaProduto> listaVendaProduto) {
 		this.listaVendaProduto = listaVendaProduto;
 	}
 	
 	public boolean isVendaFinalizada() {
 		return vendaFinalizada;
-	}
-	public void setVendaFinalizada(boolean vendaFinalizada) {
-		this.vendaFinalizada = vendaFinalizada;
 	}
 	public float calcularPrecoFinal() {
 		precoTotal = 0;
@@ -85,17 +80,13 @@ public class Venda implements Serializable {
 		}
 		return precoTotal;
 	}
-	public void finalizarVenda() throws VendaEncerradaExpcetion {
-		if(!vendaFinalizada) {
+	public void finalizarVenda(){
 			this.precoTotal = this.calcularPrecoFinal();
 			this.calcularComissao();
 			this.data = LocalDate.now();
 			vendaFinalizada = true;
-		}
-		else {
-			throw new VendaEncerradaExpcetion("Venda encerrada para modifica-la reabra!!!");
-		}
 	}
+	
 	private void calcularComissao() {
 		float precoFinal = this.precoTotal;
 		this.comissaoFuncionario = (precoFinal * this.funcionario.getDepartamento().getPercentualComissao())/100;
@@ -104,63 +95,15 @@ public class Venda implements Serializable {
 	public double getComissaoFuncionario() {
 		return comissaoFuncionario;
 	}
-	public void removerProduto(int produtoId) throws VendaNaoEncontradaException, VendaEncerradaExpcetion{
-		if (!vendaFinalizada) {
-			boolean contem = false;
-			for(VendaProduto vp: this.listaVendaProduto) {
-				if (vp.getProduto().getId() == produtoId) {
-					vp.getProduto().addQuantidade(vp.getQuantidade());
-					this.listaVendaProduto.remove(vp);
-					contem = true;
-					break;
-				}
-			}
-			if (!contem) {
-				throw new VendaNaoEncontradaException("Produto nao encontrado!");
-			}
-		}
-		else {
-			throw new VendaEncerradaExpcetion("Venda encerrada para modifica-la reabra!!!");
-		}
-	}
-	public void removerProduto(VendaProduto produto) throws VendaEncerradaExpcetion {
-		if(!vendaFinalizada) {
-			for (VendaProduto vp:this.listaVendaProduto) {
-				if (vp.equals(produto)){
-					vp.getProduto().addQuantidade(vp.getQuantidade());
-					this.listaVendaProduto.remove(produto);
-					break;
-				}
-			}
-		}
-		else {
-			throw new VendaEncerradaExpcetion("Venda encerrada para modifica-la reabra!!!");
-		}
-	}
 	//duvida
-	public ArrayList<Produto> obterProdutosSimilares(){
+	public List<Produto> obterProdutosSimilares(){
 		return null;
 	}
 	//duvida
-	public ArrayList<Produto> obterProdutosDestaques(){
+	public List<Produto> obterProdutosDestaques(){
 		return null;
 	}
-	public void adicionarProduto(Produto produto, int quantidade, int desconto) throws VendaEncerradaExpcetion, QuantidadeInsuficienteException {
-		if (!vendaFinalizada) {
-			if (produto.getQuantidade() >= quantidade) {
-				VendaProduto vendaProduto = new VendaProduto(this, produto, quantidade, desconto);
-				produto.vender(quantidade, vendaProduto);
-				this.listaVendaProduto.add(vendaProduto);
-			}
-			else {
-				throw new QuantidadeInsuficienteException("Quantidade insuficiente no estoque");
-			}
-
-		}
-		else {
-			throw new VendaEncerradaExpcetion("Venda encerrada para modifica-la reabra!!!");
-		}
-	}
+	
 	public Departamento getDepartamento() {
 		return departamento;
 	}
@@ -169,8 +112,9 @@ public class Venda implements Serializable {
 	}
 	
 	private int gerarId() {
+		HashSet<Integer> listaIds = IdsDAO.getInstance().getIdsVendas();
 		Random rand = new Random();
-		int id = rand.nextInt((10 - 0) + 1) + 0;
+		int id = rand.nextInt((10000 - 0) + 1) + 0;
 		return listaIds.add(id) ? id :  gerarId();
 	}
 }

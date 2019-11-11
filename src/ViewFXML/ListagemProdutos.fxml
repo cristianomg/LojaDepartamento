@@ -51,11 +51,6 @@
                			<PropertyValueFactory property="quantidade" />
                 	</cellValueFactory>                  
                   </TableColumn>
-                  <TableColumn prefWidth="82.0" text="Prod Marca" >
-                    <cellValueFactory>
-               			<PropertyValueFactory property="produtoMarca" />
-                	</cellValueFactory>                   
-                  </TableColumn>
                   
                </columns>
             </TableView>

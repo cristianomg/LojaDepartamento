@@ -29,6 +29,11 @@ public class ListagemProdutosController implements Initializable{
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
     	carregarTabela();
+       	tabelaProdutos.getColumns().forEach(x -> {
+    		x.setResizable(false);
+    		x.setReorderable(false);
+    		});
+ 
     	
     }
     

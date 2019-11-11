@@ -64,6 +64,11 @@ public class CadastrarDepartamentoController implements Initializable {
 				txfSigla.setText(departamentoSelecionado.getSigla());
 			}
 		});
+	   	tabelaDepartamentos.getColumns().forEach(x -> {
+    		x.setResizable(false);
+    		x.setReorderable(false);
+    		});
+ 
 		carregarTabela();
 		habilitarBotoes(false);
 		this.tabelaDepartamentos.getSelectionModel().selectFirst();

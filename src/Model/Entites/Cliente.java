@@ -6,10 +6,10 @@ import java.util.HashSet;
 import java.util.Random;
 
 import Exceptions.ValidateCpfException;
+import Model.DAO.IdsDAO;
 import Model.Entites.Logradouro.Endereco;
 
 public class Cliente implements Serializable{
-	private static HashSet<Integer> listaIds = new HashSet<Integer>();
 	private static final long serialVersionUID = 6061610663606490041L;
 	private int id;
 	private String nome;
@@ -26,8 +26,10 @@ public class Cliente implements Serializable{
 	
 	public Cliente(String nome, String cpf_cnpj, long telefone){
 		this(nome, telefone);
+		System.out.println(IdsDAO.getInstance().getIdsClientes());
 		this.cpf_cnpj = cpf_cnpj;
 		this.id = gerarId();
+		IdsDAO.getInstance().save();
 	}
 	public int getId() {
 		return id;
@@ -100,8 +102,9 @@ public class Cliente implements Serializable{
 	}
 
 	private int gerarId() {
+		HashSet<Integer> listaIds = IdsDAO.getInstance().getIdsClientes();
 		Random rand = new Random();
-		int id = rand.nextInt((10000000 - 0) + 1) + 0;
+		int id = rand.nextInt((100000 - 0) + 1) + 0;
 		return listaIds.add(id) ? id :  gerarId();
 	}
 

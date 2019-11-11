@@ -79,6 +79,11 @@ public class CadastrarProdutoController implements Initializable {
 				choiceBoxDep.setValue(produtoSelecionado.getDepartamento());
 			}
 		});
+	   	tabelaProduto.getColumns().forEach(x -> {
+    		x.setResizable(false);
+    		x.setReorderable(false);
+    		});
+ 
 		carregarTabela();
 		carregarChoiceBox();
 		habilitarBotoes(false);
@@ -156,7 +161,7 @@ public class CadastrarProdutoController implements Initializable {
 					!txfPreco.getText().isBlank() && choiceBoxDep.getValue() != null) {
 				if (ehInserir) {
 					cadastrarProduto(txfNome.getText(), txfDescricao.getText(),
-							Integer.parseInt(txfPreco.getText()), choiceBoxDep.getValue(), 0);
+							Integer.parseInt(txfPreco.getText()), choiceBoxDep.getValue(), 100);
 				}else {
 					Produto produtoAtualizar = produtoSelecionado;
 					produtoAtualizar.setPreco(Integer.parseInt(txfPreco.getText()));

@@ -95,6 +95,11 @@ public class CadastrarFuncionarioController implements Initializable {
 			    + "-fx-border-radius: 5;"
 			    + "-fx-border-style: dotted;"
 			    + "-fx-border-width: 2;");
+	   	tabelaFuncionarios.getColumns().forEach(x -> {
+    		x.setResizable(false);
+    		x.setReorderable(false);
+    		});
+ 
 		carregarTabela();
 		carregarChoiceBox();
 		habilitarBotoes(false);

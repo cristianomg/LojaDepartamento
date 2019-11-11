@@ -59,6 +59,9 @@ public class BuscarVendedorController implements Initializable {
 			x.setResizable(false);
 			x.setReorderable(false);
 		});
+		
+    	tabelaFuncionario.setDisable(true);
+    	tabelaFuncionario.setOpacity(100);
 
 	}
 
@@ -78,7 +81,7 @@ public class BuscarVendedorController implements Initializable {
 		try {
 			if (!txfMatricula.getText().isBlank() && txfDateInitial.getValue() != null
 					&& txfDateFinal.getValue() != null
-					&& txfDateFinal.getValue().compareTo(txfDateInitial.getValue()) > 0) {
+					&& txfDateFinal.getValue().compareTo(txfDateInitial.getValue()) >= 0) {
 				funcionario = funcionariosDAO.getFuncionario(txfMatricula.getText());
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 				LocalDate dataInicio = txfDateInitial.getValue();

@@ -41,5 +41,11 @@ public class ListagemClientesController implements Initializable{
 		tabelaClientes.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 		carregarTabela();
 		
+	   	tabelaClientes.getColumns().forEach(x -> {
+    		x.setResizable(false);
+    		x.setReorderable(false);
+    		});
+ 
+		
 	}
 }

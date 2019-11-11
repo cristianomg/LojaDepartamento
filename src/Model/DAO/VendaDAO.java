@@ -72,7 +72,7 @@ public class VendaDAO implements InterfaceDAO<Venda>{
 				return v;
 			}
 		}
-		throw new VendaNaoEncontradaException("Erro: Codigo de venda nï¿½o encontrado, tente novamente!!!");
+		throw new VendaNaoEncontradaException("Erro: Codigo de venda não encontrado, tente novamente!!!");
 	}
 	
 	public void save() {

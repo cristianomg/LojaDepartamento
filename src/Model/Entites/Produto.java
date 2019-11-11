@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 
+import Model.DAO.IdsDAO;
 import Model.Entites.Logradouro.Cidade;
 
 public class Produto implements Serializable{
@@ -16,7 +17,6 @@ public class Produto implements Serializable{
 	protected int quantidade;
 	protected ArrayList<VendaProduto> listaVendaProduto = new ArrayList<VendaProduto>();
 	protected Departamento departamento;
-	private static HashSet<Integer> listaIds= new HashSet<Integer>();
 	
 	public Produto(String nome, String descricao, float preco, int quantidade, Departamento departamento) {
 		this.nome = nome;
@@ -25,6 +25,7 @@ public class Produto implements Serializable{
 		this.quantidade = quantidade;
 		this.departamento = departamento;
 		this.id = gerarId();
+		IdsDAO.getInstance().save();
 	}
 	public Produto(String nome, String descricao, float preco, int quantidade, Departamento departamento, ArrayList<VendaProduto> listaVendaProduto) {
 		this(nome, descricao, preco, quantidade, departamento);
@@ -101,6 +102,10 @@ public class Produto implements Serializable{
 	public void addQuantidade(int quantidade) {
 		this.quantidade += quantidade;
 	}
+	public void removerQuantidade(int quantidade) {
+		this.quantidade -= quantidade;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -132,6 +137,7 @@ public class Produto implements Serializable{
 	}
 	
 	protected int gerarId() {
+		HashSet<Integer> listaIds = IdsDAO.getInstance().getIdsProdutos();
 		Random rand = new Random();
 		int id = rand.nextInt((1000000 - 0) + 1) + 0;
 		return listaIds.add(id) ? id :  gerarId();

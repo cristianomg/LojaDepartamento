@@ -47,6 +47,16 @@ public class ListagemDepartamentosController implements Initializable{
 				}
     		}
     	});
+       	tabelaDepartamentos.getColumns().forEach(x -> {
+    		x.setResizable(false);
+    		x.setReorderable(false);
+    		});
+    	tabelaProdutos.getColumns().forEach(x -> {
+    		x.setResizable(false);
+    		x.setReorderable(false);
+    		});    	
+ 
+    	
     	carregarTabelaDepartamento();
     	
     }

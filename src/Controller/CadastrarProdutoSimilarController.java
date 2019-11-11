@@ -77,6 +77,11 @@ public class CadastrarProdutoSimilarController implements Initializable {
 				choiceBoxProdMarca.setValue(produtoSelecionado.getProdutoMarca());
 			}
 		});
+	   	tabelaProdutoSimilar.getColumns().forEach(x -> {
+    		x.setResizable(false);
+    		x.setReorderable(false);
+    		});
+ 
 		carregarTabela();
 		carregarChoiceBox();
 		habilitarBotoes(false);
@@ -166,7 +171,7 @@ public class CadastrarProdutoSimilarController implements Initializable {
 					!txfPreco.getText().isBlank() && choiceBoxProdMarca.getValue() != null) {
 				if (ehInserir) {
 					cadastrarProduto(txfNome.getText(), txfDescricao.getText(),
-							Integer.parseInt(txfPreco.getText()),choiceBoxProdMarca.getValue().getDepartamento(), 0, choiceBoxProdMarca.getValue());
+							Integer.parseInt(txfPreco.getText()),choiceBoxProdMarca.getValue().getDepartamento(), 100, choiceBoxProdMarca.getValue());
 				}else {
 					Produto produtoAtualizar = produtoSelecionado;
 					produtoAtualizar.setPreco(Integer.parseInt(txfPreco.getText()));

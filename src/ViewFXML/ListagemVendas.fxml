@@ -58,12 +58,12 @@
                <columns>
                   <TableColumn editable="false" prefWidth="75.0" text="ID">
                     <cellValueFactory>
-               			<PropertyValueFactory property="id" />
+               			<PropertyValueFactory property="idProduto" />
                 	</cellValueFactory>                   
                   </TableColumn>
                   <TableColumn editable="false" minWidth="0.0" prefWidth="238.0" text="Nome do produto">
                     <cellValueFactory>
-               			<PropertyValueFactory property="nome" />
+               			<PropertyValueFactory property="nomeProduto" />
                 	</cellValueFactory>                   
                   </TableColumn>
                   <TableColumn prefWidth="102.0" text="Preço">

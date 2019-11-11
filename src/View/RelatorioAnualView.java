@@ -7,12 +7,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
-public class MenuRelatoriosView extends Application {
+public class RelatorioAnualView extends Application {
 	private static Stage stage;
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			VBox root = (VBox)FXMLLoader.load(getClass().getResource("/ViewFXML/MenuRelatorios.fxml"));
+			VBox root = (VBox)FXMLLoader.load(getClass().getResource("/ViewFXML/RelatorioAnual.fxml"));
 			Scene scene = new Scene(root,600,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
@@ -35,6 +35,6 @@ public class MenuRelatoriosView extends Application {
 	}
 
 	public void setStage(Stage stage) {
-		MenuRelatoriosView.stage = stage;
+		RelatorioAnualView.stage = stage;
 	}
 }

@@ -11,11 +11,10 @@ public class VendaProduto implements Serializable {
 	private int quantidade;
 	private float desconto;
 	
-	public VendaProduto(Venda venda, Produto produto, int quantidade, float desconto) {
+	public VendaProduto(Produto produto, int quantidade, float desconto) {
 		super();
 		this.desconto = (100-desconto)/100;
 		this.preco = produto.getPreco();
-		this.venda = venda;
 		this.produto = produto;
 		this.quantidade = quantidade;
 		this.subTotal = (produto.getPreco() * quantidade * this.desconto); 
@@ -57,7 +56,13 @@ public class VendaProduto implements Serializable {
 		return preco;
 	}
 
+	public String getNomeProduto() {
+		return produto.getNome();
+	}
 	
+	public int getIdProduto() {
+		return produto.getId();
+	}
 	
 
 }

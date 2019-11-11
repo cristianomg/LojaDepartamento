@@ -30,7 +30,7 @@ public class PainelVendasView extends Application {
 		launch(args);
 	}
 
-	public Stage getStage() {
+	public static Stage getStage() {
 		return stage;
 	}
 

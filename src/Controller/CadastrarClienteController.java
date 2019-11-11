@@ -98,6 +98,11 @@ public class CadastrarClienteController implements Initializable{
 			}
 		});
 		carregarTabela();
+	   	tabelaCliente.getColumns().forEach(x -> {
+    		x.setResizable(false);
+    		x.setReorderable(false);
+    		});
+ 
 		habilitarBotoes(false);
 		this.tabelaCliente.getSelectionModel().selectFirst();
 		
@@ -238,20 +243,21 @@ public class CadastrarClienteController implements Initializable{
 	
 	private boolean cadastrarCliente(String nome, String cpf_cnpj, String estado, String cidade,
 									String rua, int numero, String bairro, String cep, long telefone) throws ValidateCpfException{
-		Estado _estado = new Estado(estado);
-		Cidade _cidade = new Cidade(cidade, _estado);
-		Cliente cliente = new Cliente(nome, cpf_cnpj, telefone);
-		Endereco endereco = cadastrarEndereco(rua, numero, bairro, cep, _cidade, _estado);
-		cliente.setEndereco(endereco);
 		if(cpf_cnpj.length()!= 11) {
 			throw new ValidateCpfException("Cpf invalido.");
-		}
-		if (!clientesDAO.testClienteExiste(cliente)) {
-			clientesDAO.inserir(cliente);
-			return true;
-		}
-		else {
-			return false;
+		}else {
+			Estado _estado = new Estado(estado);
+			Cidade _cidade = new Cidade(cidade, _estado);
+			Cliente cliente = new Cliente(nome, cpf_cnpj, telefone);
+			Endereco endereco = cadastrarEndereco(rua, numero, bairro, cep, _cidade, _estado);
+			cliente.setEndereco(endereco);
+			if (!clientesDAO.testClienteExiste(cliente)) {
+				clientesDAO.inserir(cliente);
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 	}
 	

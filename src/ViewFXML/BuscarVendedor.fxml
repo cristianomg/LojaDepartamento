@@ -68,8 +68,16 @@
             </TableView>
             <TableView fx:id="tabelaVendas" layoutX="-1.0" layoutY="61.0" prefHeight="153.0" prefWidth="600.0">
                <columns>
-                  <TableColumn editable="false" prefWidth="293.0" text="Codigo da Venda" />
-                  <TableColumn editable="false" prefWidth="306.0" text="Data" />
+                  <TableColumn editable="false" prefWidth="293.0" text="Codigo da Venda" >
+					<cellValueFactory>
+                        <PropertyValueFactory property="codigo" />
+                	</cellValueFactory>                  
+                  </TableColumn>
+                  <TableColumn editable="false" prefWidth="306.0" text="Data" >
+                  <cellValueFactory>
+                        <PropertyValueFactory property="data" />
+                	</cellValueFactory>
+                  </TableColumn>
                </columns>
             </TableView>
          </children>

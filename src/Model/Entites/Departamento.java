@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 import Model.DAO.FuncionarioDAO;
+import Model.DAO.IdsDAO;
 import Model.DAO.ProdutoDAO;
 
 public class Departamento implements Serializable {
@@ -15,13 +16,13 @@ public class Departamento implements Serializable {
 	private String sigla;
 	private Funcionario chefe;
 	private double percentualComissao;
-	private static HashSet<Integer> listaIds= new HashSet<Integer>();
 
 	public Departamento(String nome, String sigla) {
 		this.nome = nome;
 		this.sigla = sigla;
 		this.percentualComissao = 3;
 		this.id = gerarId();
+		IdsDAO.getInstance().save();
 	}
 
 	public int getId() {
@@ -79,7 +80,6 @@ public class Departamento implements Serializable {
 	public void setPercentualComissao(double percentualComissao) {
 		this.percentualComissao = percentualComissao;
 	}
-
 	
 	@Override
 	public int hashCode() {
@@ -118,6 +118,7 @@ public class Departamento implements Serializable {
 	}
 	
 	private int gerarId() {
+		HashSet<Integer> listaIds = IdsDAO.getInstance().getIdsDepartamentos();
 		Random rand = new Random();
 		int id = rand.nextInt((10 - 0) + 1) + 0;
 		return listaIds.add(id) ? id :  gerarId();
