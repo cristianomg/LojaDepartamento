@@ -67,6 +67,7 @@ public class VendaDAO implements InterfaceDAO<Venda>{
 		}
 	}
 	public Venda getVenda(int codigoVenda) throws VendaNaoEncontradaException {
+		this.load();
 		for (Venda v: listaVendas) {
 			if(v.getCodigo() == codigoVenda) {
 				return v;

@@ -103,9 +103,15 @@ public class PainelVendasController implements Initializable{
 
 	public void btnFinalizar_Action() {
 		if (choiceBoxCliente.getValue() != null && listaVendaProduto.size() > 0) {
+			List<VendaProduto> vendaProdutoSetar = new ArrayList<VendaProduto>();
 			Venda venda = new Venda(LocalDate.now(), this.total, choiceBoxCliente.getValue(), this.funcionario, listaVendaProduto);
-			listaVendaProduto.stream().forEach(x -> x.setVenda(venda));
+			listaVendaProduto.stream().forEach(x -> {
+				x.setVenda(venda);	
+				vendaProdutoSetar.add(x);
+			});
 			venda.finalizarVenda();
+			venda.setListaVendaProduto(vendaProdutoSetar);
+			System.out.println(listaVendaProduto);
 			VendaDAO.getInstance().inserir(venda);
 			Alert vendaRealizada = new Alert(AlertType.CONFIRMATION);
 			vendaRealizada.setTitle("Confirmação");

@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import Exceptions.VendaNaoEncontradaException;
 import Model.DAO.VendaDAO;
 import Model.Entites.Venda;
 import Model.Entites.VendaProduto;
@@ -42,7 +43,13 @@ public class ListagemVendasController implements Initializable{
 		this.tabelaVendas.getSelectionModel().selectedItemProperty()
 		.addListener((observador, vendaAntiga, vendaNova)->{
 			if(vendaNova != null) {
-					Venda venda = vendaNova;
+					Venda venda;
+					try {
+						venda = vendasDAO.getVenda(vendaNova.getCodigo());
+					} catch (VendaNaoEncontradaException e) {
+						venda = vendaNova;
+						e.printStackTrace();
+					}
 					List<VendaProduto> listaVendaProduto = venda.getListaVendaProduto();
 					carregarTabelaVendaProduto(listaVendaProduto);
 					this.txtTotal.setText(String.valueOf(venda.getPrecoTotal()));

@@ -142,6 +142,10 @@ public class Produto implements Serializable{
 		int id = rand.nextInt((1000000 - 0) + 1) + 0;
 		return listaIds.add(id) ? id :  gerarId();
 	}
+	@Override
+	public String toString() {
+		return this.nome;
+	}
 	
 	
 }
